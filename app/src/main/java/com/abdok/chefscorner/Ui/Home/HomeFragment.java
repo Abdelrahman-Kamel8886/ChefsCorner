@@ -64,5 +64,8 @@ public class HomeFragment extends Fragment implements IHomeView {
     public void showRandomMeals(List<RandomMealsDTO.MealsDTO> meals) {
         adapter = new RecyclerRandomAdapter(meals);
         binding.randomRecycler.setAdapter(adapter);
+       // binding.randomRecycler.set3DItem(true);
+        binding.randomRecycler.setAlpha(true);
+        binding.randomRecycler.setInfinite(false);
     }
 }

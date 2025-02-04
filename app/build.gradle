@@ -71,5 +71,7 @@ dependencies {
 
     implementation 'np.com.susanthapa:curved_bottom_navigation:0.6.5'
 
+    implementation 'com.github.sparrow007:carouselrecyclerview:1.2.6'
+
 
 }
