@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="tropicalAqua">#22C7A9</color>
+    <color name="orange">#FF6B00</color>
+
+
+
+
+    <color name="charcoal">#343434</color>
+    <color name="slateGray">#828282</color>
+    <color name="mediumGray">#777777</color>
+    <color name="charcoalGray">#707070</color>
+    <color name="platinumGray">#E1E1E1</color>
+    <color name="lightGray">#e6e6e6</color>
+    <color name="lightSilver">#D8D8D8</color>
+    <color name="spanishGray">#989898</color>
+    <color name="darkCharcoalGray">#2C2C2C</color>
+    <color name="gainsboro">#D6D6D6</color>
+    <color name="brownn">#655234</color>
+
+</resources>

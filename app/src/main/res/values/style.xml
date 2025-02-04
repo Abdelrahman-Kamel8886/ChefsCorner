@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="button_style">
+        <item name="android:paddingVertical" tools:targetApi="o">10dp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:backgroundTint">@color/orange</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+
+
+    <style name="CardViewShadowTheme" parent="Theme.MaterialComponents.Light">
+        <item name="android:shadowColor">#000000</item>
+    </style>
+
+
+
+
+
+    <!-- Rounded Corners -->
+    <style name="CardViewRoundedCorners" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+</resources>
