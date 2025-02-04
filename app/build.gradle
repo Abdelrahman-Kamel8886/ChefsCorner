@@ -3,7 +3,6 @@ plugins {
     id("com.google.gms.google-services")
     id 'androidx.navigation.safeargs'
 }
-
 android {
     namespace 'com.abdok.chefscorner'
     compileSdk 35
@@ -69,4 +68,8 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.4"
     implementation "androidx.navigation:navigation-ui-ktx:2.7.4"
+
+    implementation 'np.com.susanthapa:curved_bottom_navigation:0.6.5'
+
+
 }
