@@ -3,13 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ui.Splash.SplashFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Ui.Splash.SplashFragment"
+    android:background="@color/orange"
+    >
 
     <ImageView
+        android:id="@+id/splash_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/logo2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/splash_image"
-        android:src="@drawable/logo2"
+        android:id="@+id/meal_title"
+        android:textSize="18dp"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintTop_toBottomOf="@id/splash_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/app_name"
+        android:layout_margin="20dp"
+        android:textColor="@color/gainsboro"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
