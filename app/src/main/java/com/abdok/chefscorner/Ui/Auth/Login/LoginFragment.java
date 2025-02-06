@@ -3,6 +3,7 @@ package com.abdok.chefscorner.Ui.Auth.Login;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abdok.chefscorner.R;
@@ -34,6 +36,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 
@@ -61,6 +64,8 @@ public class LoginFragment extends Fragment implements IAuthView {
 
     private void onClicks(){
         binding.loginBtn.setOnClickListener(v -> {
+            binding.progressBar.setVisibility(View.VISIBLE);
+            binding.loginBtn.setEnabled(false);
             String email = binding.editEmail.getText().toString();
             String password = binding.editpassword.getText().toString();
             presenter.loginWithEmail(email,password);
@@ -88,17 +93,17 @@ public class LoginFragment extends Fragment implements IAuthView {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 presenter.handleFacebookAccessToken(loginResult.getAccessToken());
-                showToast("Facebook login successful");
+                showInformation("Facebook login successful");
             }
 
             @Override
             public void onCancel() {
-                showToast("Facebook login canceled");
+                showInformation("Facebook login canceled");
             }
 
             @Override
             public void onError(FacebookException error) {
-                showToast("Facebook login error: " + error.getMessage());
+                showInformation("Facebook login error: " + error.getMessage());
             }
         });
     }
@@ -115,10 +120,20 @@ public class LoginFragment extends Fragment implements IAuthView {
 
 
     @Override
-    public void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+    public void showInformation(String msg) {
+        binding.progressBar.setVisibility(View.GONE);
+        binding.loginBtn.setEnabled(true);
+        Snackbar snackbar = Snackbar.make(requireView(), msg, Snackbar.LENGTH_LONG);
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(Color.BLACK);
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        textView.setTextSize(16);
+        snackbar.show();
 
     }
+
+
 
     @Override
     public void callGoogle(GoogleSignInClient mGoogleSignInClient) {
@@ -128,9 +143,8 @@ public class LoginFragment extends Fragment implements IAuthView {
 
     @Override
     public void navigateToHome() {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new HomeFragment())
-                .commit();
+        binding.progressBar.setVisibility(View.GONE);
+        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_homeFragment);
     }
 
     private final ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(

@@ -20,8 +20,18 @@ public class SignUpPresenter implements ISignUpPresenter{
     }
 
     @Override
-    public boolean validateEmail(String name, String email, String password, String confirmPassword) {
-        return false;
+    public void validateData(String name, String email, String password, String confirmPassword) {
+        if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
+            if(password.equals(confirmPassword)){
+                signUpWithEmail(email,password,name,"");
+            }
+            else{
+                view.showInformation("Passwords do not match");
+            }
+        }
+        else{
+            view.showInformation("Please fill all fields");
+        }
     }
 
     @Override
@@ -35,7 +45,7 @@ public class SignUpPresenter implements ISignUpPresenter{
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                       // view.showToast("Failed : "+e.getMessage());
+                       view.showInformation("Failed : "+e.getMessage());
                     }
                 });
     }
@@ -54,9 +64,9 @@ public class SignUpPresenter implements ISignUpPresenter{
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                           // view.navigateToHome();
+                           view.navigateToHome();
                         } else {
-                           // view.showToast("Failed"+task.getException().getMessage());
+                           view.showInformation("Failed"+task.getException().getMessage());
                         }
                     });
         }

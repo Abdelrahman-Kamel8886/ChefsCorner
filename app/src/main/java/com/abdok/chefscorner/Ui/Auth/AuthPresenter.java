@@ -56,7 +56,7 @@ public class AuthPresenter implements IAuthPresenter{
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        view.showToast("Failed : "+e.getMessage());
+                        view.showInformation("Failed : "+e.getMessage());
                     }
                 });
     }
@@ -64,7 +64,7 @@ public class AuthPresenter implements IAuthPresenter{
     @Override
     public void loginWithEmail(String email, String password) {
         if(!validateEmail(email,password)){
-            view.showToast("Please fill all fields");
+            view.showInformation("Please fill all fields");
         }
         else{
             mAuth.signInWithEmailAndPassword(email,password)
@@ -75,7 +75,7 @@ public class AuthPresenter implements IAuthPresenter{
                                 view.navigateToHome();
                             }
                             else{
-                                view.showToast("Failed"+task.getException().getMessage());
+                                view.showInformation("Failed"+task.getException().getMessage());
                             }
 
                         }
@@ -98,7 +98,7 @@ public class AuthPresenter implements IAuthPresenter{
                         if (task.isSuccessful()) {
                             view.navigateToHome();
                         } else {
-                            view.showToast("Failed"+task.getException().getMessage());
+                            view.showInformation("Failed"+task.getException().getMessage());
                         }
                     });
         }
@@ -114,7 +114,7 @@ public class AuthPresenter implements IAuthPresenter{
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
         mAuth.signInWithCredential(credential)
                 .addOnSuccessListener(authResult -> view.navigateToHome())
-                .addOnFailureListener(e -> view.showToast("Failed"+e.getMessage()));
+                .addOnFailureListener(e -> view.showInformation("Failed"+e.getMessage()));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class AuthPresenter implements IAuthPresenter{
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {view.navigateToHome();}
-                    else {view.showToast(task.getException().getMessage());}
+                    else {view.showInformation(task.getException().getMessage());}
                 });
     }
 

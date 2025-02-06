@@ -4,7 +4,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public interface IAuthView {
 
-    void showToast(String msg);
+    void showInformation(String msg);
     void callGoogle(GoogleSignInClient mGoogleSignInClient);
     void navigateToHome();
 
