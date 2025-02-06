@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,6 +71,9 @@ public class LoginFragment extends Fragment implements IAuthView {
         });
         binding.facebookBtn.setOnClickListener(v -> {
             callFacebook();
+        });
+        binding.signUpTxt.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_regiesterFragment);
         });
 
     }

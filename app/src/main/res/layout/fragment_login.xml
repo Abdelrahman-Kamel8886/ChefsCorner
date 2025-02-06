@@ -167,7 +167,7 @@
                     app:layout_constraintStart_toEndOf="@id/separatorLine2"
                     app:layout_constraintTop_toTopOf="parent"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/black">
+                    app:passwordToggleTint="@color/orange">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editpassword"
@@ -191,7 +191,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="@string/forgot_password"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@id/passwordCard"
             app:layout_constraintTop_toBottomOf="@id/passwordCard" />
 
@@ -200,7 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppins"
+            android:fontFamily="@font/poppins_bold"
             android:text="@string/or_login_with"
             android:textColor="@color/white"
             android:textSize="14sp"
@@ -281,7 +281,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Login"
+            android:text="@string/login"
             app:layout_constraintTop_toBottomOf="@+id/fglay" />
 
         <TextView
@@ -292,7 +292,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="@string/don_t_have_an_account"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@id/loginBtn"
             app:layout_constraintTop_toBottomOf="@id/loginBtn" />
 
@@ -304,7 +304,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="@string/sign_up"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/dontTxt"
             app:layout_constraintStart_toEndOf="@id/dontTxt"
             app:layout_constraintTop_toTopOf="@id/dontTxt" />
