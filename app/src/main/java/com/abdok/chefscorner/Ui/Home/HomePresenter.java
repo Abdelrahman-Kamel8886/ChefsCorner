@@ -2,8 +2,11 @@ package com.abdok.chefscorner.Ui.Home;
 
 import android.util.Log;
 
+import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Models.CategoryResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsDTO;
 import com.abdok.chefscorner.Network.RetroConnection;
+import com.abdok.chefscorner.Network.RetroServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +21,13 @@ import io.reactivex.schedulers.Schedulers;
 public class HomePresenter implements IHomePresenter{
 
     private IHomeView view;
+    private SharedPrefHelper sharedPrefHelper;
+    private RetroServices retroServices;
 
     public HomePresenter(IHomeView view){
         this.view = view;
+        sharedPrefHelper = SharedPrefHelper.getInstance();
+        retroServices = RetroConnection.getServices();
     }
     @Override
     public void getRandomMeals() {
@@ -30,7 +37,7 @@ public class HomePresenter implements IHomePresenter{
         List<Single<RandomMealsDTO>> requests = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            requests.add(RetroConnection.getServices().getRandomMeal());
+            requests.add(retroServices.getRandomMeal());
         }
 
         Single.zip(requests, objects -> {
@@ -60,5 +67,56 @@ public class HomePresenter implements IHomePresenter{
                 });
 
 
+    }
+
+    @Override
+    public void getUserData() {
+        view.initView(sharedPrefHelper.getUser());
+    }
+
+    @Override
+    public void getBreakFastMeals() {
+        retroServices.getMealsByCategory("Breakfast")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<CategoryResponseDTO>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(CategoryResponseDTO categoryResponseDTO) {
+                        view.showBreakFastMeals(categoryResponseDTO.getMeals());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showToast(e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void getDesertMeals() {
+        retroServices.getMealsByCategory("Dessert")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<CategoryResponseDTO>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(CategoryResponseDTO categoryResponseDTO) {
+                        view.showDesertMeals(categoryResponseDTO.getMeals());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showToast(e.getMessage());
+                    }
+                });
     }
 }

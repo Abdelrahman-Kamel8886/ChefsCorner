@@ -23,4 +23,7 @@
     <string name="singup">SingUp</string>
     <string name="already_have_an_account">Already have an account</string>
     <string name="_login"><u>Login</u></string>
+    <string name="daily_inspiration">Daily Inspiration</string>
+    <string name="break_fast">Break Fast</string>
+    <string name="deserts">Deserts</string>
 </resources>

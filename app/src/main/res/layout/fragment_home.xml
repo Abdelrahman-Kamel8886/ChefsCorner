@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,32 +8,126 @@
     android:background="@color/white"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/daily_meal_title"
-            android:textSize="18dp"
-            android:fontFamily="@font/poppins_bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="20dp"
-            android:text="Daily Inspiration"
-            />
-
-
-        <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="36dp"
+        android:layout_height="36sp"
+        android:id="@+id/avatarView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="100dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="5dp"
+        >
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/daily_meal_title"
-            android:id="@+id/randomRecycler"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/user_avatar"
+            android:id="@+id/avatarImg"
+            android:scaleType="fitXY"
+            />
+    </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_name"
+        tools:text="Hi,userName"
+        app:layout_constraintStart_toEndOf="@id/avatarView"
+        app:layout_constraintTop_toTopOf="@id/avatarView"
+        app:layout_constraintBottom_toBottomOf="@id/avatarView"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="12sp"
+        android:textColor="@color/slateGray"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avatarView"
+        android:paddingBottom="100dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/daily_meal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/daily_inspiration"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
+                android:id="@+id/randomRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/daily_meal_title" />
+
+            <TextView
+                android:id="@+id/breakFast_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/break_fast"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@id/daily_meal_title"
+                app:layout_constraintTop_toBottomOf="@id/randomRecycler"
+                android:layout_marginTop="20dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/breakFastRecycler"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/breakFast_title"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
+
+            <TextView
+                android:id="@+id/desert_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/deserts"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@id/daily_meal_title"
+                app:layout_constraintTop_toBottomOf="@id/breakFastRecycler"
+                android:layout_marginTop="20dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/desertsRecycler"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/desert_title"
+                tools:listitem="@layout/item_category_meal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
 
 
 
 
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

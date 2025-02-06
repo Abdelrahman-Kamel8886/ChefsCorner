@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
+import com.abdok.chefscorner.Models.CategoryResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsDTO;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.Network.RetroConnection;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.databinding.FragmentHomeBinding;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,6 +39,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     FragmentHomeBinding binding;
     IHomePresenter presenter;
     RecyclerRandomAdapter adapter;
+    RecyclerCategoryMealAdapter breakfastAdapter , desertAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,13 +51,26 @@ public class HomeFragment extends Fragment implements IHomeView {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentHomeBinding.bind(view);
         presenter = new HomePresenter(this);
-        presenter.getRandomMeals();
-    }
 
+        //call presenter methods
+        presenter.getUserData();
+        presenter.getRandomMeals();
+        presenter.getBreakFastMeals();
+        presenter.getDesertMeals();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void initView(UserDTO user) {
+        binding.userName.setText("Hi, " + user.getName());
+        if (user.getPhotoUrl() != null){
+            Glide.with(requireContext()).load(user.getPhotoUrl()).into(binding.avatarImg);
+        }
+
     }
 
     @Override
@@ -68,4 +86,17 @@ public class HomeFragment extends Fragment implements IHomeView {
         binding.randomRecycler.setAlpha(true);
         binding.randomRecycler.setInfinite(false);
     }
+
+    @Override
+    public void showBreakFastMeals(List<CategoryResponseDTO.CategoryMealDTO> meals) {
+        breakfastAdapter = new RecyclerCategoryMealAdapter(meals);
+        binding.breakFastRecycler.setAdapter(breakfastAdapter);
+    }
+
+    @Override
+    public void showDesertMeals(List<CategoryResponseDTO.CategoryMealDTO> meals) {
+        desertAdapter = new RecyclerCategoryMealAdapter(meals);
+        binding.desertsRecycler.setAdapter(desertAdapter);
+    }
+
 }
