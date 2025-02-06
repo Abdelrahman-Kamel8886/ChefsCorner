@@ -30,6 +30,7 @@
         app:cbn_animDuration="300"
         app:cbn_fabElevation="4sp"
         app:cbn_elevation = "6sp"
+        android:visibility="gone"
         android:backgroundTint="@color/tropicalAqua"
         android:background="@color/tropicalAqua"
         />

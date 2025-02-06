@@ -5,8 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="20dp"
+    app:cardUseCompatPadding="true"
     >
 
 
@@ -17,7 +18,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="250dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/meal_image"
                 android:src="@drawable/background"
@@ -43,10 +44,11 @@
                 app:layout_constraintEnd_toEndOf="@id/meal_image"
                 android:layout_marginHorizontal="20dp"
                 android:backgroundTint="@color/gainsboro"
-                android:text="ADD to Cart"
+                android:text="Add to your plan"
                 android:textColor="@color/darkCharcoalGray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -73,5 +73,7 @@ dependencies {
 
     implementation 'com.github.sparrow007:carouselrecyclerview:1.2.6'
 
+    implementation 'com.airbnb.android:lottie:6.6.2'
+
 
 }

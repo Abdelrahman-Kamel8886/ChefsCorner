@@ -167,9 +167,9 @@
                     app:layout_constraintStart_toEndOf="@id/separatorLine2"
                     app:layout_constraintTop_toTopOf="parent"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/orange">
+                    app:passwordToggleTint="@color/black">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editpassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
