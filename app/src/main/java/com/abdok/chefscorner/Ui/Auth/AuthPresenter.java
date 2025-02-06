@@ -2,6 +2,8 @@ package com.abdok.chefscorner.Ui.Auth;
 
 import androidx.annotation.NonNull;
 
+import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,7 +38,6 @@ public class AuthPresenter implements IAuthPresenter{
         mGoogleSignInClient = GoogleSignIn.getClient(FirebaseApp.getInstance().getApplicationContext(), gso);
     }
 
-
     @Override
     public boolean validateEmail(String email, String password) {
         if(!email.isEmpty() && !password.isEmpty()){
@@ -45,21 +46,6 @@ public class AuthPresenter implements IAuthPresenter{
         return false;
     }
 
-    @Override
-    public void signUpWithEmail(String email, String password,String name , String photoUrl) {
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        updateProfile(name,photoUrl);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        view.showInformation("Failed : "+e.getMessage());
-                    }
-                });
-    }
 
     @Override
     public void loginWithEmail(String email, String password) {
@@ -72,7 +58,7 @@ public class AuthPresenter implements IAuthPresenter{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                view.navigateToHome();
+                                cacheUserData();
                             }
                             else{
                                 view.showInformation("Failed"+task.getException().getMessage());
@@ -85,26 +71,6 @@ public class AuthPresenter implements IAuthPresenter{
     }
 
     @Override
-    public void updateProfile(String name, String photoUrl) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name)
-                    .build();
-
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            view.navigateToHome();
-                        } else {
-                            view.showInformation("Failed"+task.getException().getMessage());
-                        }
-                    });
-        }
-    }
-
-    @Override
     public void callGoogle() {
         view.callGoogle(mGoogleSignInClient);
     }
@@ -113,7 +79,7 @@ public class AuthPresenter implements IAuthPresenter{
     public void signInWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
         mAuth.signInWithCredential(credential)
-                .addOnSuccessListener(authResult -> view.navigateToHome())
+                .addOnSuccessListener(authResult -> cacheUserData())
                 .addOnFailureListener(e -> view.showInformation("Failed"+e.getMessage()));
     }
 
@@ -122,9 +88,17 @@ public class AuthPresenter implements IAuthPresenter{
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {view.navigateToHome();}
+                    if (task.isSuccessful()) {cacheUserData();}
                     else {view.showInformation(task.getException().getMessage());}
                 });
+    }
+
+    @Override
+    public void cacheUserData() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserDTO userDTO = new UserDTO(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
+        SharedPrefHelper.getInstance().saveUser(userDTO);
+        view.navigateToHome();
     }
 
     @Override

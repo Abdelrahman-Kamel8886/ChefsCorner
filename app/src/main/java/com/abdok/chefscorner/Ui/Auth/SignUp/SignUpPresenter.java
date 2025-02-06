@@ -2,6 +2,8 @@ package com.abdok.chefscorner.Ui.Auth.SignUp;
 
 import androidx.annotation.NonNull;
 
+import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -50,8 +52,6 @@ public class SignUpPresenter implements ISignUpPresenter{
                 });
     }
 
-
-
     @Override
     public void updateProfile(String name, String photoUrl) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -64,11 +64,20 @@ public class SignUpPresenter implements ISignUpPresenter{
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                           view.navigateToHome();
+                            FirebaseUser updatedUser = FirebaseAuth.getInstance().getCurrentUser();
+                            UserDTO userDTO = new UserDTO(updatedUser.getUid(),updatedUser.getDisplayName(),updatedUser.getEmail(),updatedUser.getPhotoUrl().toString());
+                            cacheUserData(userDTO);
+
                         } else {
                            view.showInformation("Failed"+task.getException().getMessage());
                         }
                     });
         }
+    }
+
+    @Override
+    public void cacheUserData(UserDTO user) {
+        SharedPrefHelper.getInstance().saveUser(user);
+        view.navigateToHome();
     }
 }

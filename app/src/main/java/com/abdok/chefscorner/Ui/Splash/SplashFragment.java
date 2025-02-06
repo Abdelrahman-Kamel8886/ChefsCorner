@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,7 +39,7 @@ public class SplashFragment extends Fragment {
     }
 
     private void checkUser() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserDTO user = SharedPrefHelper.getInstance().getUser();
         if (user!=null){
             NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_homeFragment);
         }
