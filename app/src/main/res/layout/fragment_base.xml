@@ -19,21 +19,22 @@
         android:id="@+id/loading_layout"
         android:gravity="center"
         >
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:indicatorColor="@color/mainColor"
-            android:indeterminate="true"
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progress_bar"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            android:scaleType="fitXY"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading ..."
+            android:text="@string/loading"
             android:fontFamily="@font/poppins"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:layout_marginTop="8dp"
             />
     </LinearLayout>
 
@@ -54,6 +55,8 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/base_graph"
         />
+
+
 
     <np.com.susanthapa.curved_bottom_navigation.CurvedBottomNavigationView
         android:id="@+id/nav"

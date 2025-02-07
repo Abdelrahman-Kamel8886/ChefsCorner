@@ -59,6 +59,7 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
             title.setText(mealsDTO.getStrMeal());
             Glide.with(itemView.getContext())
                     .load(mealsDTO.getStrMealThumb())
+                    .placeholder(R.drawable.load)
                     .into(image);
         }
     }
