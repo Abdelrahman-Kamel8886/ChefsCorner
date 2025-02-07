@@ -78,6 +78,6 @@ public class SignUpPresenter implements ISignUpPresenter{
     @Override
     public void cacheUserData(UserDTO user) {
         SharedPrefHelper.getInstance().saveUser(user);
-        view.navigateToHome();
+        view.navigateToBase();
     }
 }

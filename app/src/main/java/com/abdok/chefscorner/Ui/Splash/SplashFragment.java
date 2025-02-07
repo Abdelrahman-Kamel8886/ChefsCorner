@@ -41,7 +41,7 @@ public class SplashFragment extends Fragment {
     private void checkUser() {
         UserDTO user = SharedPrefHelper.getInstance().getUser();
         if (user!=null){
-            NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_homeFragment);
+            NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_baseFragment);
         }
         else {
             NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_loginFragment);

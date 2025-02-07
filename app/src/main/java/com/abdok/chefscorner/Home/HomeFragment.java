@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Home;
+package com.abdok.chefscorner.Home;
 
 import android.os.Bundle;
 
@@ -14,25 +14,16 @@ import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
+import com.abdok.chefscorner.Base.IBaseView;
 import com.abdok.chefscorner.Models.CategoryResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsDTO;
 import com.abdok.chefscorner.Models.UserDTO;
-import com.abdok.chefscorner.Network.RetroConnection;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentHomeBinding;
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment implements IHomeView {
 
@@ -40,6 +31,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     IHomePresenter presenter;
     RecyclerRandomAdapter adapter;
     RecyclerCategoryMealAdapter breakfastAdapter , desertAdapter;
+    IBaseView baseView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +43,28 @@ public class HomeFragment extends Fragment implements IHomeView {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentHomeBinding.bind(view);
         presenter = new HomePresenter(this);
-
-        //call presenter methods
-        presenter.getUserData();
-        presenter.getRandomMeals();
-        presenter.getBreakFastMeals();
-        presenter.getDesertMeals();
+        baseView = (IBaseView) getParentFragment().getParentFragment();
+        checkForData();
     }
+
+
+    private void checkForData(){
+
+        Log.d("Debug", "checkForData: "+SharedModel.getUser());
+        Log.d("Debug", "checkForData: "+SharedModel.getRandomMeals());
+        Log.d("Debug", "checkForData: "+SharedModel.getBreakfastMeals());
+        Log.d("Debug", "checkForData: "+SharedModel.getDesertMeals());
+
+        if (SharedModel.getUser() == null||SharedModel.getRandomMeals()==null||SharedModel.getBreakfastMeals()==null||SharedModel.getDesertMeals()==null){
+            presenter.start();
+            Log.d("Debug", "checkForData: 1");
+        }
+        else{
+            initView();
+            Log.d("Debug", "checkForData: 2");
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -65,7 +72,15 @@ public class HomeFragment extends Fragment implements IHomeView {
     }
 
     @Override
-    public void initView(UserDTO user) {
+    public void initView() {
+        showUserData(SharedModel.getUser());
+        showRandomMeals(SharedModel.getRandomMeals());
+        showBreakFastMeals(SharedModel.getBreakfastMeals());
+        showDesertMeals(SharedModel.getDesertMeals());
+    }
+
+    @Override
+    public void showUserData(UserDTO user) {
         binding.userName.setText("Hi, " + user.getName());
         if (user.getPhotoUrl() != null){
             Glide.with(requireContext()).load(user.getPhotoUrl()).into(binding.avatarImg);
@@ -97,6 +112,9 @@ public class HomeFragment extends Fragment implements IHomeView {
     public void showDesertMeals(List<CategoryResponseDTO.CategoryMealDTO> meals) {
         desertAdapter = new RecyclerCategoryMealAdapter(meals);
         binding.desertsRecycler.setAdapter(desertAdapter);
+        if (baseView!=null){
+            baseView.showMainView();
+        }
     }
 
 }

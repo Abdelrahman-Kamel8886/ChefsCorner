@@ -3,5 +3,5 @@ package com.abdok.chefscorner.Ui.Auth.SignUp;
 public interface ISignUpView {
 
     void showInformation(String msg);
-    void navigateToHome();
+    void navigateToBase();
 }

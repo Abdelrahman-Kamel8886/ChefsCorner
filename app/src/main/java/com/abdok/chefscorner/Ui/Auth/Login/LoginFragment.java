@@ -18,14 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.databinding.FragmentLoginBinding;
 import com.abdok.chefscorner.Ui.Auth.AuthPresenter;
 import com.abdok.chefscorner.Ui.Auth.IAuthPresenter;
 import com.abdok.chefscorner.Ui.Auth.IAuthView;
-import com.abdok.chefscorner.Ui.Home.HomeFragment;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -142,9 +140,9 @@ public class LoginFragment extends Fragment implements IAuthView {
     }
 
     @Override
-    public void navigateToHome() {
+    public void navigateToBase() {
         binding.progressBar.setVisibility(View.GONE);
-        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_homeFragment);
+        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_baseFragment);
     }
 
     private final ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(

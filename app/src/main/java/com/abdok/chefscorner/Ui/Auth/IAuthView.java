@@ -6,6 +6,6 @@ public interface IAuthView {
 
     void showInformation(String msg);
     void callGoogle(GoogleSignInClient mGoogleSignInClient);
-    void navigateToHome();
+    void navigateToBase();
 
 }

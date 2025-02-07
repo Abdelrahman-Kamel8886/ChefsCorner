@@ -24,12 +24,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        @SuppressLint("ResourceType") CbnMenuItem[] menuItems = new CbnMenuItem[] {
-                new CbnMenuItem(R.drawable.ic_baseline_bookmark_border_24, R.drawable.ic_baseline_bookmark_avd,1),
-                new CbnMenuItem(R.drawable.ic_baseline_bookmark_border_24, R.drawable.ic_baseline_bookmark_avd,2),
-                new CbnMenuItem(R.drawable.ic_baseline_bookmark_border_24, R.drawable.ic_baseline_bookmark_avd,3)
-        };
-        binding.nav.setMenuItems(menuItems, 0);
+
     }
 
     @Override

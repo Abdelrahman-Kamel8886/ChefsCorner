@@ -1,12 +1,11 @@
-package com.abdok.chefscorner.Ui.Home;
-
-import android.util.Log;
+package com.abdok.chefscorner.Home;
 
 import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
 import com.abdok.chefscorner.Models.CategoryResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsDTO;
 import com.abdok.chefscorner.Network.RetroConnection;
 import com.abdok.chefscorner.Network.RetroServices;
+import com.abdok.chefscorner.Utils.SharedModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class HomePresenter implements IHomePresenter{
+public class HomePresenter implements IHomePresenter {
 
     private IHomeView view;
     private SharedPrefHelper sharedPrefHelper;
@@ -29,6 +28,19 @@ public class HomePresenter implements IHomePresenter{
         sharedPrefHelper = SharedPrefHelper.getInstance();
         retroServices = RetroConnection.getServices();
     }
+
+    @Override
+    public void start() {
+        getUserData();
+    }
+
+    @Override
+    public void getUserData() {
+       // view.initView(sharedPrefHelper.getUser());
+        SharedModel.setUser(sharedPrefHelper.getUser());
+        getRandomMeals();
+    }
+
     @Override
     public void getRandomMeals() {
         ArrayList<RandomMealsDTO.MealsDTO> myMeals = new ArrayList<>();
@@ -57,7 +69,9 @@ public class HomePresenter implements IHomePresenter{
 
                     @Override
                     public void onSuccess(ArrayList<RandomMealsDTO.MealsDTO> meals) {
-                        view.showRandomMeals(meals);
+                        //view.showRandomMeals(meals);
+                        SharedModel.setRandomMeals(meals);
+                        getBreakFastMeals();
                     }
 
                     @Override
@@ -69,10 +83,7 @@ public class HomePresenter implements IHomePresenter{
 
     }
 
-    @Override
-    public void getUserData() {
-        view.initView(sharedPrefHelper.getUser());
-    }
+
 
     @Override
     public void getBreakFastMeals() {
@@ -87,7 +98,9 @@ public class HomePresenter implements IHomePresenter{
 
                     @Override
                     public void onSuccess(CategoryResponseDTO categoryResponseDTO) {
-                        view.showBreakFastMeals(categoryResponseDTO.getMeals());
+                        //view.showBreakFastMeals(categoryResponseDTO.getMeals());
+                        SharedModel.setBreakfastMeals(categoryResponseDTO.getMeals());
+                        getDesertMeals();
                     }
 
                     @Override
@@ -110,7 +123,9 @@ public class HomePresenter implements IHomePresenter{
 
                     @Override
                     public void onSuccess(CategoryResponseDTO categoryResponseDTO) {
-                        view.showDesertMeals(categoryResponseDTO.getMeals());
+                        //view.showDesertMeals(categoryResponseDTO.getMeals());
+                        SharedModel.setDesertMeals(categoryResponseDTO.getMeals());
+                        view.initView();
                     }
 
                     @Override

@@ -74,7 +74,7 @@
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:background="@color/orange"
+                android:background="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="@id/nameIcon"
                 app:layout_constraintStart_toEndOf="@id/nameIcon"
                 app:layout_constraintTop_toTopOf="@id/nameIcon" />
@@ -137,7 +137,7 @@
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:background="@color/orange"
+                android:background="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="@id/mailIcon"
                 app:layout_constraintStart_toEndOf="@id/mailIcon"
                 app:layout_constraintTop_toTopOf="@id/mailIcon" />
@@ -200,7 +200,7 @@
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:background="@color/orange"
+                android:background="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="@id/passIcon"
                 app:layout_constraintStart_toEndOf="@id/passIcon"
                 app:layout_constraintTop_toTopOf="@id/passIcon" />
@@ -215,7 +215,7 @@
                 app:layout_constraintStart_toEndOf="@id/separatorLine2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/orange">
+                app:passwordToggleTint="@color/mainColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editpassword"
@@ -262,7 +262,7 @@
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:background="@color/orange"
+                android:background="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="@id/conpassIcon"
                 app:layout_constraintStart_toEndOf="@id/conpassIcon"
                 app:layout_constraintTop_toTopOf="@id/conpassIcon" />
@@ -277,7 +277,7 @@
                 app:layout_constraintStart_toEndOf="@id/separatorLine3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/orange">
+                app:passwordToggleTint="@color/mainColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editconfirmpassword"
@@ -310,7 +310,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginEnd="8dp"
-        app:dividerColor="@color/orange"
+        app:dividerColor="@color/mainColor"
         app:layout_constraintBottom_toBottomOf="@id/ortxt"
         app:layout_constraintEnd_toStartOf="@id/ortxt"
         app:layout_constraintStart_toStartOf="@id/emailCard"
@@ -320,7 +320,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
-        app:dividerColor="@color/orange"
+        app:dividerColor="@color/mainColor"
         app:layout_constraintBottom_toBottomOf="@id/ortxt"
         app:layout_constraintEnd_toEndOf="@id/passwordCard"
         app:layout_constraintStart_toEndOf="@id/ortxt"
@@ -412,7 +412,7 @@
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicatorColor="@color/orange"
+        app:indicatorColor="@color/mainColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

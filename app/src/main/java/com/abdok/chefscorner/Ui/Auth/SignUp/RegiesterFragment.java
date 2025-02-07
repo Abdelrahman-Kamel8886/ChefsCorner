@@ -77,7 +77,7 @@ public class RegiesterFragment extends Fragment implements ISignUpView {
     }
 
     @Override
-    public void navigateToHome() {
-        Navigation.findNavController(requireView()).navigate(R.id.action_regiesterFragment_to_homeFragment);
+    public void navigateToBase() {
+        Navigation.findNavController(requireView()).navigate(R.id.action_regiesterFragment_to_baseFragment);
     }
 }

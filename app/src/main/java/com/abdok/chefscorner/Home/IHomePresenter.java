@@ -1,7 +1,7 @@
-package com.abdok.chefscorner.Ui.Home;
+package com.abdok.chefscorner.Home;
 
 public interface IHomePresenter {
-
+    void start();
     void getRandomMeals();
     void getUserData();
     void getBreakFastMeals();
