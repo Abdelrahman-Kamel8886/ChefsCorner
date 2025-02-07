@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Base;
+package com.abdok.chefscorner.Ui.Base;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +52,12 @@ public class BaseFragment extends Fragment implements IBaseView {
     public void showMainView() {
         binding.loadingLayout.setVisibility(View.GONE);
         binding.mainView.setVisibility(View.VISIBLE);
+        binding.nav.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBottomNav() {
+        binding.nav.setVisibility(View.GONE);
     }
 
     public  void changeStatusBarColor(int colorResId) {

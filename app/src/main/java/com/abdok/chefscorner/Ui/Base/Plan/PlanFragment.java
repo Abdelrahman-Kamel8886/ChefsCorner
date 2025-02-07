@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Plan;
+package com.abdok.chefscorner.Ui.Base.Plan;
 
 import android.os.Bundle;
 

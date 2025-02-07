@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Search;
+package com.abdok.chefscorner.Ui.Base.Search;
 
 import android.os.Bundle;
 

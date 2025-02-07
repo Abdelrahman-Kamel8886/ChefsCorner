@@ -1,10 +1,11 @@
-package com.abdok.chefscorner.Home;
+package com.abdok.chefscorner.Ui.Base.Home;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
-import com.abdok.chefscorner.Base.IBaseView;
+import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Models.CategoryResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsDTO;
 import com.abdok.chefscorner.Models.UserDTO;
@@ -45,6 +46,10 @@ public class HomeFragment extends Fragment implements IHomeView {
         presenter = new HomePresenter(this);
         baseView = (IBaseView) getParentFragment().getParentFragment();
         checkForData();
+    }
+
+    private void onClicks(){
+        binding.avatarImg.setOnClickListener(v -> navigateToProfile());
     }
 
 
@@ -114,7 +119,12 @@ public class HomeFragment extends Fragment implements IHomeView {
         binding.desertsRecycler.setAdapter(desertAdapter);
         if (baseView!=null){
             baseView.showMainView();
+            onClicks();
         }
+    }
+
+    private void navigateToProfile(){
+        Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_profileFragment);
     }
 
 }

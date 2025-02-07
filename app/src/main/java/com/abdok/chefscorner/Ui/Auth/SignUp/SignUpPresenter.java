@@ -1,5 +1,7 @@
 package com.abdok.chefscorner.Ui.Auth.SignUp;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
@@ -25,7 +27,7 @@ public class SignUpPresenter implements ISignUpPresenter{
     public void validateData(String name, String email, String password, String confirmPassword) {
         if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
             if(password.equals(confirmPassword)){
-                signUpWithEmail(email,password,name,"");
+                signUpWithEmail(email,password,name,"none");
             }
             else{
                 view.showInformation("Passwords do not match");
@@ -65,7 +67,9 @@ public class SignUpPresenter implements ISignUpPresenter{
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             FirebaseUser updatedUser = FirebaseAuth.getInstance().getCurrentUser();
-                            UserDTO userDTO = new UserDTO(updatedUser.getUid(),updatedUser.getDisplayName(),updatedUser.getEmail(),updatedUser.getPhotoUrl().toString());
+                            Uri photoUri = updatedUser.getPhotoUrl();
+                            String photoUrlString = photoUri != null ? photoUri.toString() : null;
+                            UserDTO userDTO = new UserDTO(updatedUser.getUid(),updatedUser.getDisplayName(),updatedUser.getEmail(),photoUrlString);
                             cacheUserData(userDTO);
 
                         } else {

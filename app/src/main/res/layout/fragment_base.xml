@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".Base.BaseFragment">
+    tools:context=".Ui.Base.BaseFragment">
 
 
     <LinearLayout
@@ -66,7 +66,7 @@
         app:cbn_bg = "@color/mainColor"
         app:cbn_fabBg = "@color/mainColor"
         app:cbn_selectedColor="@color/white"
-        app:cbn_unSelectedColor="@color/black"
+        app:cbn_unSelectedColor="@color/white"
         app:cbn_animDuration="300"
         app:cbn_elevation="4dp"
 

@@ -98,8 +98,5 @@ public class AuthPresenter implements IAuthPresenter{
         view.navigateToBase();
     }
 
-    @Override
-    public void logout() {
-        mAuth.signOut();
-    }
+
 }

@@ -27,4 +27,8 @@
     <string name="break_fast">Break Fast</string>
     <string name="deserts">Deserts</string>
     <string name="loading">Loading ...</string>
+    <string name="suggested_categories">Suggested Categories</string>
+    <string name="edit_your_profile"><u>Edit Your Profile</u></string>
+    <string name="general_settings">General Settings</string>
+    <string name="logout">Logout</string>
 </resources>

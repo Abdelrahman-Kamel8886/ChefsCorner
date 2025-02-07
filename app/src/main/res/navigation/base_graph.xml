@@ -6,17 +6,26 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.abdok.chefscorner.Home.HomeFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/planFragment"
-        android:name="com.abdok.chefscorner.Ui.Plan.PlanFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Plan.PlanFragment"
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.abdok.chefscorner.Ui.Search.SearchFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Home;
+package com.abdok.chefscorner.Ui.Base.Home;
 
 import com.abdok.chefscorner.Models.CategoryResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsDTO;

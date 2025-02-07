@@ -12,5 +12,4 @@ public interface IAuthPresenter {
     void signInWithGoogle(String idToken);
     void handleFacebookAccessToken(AccessToken token);
     void cacheUserData();
-    void logout();
 }

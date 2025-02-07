@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Home;
+package com.abdok.chefscorner.Ui.Base.Home;
 
 public interface IHomePresenter {
     void start();
