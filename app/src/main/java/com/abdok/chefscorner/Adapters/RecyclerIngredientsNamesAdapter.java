@@ -19,11 +19,11 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RecyclerIngredientsAdapter extends RecyclerView.Adapter<RecyclerIngredientsAdapter.ViewHolder> {
+public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<RecyclerIngredientsNamesAdapter.ViewHolder> {
 
     private ArrayList<IngredientFormatDTO> ingredients;
 
-    public RecyclerIngredientsAdapter(ArrayList<IngredientFormatDTO> ingredients) {
+    public RecyclerIngredientsNamesAdapter(ArrayList<IngredientFormatDTO> ingredients) {
         this.ingredients = ingredients;
     }
 

@@ -8,14 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
-import com.abdok.chefscorner.Models.IngredientDTO;
+import com.abdok.chefscorner.Models.IngredientFormatDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.Details.Presenter.IMealDetailsPresenter;
@@ -27,7 +26,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MealDetailsFragment extends Fragment implements IMealDetailsView {
@@ -50,12 +48,11 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         baseView = (IBaseView) getParentFragment().getParentFragment();
         presenter = new MealDetailsPresenter(this);
         initView();
+
     }
 
     private void initView(){
         baseView.hideBottomNav();
-//        int id = getArguments().getInt("id");
-//        MealDTO mealDTO = getArguments().getParcelable("meal");
 
         int id = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
         MealDTO mealDTO = MealDetailsFragmentArgs.fromBundle(getArguments()).getMeal();
@@ -66,6 +63,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         else {
             presenter.getMealDetails(id);
         }
+
     }
 
 
@@ -89,7 +87,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show();
     }
 
-    private void showIngredients(ArrayList<IngredientDTO> ingredients){
+    private void showIngredients(ArrayList<IngredientFormatDTO> ingredients){
         int size = ingredients.size();
         String itemText = size>9? size+" item" : size+" items";
         binding.itemsCount.setText(itemText);

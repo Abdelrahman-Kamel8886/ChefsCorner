@@ -13,8 +13,7 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/nav_graph" />
         <action
             android:id="@+id/action_splashFragment_to_baseFragment"
             app:destination="@id/baseFragment"

@@ -1,14 +1,14 @@
 package com.abdok.chefscorner.Models;
 
-public class IngredientDTO {
+public class IngredientFormatDTO {
 
     private String title;
     private String measure;
 
-    public IngredientDTO() {
+    public IngredientFormatDTO() {
     }
 
-    public IngredientDTO(String title, String measure) {
+    public IngredientFormatDTO(String title, String measure) {
         this.title = title;
         this.measure = measure;
     }

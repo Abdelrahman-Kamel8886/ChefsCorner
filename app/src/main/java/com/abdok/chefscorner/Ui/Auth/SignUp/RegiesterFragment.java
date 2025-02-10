@@ -37,9 +37,6 @@ public class RegiesterFragment extends Fragment implements ISignUpView {
         onClicks();
     }
     private void onClicks(){
-
-
-
         binding.backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         binding.loginTxt.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         binding.signBtn.setOnClickListener(v -> validation());

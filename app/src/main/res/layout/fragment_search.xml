@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
@@ -28,8 +29,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/searchView"
+                    android:background="@color/white"
                     />
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/ingredient_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/common_ingredients"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@id/card_search"
+                app:layout_constraintTop_toBottomOf="@id/card_search"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ingredient_title"
+                app:layout_constraintStart_toStartOf="@id/card_search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="20dp"
+                tools:listitem="@layout/item_ingredient_name"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

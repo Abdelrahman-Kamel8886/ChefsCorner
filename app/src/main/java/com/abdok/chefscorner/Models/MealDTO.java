@@ -1,10 +1,7 @@
 package com.abdok.chefscorner.Models;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MealDTO implements Serializable {
     private int id;
@@ -487,14 +484,14 @@ public class MealDTO implements Serializable {
     }
 
 
-    private void addIngredients(ArrayList<IngredientDTO> ingredients , String ingredient, String measure){
+    private void addIngredients(ArrayList<IngredientFormatDTO> ingredients , String ingredient, String measure){
         if (ingredient!=null && measure!=null && !ingredient.isEmpty() && !measure.isEmpty()){
-            ingredients.add(new IngredientDTO(ingredient,measure));
+            ingredients.add(new IngredientFormatDTO(ingredient,measure));
         }
     }
 
-    public ArrayList<IngredientDTO> getIngredients(){
-        ArrayList<IngredientDTO> ingredients = new ArrayList<>();
+    public ArrayList<IngredientFormatDTO> getIngredients(){
+        ArrayList<IngredientFormatDTO> ingredients = new ArrayList<>();
 
         addIngredients(ingredients,getStrIngredient1(),getStrMeasure1());
         addIngredients(ingredients,getStrIngredient2(),getStrMeasure2());
