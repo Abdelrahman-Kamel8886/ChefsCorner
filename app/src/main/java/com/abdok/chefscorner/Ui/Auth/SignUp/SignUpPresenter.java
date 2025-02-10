@@ -57,7 +57,6 @@ public class SignUpPresenter implements ISignUpPresenter{
     @Override
     public void updateProfile(String name, String photoUrl) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(name)

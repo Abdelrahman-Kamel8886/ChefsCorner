@@ -13,7 +13,7 @@
         app:cardCornerRadius="8sp"
         app:cardUseCompatPadding="true"
         app:cardElevation="4dp"
-        android:id="@+id/card1"
+        android:id="@+id/mealCard"
         app:strokeWidth="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

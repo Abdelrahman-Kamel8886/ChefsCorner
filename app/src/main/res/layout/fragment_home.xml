@@ -8,48 +8,12 @@
     android:background="@color/white"
     >
 
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="36dp"
-        android:layout_height="36sp"
-        android:id="@+id/avatarView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="20dp"
-        app:cardCornerRadius="100dp"
-        app:strokeWidth="0dp"
-        app:cardElevation="5dp"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/user_avatar"
-            android:id="@+id/avatarImg"
-            android:scaleType="fitXY"
-            />
-    </com.google.android.material.card.MaterialCardView>
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/user_name"
-        tools:text="Hi,userName"
-        app:layout_constraintStart_toEndOf="@id/avatarView"
-        app:layout_constraintTop_toTopOf="@id/avatarView"
-        app:layout_constraintBottom_toBottomOf="@id/avatarView"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:textSize="12sp"
-        android:textColor="@color/slateGray"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/avatarView"
+        app:layout_constraintTop_toTopOf="parent"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,6 +37,7 @@
                 android:id="@+id/randomRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:listitem="@layout/item_random_meal"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/daily_meal_title" />
 
@@ -126,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/breakFastRecycler"
                 android:orientation="horizontal"
+                tools:listitem="@layout/item_category_meal"
                 app:layout_constraintTop_toBottomOf="@id/breakFast_title"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />

@@ -1,9 +1,15 @@
 package com.abdok.chefscorner.Ui.Base.Profile;
 
+import androidx.annotation.NonNull;
+
 import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -14,7 +20,6 @@ public class ProfilePresenter implements IProfilePresenter{
     private GoogleSignInClient mGoogleSignInClient;
     private IProfileView view;
     private SharedPrefHelper sharedPrefHelper;
-
 
     public ProfilePresenter(IProfileView view ,String  webClientId){
         mAuth = FirebaseAuth.getInstance();
@@ -27,14 +32,12 @@ public class ProfilePresenter implements IProfilePresenter{
         sharedPrefHelper = SharedPrefHelper.getInstance();
     }
 
-
     @Override
     public void logout() {
         mAuth.signOut();
         mGoogleSignInClient.signOut();
         clearCache();
     }
-
     @Override
     public void clearCache() {
         sharedPrefHelper.clearUser();

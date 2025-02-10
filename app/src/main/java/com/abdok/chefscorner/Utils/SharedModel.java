@@ -1,7 +1,7 @@
 package com.abdok.chefscorner.Utils;
 
-import com.abdok.chefscorner.Models.CategoryResponseDTO;
-import com.abdok.chefscorner.Models.RandomMealsDTO;
+import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Models.UserDTO;
 
 import java.util.ArrayList;
@@ -9,31 +9,31 @@ import java.util.List;
 
 public class SharedModel {
     public static UserDTO user ;
-    private static ArrayList<RandomMealsDTO.MealsDTO> randomMeals ;
-    private static List<CategoryResponseDTO.CategoryMealDTO> BreakfastMeals ;
-    private static List<CategoryResponseDTO.CategoryMealDTO> DesertMeals ;
+    private static ArrayList<MealDTO> randomMeals ;
+    private static List<CategoryMealsResponseDTO.CategoryMealDTO> BreakfastMeals ;
+    private static List<CategoryMealsResponseDTO.CategoryMealDTO> DesertMeals ;
 
-    public static ArrayList<RandomMealsDTO.MealsDTO> getRandomMeals() {
+    public static ArrayList<MealDTO> getRandomMeals() {
         return randomMeals;
     }
 
-    public static void setRandomMeals(ArrayList<RandomMealsDTO.MealsDTO> randomMeals) {
+    public static void setRandomMeals(ArrayList<MealDTO> randomMeals) {
         SharedModel.randomMeals = randomMeals;
     }
 
-    public static List<CategoryResponseDTO.CategoryMealDTO> getBreakfastMeals() {
+    public static List<CategoryMealsResponseDTO.CategoryMealDTO> getBreakfastMeals() {
         return BreakfastMeals;
     }
 
-    public static void setBreakfastMeals(List<CategoryResponseDTO.CategoryMealDTO> breakfastMeals) {
+    public static void setBreakfastMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> breakfastMeals) {
         BreakfastMeals = breakfastMeals;
     }
 
-    public static List<CategoryResponseDTO.CategoryMealDTO> getDesertMeals() {
+    public static List<CategoryMealsResponseDTO.CategoryMealDTO> getDesertMeals() {
         return DesertMeals;
     }
 
-    public static void setDesertMeals(List<CategoryResponseDTO.CategoryMealDTO> desertMeals) {
+    public static void setDesertMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> desertMeals) {
         DesertMeals = desertMeals;
     }
 

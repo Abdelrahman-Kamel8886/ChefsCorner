@@ -1,0 +1,7 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/outline_calendar_today_24">
+
+    <target
+        android:name="calendarGroup"
+        android:animation="@animator/vector_animation" />
+</animated-vector>

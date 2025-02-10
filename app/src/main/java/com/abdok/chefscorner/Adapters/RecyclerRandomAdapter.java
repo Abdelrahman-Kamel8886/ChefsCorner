@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.RandomMealsDTO;
+import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
@@ -19,18 +19,23 @@ import java.util.List;
 
 public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAdapter.ViewHolder> {
 
-    private List<RandomMealsDTO.MealsDTO> meals;
+    private List<MealDTO> meals;
+    private onItemClickListener listener;
 
-    public RecyclerRandomAdapter(List<RandomMealsDTO.MealsDTO> meals) {
+    public RecyclerRandomAdapter(List<MealDTO> meals) {
         this.meals = meals;
     }
 
+    public void setListener(onItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_random_meal, parent, false);
         ViewHolder holder = new ViewHolder(view);
+        
         Log.i("RecyclerAdapter", "onCreateViewHolder called");
         return holder;
     }
@@ -49,18 +54,24 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
 
         TextView title;
         ImageView image;
+        MaterialCardView mealCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.meal_title);
             image = itemView.findViewById(R.id.meal_image);
+            mealCard = itemView.findViewById(R.id.mealCard);
         }
-        public void onBind(RandomMealsDTO.MealsDTO mealsDTO){
-            title.setText(mealsDTO.getStrMeal());
+        public void onBind(MealDTO mealDTO){
+            title.setText(mealDTO.getStrMeal());
             Glide.with(itemView.getContext())
-                    .load(mealsDTO.getStrMealThumb())
+                    .load(mealDTO.getStrMealThumb())
                     .placeholder(R.drawable.load)
                     .into(image);
+            mealCard.setOnClickListener(v -> listener.onItemClick(mealDTO));
         }
+    }
+    public interface onItemClickListener{
+        void onItemClick(MealDTO mealDTO);
     }
 }

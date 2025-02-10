@@ -10,8 +10,8 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_homeFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/planFragment"
@@ -28,4 +28,22 @@
         android:name="com.abdok.chefscorner.Ui.Base.Profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Details.View.MealDetailsFragment"
+        android:label="fragment_meal_details"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="Meal"
+            app:argType="com.abdok.chefscorner.Models.MealDTO"
+            app:nullable="true" />
+    </fragment>
 </navigation>

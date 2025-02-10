@@ -21,5 +21,16 @@
     <color name="darkCharcoalGray">#2C2C2C</color>
     <color name="gainsboro">#D6D6D6</color>
     <color name="brownn">#655234</color>
+    <color name="darkRed">#D32F2F</color>
+
+    <!--   random colors -->
+    <color name="soft_red">#FFADAD</color>
+    <color name="warm_orange">#FFD6A5</color>
+    <color name="soft_yellow">#FDFFB6</color>
+    <color name="soft_green">#CAFFBF</color>
+    <color name="light_blue">#9BF6FF</color>
+    <color name="sky_blue">#A0C4FF</color>
+    <color name="lavender">#BDB2FF</color>
+    <color name="soft_pink">#FFC6FF</color>
 
 </resources>

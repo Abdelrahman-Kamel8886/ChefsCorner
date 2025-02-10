@@ -31,4 +31,5 @@
     <string name="edit_your_profile"><u>Edit Your Profile</u></string>
     <string name="general_settings">General Settings</string>
     <string name="logout">Logout</string>
+    <string name="recipe">Recipe</string>
 </resources>

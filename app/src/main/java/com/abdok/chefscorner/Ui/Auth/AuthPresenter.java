@@ -1,5 +1,8 @@
 package com.abdok.chefscorner.Ui.Auth;
 
+import android.net.Uri;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
@@ -93,7 +96,9 @@ public class AuthPresenter implements IAuthPresenter{
     @Override
     public void cacheUserData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        UserDTO userDTO = new UserDTO(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString());
+        Uri photoUri = user.getPhotoUrl();
+        String photoUrlString = photoUri != null ? photoUri.toString() : null;
+        UserDTO userDTO = new UserDTO(user.getUid(),user.getDisplayName(),user.getEmail(),photoUrlString);
         SharedPrefHelper.getInstance().saveUser(userDTO);
         view.navigateToBase();
     }

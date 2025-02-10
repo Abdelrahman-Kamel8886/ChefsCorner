@@ -2,7 +2,7 @@ package com.abdok.chefscorner.Models;
 
 import java.util.List;
 
-public class CategoryResponseDTO {
+public class CategoryMealsResponseDTO {
 
 
     private List<CategoryMealDTO> meals;

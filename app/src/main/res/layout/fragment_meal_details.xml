@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".Ui.Base.Details.View.MealDetailsFragment"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/background"
+            android:scaleType="fitXY"
+            android:id="@+id/image"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="20dp"
+            android:background="@drawable/protection_background"
+            android:padding="2dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/saveBtn"
+            app:layout_constraintTop_toTopOf="@id/backBtn"
+            app:layout_constraintBottom_toBottomOf="@id/backBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/protection_background"
+            android:padding="2dp"
+            android:src="@drawable/ic_baseline_bookmark_border_24"
+            />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:layout_constraintTop_toTopOf="@id/nameCard"
+            app:layout_constraintBottom_toBottomOf="@id/nameCard"
+            />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            app:layout_constraintBottom_toBottomOf="@id/image"
+            android:layout_marginHorizontal="16dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="0dp"
+            app:cardUseCompatPadding="true"
+            android:id="@+id/nameCard"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginVertical="20dp">
+
+                <TextView
+                    android:id="@+id/r_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/recipe"
+                    android:textAllCaps="true"
+                    android:textSize="14dp"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/meal_title"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/poppins_bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textAlignment="center"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/r_txt"
+                    tools:text="Egyption Koshari"
+                    android:textColor="@color/charcoal"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/meal_category"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/poppins_bold"
+                    app:layout_constraintEnd_toEndOf="@id/meal_title"
+                    app:layout_constraintStart_toStartOf="@id/meal_title"
+                    app:layout_constraintTop_toBottomOf="@id/meal_title"
+                    tools:text="Dinner From EG"
+                    android:textColor="@color/charcoalGray"
+                    android:layout_marginTop="2dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/ins_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginTop="16dp"
+            android:text="Instructions"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/backBtn"
+            app:layout_constraintTop_toBottomOf="@id/nameCard"/>
+
+        <TextView
+            android:id="@+id/mealInstructions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="8dp"
+            tools:text="Preheat oven to 350° F. Spray a 9x13-inch baking pan with non-stick spray.\r\nCombine soy sauce, ½ cup water, brown sugar, ginger and garlic in a small saucepan and cover. Bring to a boil over medium heat. Remove lid and cook for one minute once boiling.\r\nMeanwhile, stir together the corn starch and 2 tablespoons of water in a separate dish until smooth. Once sauce is boiling, add mixture to the saucepan and stir to combine. Cook until the sauce starts to thicken then remove from heat.\r\nPlace the chicken breasts in the prepared pan. Pour one cup of the sauce over top of chicken. Place chicken in oven and bake 35 minutes or until cooked through. Remove from oven and shred chicken in the dish using two forks.\r\n*Meanwhile, steam or cook the vegetables according to package directions.\r\nAdd the cooked vegetables and rice to the casserole dish with the chicken. Add most of the remaining sauce, reserving a bit to drizzle over the top when serving. Gently toss everything together in the casserole dish until combined. Return to oven and cook 15 minutes. Remove from oven and let stand 5 minutes before serving. Drizzle each serving with remaining sauce. Enjoy!"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/backBtn"
+            app:layout_constraintEnd_toEndOf="@id/saveBtn"
+            app:layout_constraintTop_toBottomOf="@id/ins_txt"
+            android:paddingHorizontal="0dp"/>
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toBottomOf="@id/mealInstructions"
+            app:layout_constraintStart_toStartOf="@id/backBtn"
+            app:layout_constraintEnd_toEndOf="@id/saveBtn"
+            android:layout_marginTop="16dp"
+            android:elevation="5dp"
+            />
+
+        <TextView
+            android:id="@+id/ingr_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginTop="16dp"
+            android:text="Ingredients"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/backBtn"
+            app:layout_constraintTop_toBottomOf="@id/webview"/>
+
+        <TextView
+            android:id="@+id/itemsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            tools:text="11 item"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/saveBtn"
+            app:layout_constraintTop_toTopOf="@id/ingr_txt"
+            app:layout_constraintBottom_toBottomOf="@id/ingr_txt"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ingr_txt"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_ingredients"
+            android:nestedScrollingEnabled="false"
+            android:id="@+id/recyclerIngredients"
+            tools:itemCount="7"
+            android:layout_marginTop="8dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sharp_tag_24"
+            app:layout_constraintTop_toBottomOf="@id/recyclerIngredients"
+            app:layout_constraintStart_toStartOf="@id/backBtn"
+            android:layout_marginTop="16dp"
+            android:id="@+id/tagIcon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tag_txt"
+            android:text="Tags"
+            app:layout_constraintStart_toEndOf="@id/tagIcon"
+            app:layout_constraintTop_toTopOf="@id/tagIcon"
+            app:layout_constraintBottom_toBottomOf="@id/tagIcon"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppins_bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="#Tag1 #Tag2kddk sdk dsk dkds s #dsldmlsdm"
+            app:layout_constraintStart_toStartOf="@id/tag_txt"
+            app:layout_constraintEnd_toStartOf="@id/saveBtn"
+            app:layout_constraintTop_toBottomOf="@id/tagIcon"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins"
+            android:id="@+id/ingredientTags"
+            android:textSize="14sp"/>
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tagGroup"
+            app:constraint_referenced_ids="tag_txt,tagIcon,ingredientTags"
+            android:visibility="gone"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

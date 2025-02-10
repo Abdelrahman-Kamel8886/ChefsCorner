@@ -10,18 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.CategoryResponseDTO;
+import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class RecyclerCategoryMealAdapter extends RecyclerView.Adapter<RecyclerCategoryMealAdapter.ViewHolder> {
 
-    private List<CategoryResponseDTO.CategoryMealDTO> meals;
+    private List<CategoryMealsResponseDTO.CategoryMealDTO> meals;
 
-    public RecyclerCategoryMealAdapter(List<CategoryResponseDTO.CategoryMealDTO> meals) {
+    private onItemClickListener listener;
+
+    public RecyclerCategoryMealAdapter(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
         this.meals = meals;
+    }
+
+    public void setOnItemClickListener(onItemClickListener listener){
+        this.listener = listener;
     }
 
 
@@ -48,18 +55,27 @@ public class RecyclerCategoryMealAdapter extends RecyclerView.Adapter<RecyclerCa
 
         TextView title;
         ImageView image;
+        MaterialCardView mealCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.meal_title);
             image = itemView.findViewById(R.id.meal_image);
+            mealCard = itemView.findViewById(R.id.mealCard);
         }
-        public void onBind(CategoryResponseDTO.CategoryMealDTO mealsDTO){
+        public void onBind(CategoryMealsResponseDTO.CategoryMealDTO mealsDTO){
             title.setText(mealsDTO.getStrMeal());
             Glide.with(itemView.getContext())
                     .load(mealsDTO.getStrMealThumb())
                     .placeholder(R.drawable.load)
                     .into(image);
+            mealCard.setOnClickListener(v -> {
+                listener.onItemClick(Integer.parseInt(mealsDTO.getIdMeal()));
+            });
         }
+    }
+
+    public interface onItemClickListener{
+        void onItemClick(int id);
     }
 }

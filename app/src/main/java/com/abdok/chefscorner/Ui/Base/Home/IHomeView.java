@@ -1,17 +1,15 @@
 package com.abdok.chefscorner.Ui.Base.Home;
 
-import com.abdok.chefscorner.Models.CategoryResponseDTO;
-import com.abdok.chefscorner.Models.RandomMealsDTO;
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Models.MealDTO;
 
 import java.util.List;
 
 public interface IHomeView {
 
     void initView();
-    void showUserData(UserDTO user);
     void showToast(String message);
-    void showRandomMeals(List<RandomMealsDTO.MealsDTO> meals);
-    void showBreakFastMeals(List<CategoryResponseDTO.CategoryMealDTO> meals);
-    void showDesertMeals(List<CategoryResponseDTO.CategoryMealDTO> meals);
+    void showRandomMeals(List<MealDTO> meals);
+    void showBreakFastMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals);
+    void showDesertMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals);
 }

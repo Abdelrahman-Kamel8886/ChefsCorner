@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -16,8 +17,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentBaseBinding;
+import com.bumptech.glide.Glide;
 
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem;
 
@@ -36,16 +41,19 @@ public class BaseFragment extends Fragment implements IBaseView {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentBaseBinding.bind(view);
         changeStatusBarColor(R.color.white);
-        CbnMenuItem[] menuItems = new CbnMenuItem[] {
-                new CbnMenuItem(R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_home_avd,R.id.homeFragment),
-                new CbnMenuItem(R.drawable.ic_baseline_search_24, R.drawable.ic_baseline_search_avd,R.id.searchFragment),
-                new CbnMenuItem(R.drawable.ic_baseline_bookmark_border_24, R.drawable.ic_baseline_bookmark_avd,R.id.planFragment)
+        CbnMenuItem[] menuItems = new CbnMenuItem[]{
+                new CbnMenuItem(R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_home_avd, R.id.homeFragment),
+                new CbnMenuItem(R.drawable.ic_baseline_search_24, R.drawable.ic_baseline_search_avd, R.id.searchFragment),
+                new CbnMenuItem(R.drawable.ic_baseline_bookmark_border_24, R.drawable.ic_baseline_bookmark_avd, R.id.favoritesFragment),
+                new CbnMenuItem(R.drawable.outline_calendar_today_24, R.drawable.ic_baseline_calendar_avd, R.id.planFragment)
         };
         binding.nav.setMenuItems(menuItems, 0);
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.container);
         NavController navController = navHostFragment.getNavController();
         binding.nav.setupWithNavController(navController);
 
+        SharedModel.setUser(SharedPrefHelper.getInstance().getUser());
+        showUserData(SharedModel.getUser());
     }
 
     @Override
@@ -53,14 +61,16 @@ public class BaseFragment extends Fragment implements IBaseView {
         binding.loadingLayout.setVisibility(View.GONE);
         binding.mainView.setVisibility(View.VISIBLE);
         binding.nav.setVisibility(View.VISIBLE);
+        onClicks();
     }
 
     @Override
     public void hideBottomNav() {
         binding.nav.setVisibility(View.GONE);
+        binding.header.setVisibility(View.GONE);
     }
 
-    public  void changeStatusBarColor(int colorResId) {
+    public void changeStatusBarColor(int colorResId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = requireActivity().getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -71,6 +81,25 @@ public class BaseFragment extends Fragment implements IBaseView {
                 decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); // Dark text/icons
             }
         }
+    }
+
+    private void showUserData(UserDTO user) {
+        binding.userName.setText("Hi, " + user.getName());
+        if (user.getPhotoUrl() != null) {
+            Glide.with(requireContext()).load(user.getPhotoUrl()).into(binding.avatarImg);
+        }
+
+    }
+
+
+    private void onClicks() {
+        binding.avatarImg.setOnClickListener(v -> navigateToProfile());
+    }
+
+    private void navigateToProfile() {
+        NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.container);
+        NavController navController = navHostFragment.getNavController();
+        navController.navigate(R.id.profileFragment);
     }
 
     @Override
