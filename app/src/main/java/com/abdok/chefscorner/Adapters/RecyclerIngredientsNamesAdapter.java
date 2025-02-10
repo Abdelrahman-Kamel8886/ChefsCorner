@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.abdok.chefscorner.Models.IngredientFormatDTO;
+import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.Consts;
 import com.bumptech.glide.Glide;
@@ -21,16 +23,16 @@ import java.util.Random;
 
 public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<RecyclerIngredientsNamesAdapter.ViewHolder> {
 
-    private ArrayList<IngredientFormatDTO> ingredients;
+    private ArrayList<IngredientsNamesResponseDTO.IngredientDTO> ingredients;
 
-    public RecyclerIngredientsNamesAdapter(ArrayList<IngredientFormatDTO> ingredients) {
+    public RecyclerIngredientsNamesAdapter(ArrayList<IngredientsNamesResponseDTO.IngredientDTO> ingredients) {
         this.ingredients = ingredients;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredients, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredient_name, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -42,7 +44,7 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
 
     @Override
     public int getItemCount() {
-        return ingredients!=null?ingredients.size():0;
+        return ingredients!=null? Math.min(ingredients.size(), 10) :0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -50,6 +52,7 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
         TextView title , measure;
         ImageView image;
         MaterialCardView card;
+        ConstraintLayout layout;
 
         int randomColor;
 
@@ -57,9 +60,9 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.ingredientTitle);
-            measure = itemView.findViewById(R.id.ingredientMeasure);
             image = itemView.findViewById(R.id.ingredientImage);
             card = itemView.findViewById(R.id.imageCard);
+            layout = itemView.findViewById(R.id.main);
 
             int[] colors = {
                     ContextCompat.getColor(itemView.getContext(), R.color.soft_red),
@@ -73,15 +76,14 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
             };
 
             randomColor = colors[new Random().nextInt(colors.length)];
-
         }
 
-        public void onBind(IngredientFormatDTO ingredient){
-            title.setText(ingredient.getTitle());
-            measure.setText(ingredient.getMeasure());
+        public void onBind(IngredientsNamesResponseDTO.IngredientDTO ingredient){
+
+            title.setText(ingredient.getStrIngredient());
             card.setCardBackgroundColor(randomColor);
             Glide.with(itemView.getContext())
-                    .load(Consts.INGREDIENTS_IMAGES_URL+ingredient.getTitle()+".png")
+                    .load(Consts.INGREDIENTS_IMAGES_URL+ingredient.getStrIngredient()+".png")
                     .into(image);
         }
     }

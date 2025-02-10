@@ -22,6 +22,7 @@ public class SearchPresenter implements ISearchPresenter {
     public void getIngredientsNames() {
        Disposable d = remoteRepository.getIngredientsNames()
                 .subscribe(ingredientsNamesResponseDTO -> {
+                    view.showIngredients(ingredientsNamesResponseDTO.getMeals());
                 }, throwable -> {
                 });
        compositeDisposable.add(d);
@@ -40,7 +41,9 @@ public class SearchPresenter implements ISearchPresenter {
     public void getCategoriesNames() {
         Disposable d = remoteRepository.getCategoriesNames()
                 .subscribe(categoriesNamesResponseDTO -> {
+                    view.showCategoriesNames(categoriesNamesResponseDTO.getMeals());
                 }, throwable -> {
+
                 });
         compositeDisposable.add(d);
     }

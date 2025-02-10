@@ -1,6 +1,7 @@
 package com.abdok.chefscorner.Network;
 
 import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.Models.RandomMealsResponseDTO;
@@ -21,7 +22,7 @@ public interface RetroServices {
     Single<AreasNamesResponseDTO> getAreasNames();
 
     @GET("list.php?c=list")
-    Single<CategoryMealsResponseDTO> getCategoriesNames();
+    Single<CategoriesNamesResponseDTO> getCategoriesNames();
 
     @GET("filter.php")
     Single<CategoryMealsResponseDTO> getMealsByCategory(@Query("c") String category);

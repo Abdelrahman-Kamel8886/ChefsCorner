@@ -1,6 +1,7 @@
 package com.abdok.chefscorner.Repositories.Remote;
 
 import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.Models.MealDTO;
@@ -62,7 +63,7 @@ public class RemoteRepository implements IRemoteRepo{
     }
 
     @Override
-    public Single<CategoryMealsResponseDTO> getCategoriesNames() {
+    public Single<CategoriesNamesResponseDTO> getCategoriesNames() {
         return retroServices.getCategoriesNames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

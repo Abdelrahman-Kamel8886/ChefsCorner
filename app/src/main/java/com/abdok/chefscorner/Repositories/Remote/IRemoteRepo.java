@@ -1,6 +1,7 @@
 package com.abdok.chefscorner.Repositories.Remote;
 
 import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.Models.MealDTO;
@@ -17,7 +18,7 @@ public interface IRemoteRepo {
     Single<CategoryMealsResponseDTO> getCategoriesMeals(String category);
     Single<IngredientsNamesResponseDTO> getIngredientsNames();
     Single<AreasNamesResponseDTO> getAreasNames();
-    Single<CategoryMealsResponseDTO> getCategoriesNames();
+    Single<CategoriesNamesResponseDTO> getCategoriesNames();
 
 
 
