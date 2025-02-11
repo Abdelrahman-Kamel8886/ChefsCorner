@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_searchFragment_to_allIngredientsFragment"
             app:destination="@id/allIngredientsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_allMealsFragment"
+            app:destination="@id/allMealsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -69,5 +72,19 @@
         <argument
             android:name="IngredientsDTO"
             app:argType="com.abdok.chefscorner.Models.IngredientsNamesResponseDTO" />
+    </fragment>
+    <fragment
+        android:id="@+id/allMealsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Meal.AllMeals.View.AllMealsFragment"
+        android:label="AllMealsFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="com.abdok.chefscorner.Enums.SearchTypeEnum" />
+        <action
+            android:id="@+id/action_allMealsFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
     </fragment>
 </navigation>

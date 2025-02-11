@@ -3,7 +3,7 @@ package com.abdok.chefscorner.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryFlagMapper {
+public abstract class CountryFlagMapper {
 
     private static final Map<String, String> AREA_TO_COUNTRY_CODE = new HashMap<>();
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="12dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/soft_green"
+        android:id="@+id/imageCard"
+        >
+
+        <ImageView
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:src="@drawable/ko"
+            android:scaleType="fitXY"
+            android:id="@+id/mealImage"
+            />
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/mealTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_bold"
+        tools:text="Egyptian Koshary"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@id/imageCard"
+        app:layout_constraintEnd_toEndOf="@id/imageCard"
+        app:layout_constraintTop_toBottomOf="@id/imageCard"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

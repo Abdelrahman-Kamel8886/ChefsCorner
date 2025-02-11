@@ -7,15 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
 import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerCategoriesNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsNamesAdapter;
+import com.abdok.chefscorner.Enums.SearchTypeEnum;
 import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
@@ -76,6 +79,12 @@ public class SearchFragment extends Fragment implements ISearchView{
     public void showCategoriesNames(CategoriesNamesResponseDTO categoriesDTO) {
         categoriesNamesAdapter = new RecyclerCategoriesNamesAdapter(categoriesDTO.getMeals());
         binding.recyclerCategories.setAdapter(categoriesNamesAdapter);
+
+        categoriesNamesAdapter.setOnItemClickListener(category -> {
+            Navigation
+                    .findNavController(requireView())
+                    .navigate(SearchFragmentDirections.actionSearchFragmentToAllMealsFragment(category.getStrCategory() , SearchTypeEnum.CATEGORY));
+        });
 
     }
 

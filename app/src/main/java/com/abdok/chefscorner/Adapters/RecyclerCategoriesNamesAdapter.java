@@ -26,8 +26,14 @@ public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<Recycle
 
     private List<CategoriesNamesResponseDTO.CategoryNameDTO> list;
 
+    private onItemClickListener onItemClickListener;
+
     public RecyclerCategoriesNamesAdapter(List<CategoriesNamesResponseDTO.CategoryNameDTO> list) {
         this.list = new ArrayList<>(list);
+    }
+
+    public void setOnItemClickListener(RecyclerCategoriesNamesAdapter.onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -45,12 +51,12 @@ public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<Recycle
 
     @Override
     public int getItemCount() {
-        return list !=null? list.size() :0;
+        return list != null ? list.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title , measure;
+        TextView title, measure;
         ImageView image;
         MaterialCardView card;
 
@@ -62,11 +68,12 @@ public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<Recycle
 
 
         }
-        public void onBind(CategoriesNamesResponseDTO.CategoryNameDTO category){
+
+        public void onBind(CategoriesNamesResponseDTO.CategoryNameDTO category) {
 
             title.setText(category.getStrCategory());
-            String url = Consts.CATEGORIES_IMAGES_URL+category.getStrCategory()+".png";
-            if (category.getStrCategory().equals("Breakfast")){
+            String url = Consts.CATEGORIES_IMAGES_URL + category.getStrCategory() + ".png";
+            if (category.getStrCategory().equals("Breakfast")) {
                 url = "https://static.vecteezy.com/system/resources/previews/025/066/833/non_2x/breakfast-with-ai-generated-free-png.png";
             } else if (category.getStrCategory().equals("Goat")) {
                 url = "https://png.pngtree.com/png-clipart/20231002/original/pngtree-goat-curry-halal-food-png-image_13067728.png";
@@ -75,6 +82,13 @@ public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<Recycle
             Glide.with(itemView.getContext())
                     .load(url)
                     .into(image);
+
+            card.setOnClickListener(v -> onItemClickListener.onItemClick(category));
         }
     }
+
+    public interface onItemClickListener {
+        void onItemClick(CategoriesNamesResponseDTO.CategoryNameDTO category);
+    }
+
 }
