@@ -1,8 +1,9 @@
 package com.abdok.chefscorner.Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AreasNamesResponseDTO {
+public class AreasNamesResponseDTO implements Serializable {
 
 
     private List<AreaNameDTO> meals;
@@ -15,7 +16,7 @@ public class AreasNamesResponseDTO {
         this.meals = meals;
     }
 
-    public static class AreaNameDTO {
+    public static class AreaNameDTO  {
         private String strArea;
 
         public String getStrArea() {

@@ -35,4 +35,5 @@
     <string name="common_ingredients">Common Ingredients</string>
     <string name="view_all"><u>View All</u></string>
     <string name="most_popular_categories">Most Popular Categories</string>
+    <string name="search_by_ingredients">Search by Ingredients</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Details.Presenter;
+package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter;
 
 public interface IMealDetailsPresenter {
 

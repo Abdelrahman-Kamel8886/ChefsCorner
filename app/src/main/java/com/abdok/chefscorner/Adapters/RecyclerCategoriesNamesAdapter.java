@@ -19,14 +19,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<RecyclerCategoriesNamesAdapter.ViewHolder> {
 
-    private ArrayList<CategoriesNamesResponseDTO.CategoryNameDTO> list;
+    private List<CategoriesNamesResponseDTO.CategoryNameDTO> list;
 
-    public RecyclerCategoriesNamesAdapter(ArrayList<CategoriesNamesResponseDTO.CategoryNameDTO> list) {
-        this.list = list;
+    public RecyclerCategoriesNamesAdapter(List<CategoriesNamesResponseDTO.CategoryNameDTO> list) {
+        this.list = new ArrayList<>(list);
     }
 
     @NonNull
@@ -44,7 +45,7 @@ public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<Recycle
 
     @Override
     public int getItemCount() {
-        return list !=null? Math.min(list.size(), 10) :0;
+        return list !=null? list.size() :0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

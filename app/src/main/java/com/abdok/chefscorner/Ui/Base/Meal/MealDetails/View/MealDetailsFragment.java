@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Details.View;
+package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
 import com.abdok.chefscorner.Models.IngredientFormatDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.R;
-import com.abdok.chefscorner.Ui.Base.Details.Presenter.IMealDetailsPresenter;
-import com.abdok.chefscorner.Ui.Base.Details.Presenter.MealDetailsPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.IMealDetailsPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.MealDetailsPresenter;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.abdok.chefscorner.databinding.FragmentMealDetailsBinding;

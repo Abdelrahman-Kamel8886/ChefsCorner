@@ -1,8 +1,9 @@
 package com.abdok.chefscorner.Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class IngredientsNamesResponseDTO {
+public class IngredientsNamesResponseDTO implements Serializable {
 
 
     private List<IngredientDTO> meals;

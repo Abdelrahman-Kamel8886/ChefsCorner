@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Details.View;
+package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View;
 
 import com.abdok.chefscorner.Models.MealDTO;
 

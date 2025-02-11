@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="20dp"
-                app:cardCornerRadius="100dp"
+                app:cardCornerRadius="10dp"
                 app:strokeWidth="0dp"
                 app:cardElevation="5dp"
                 >
@@ -31,6 +31,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/searchView"
                     android:background="@color/white"
+                    android:queryBackground="@color/white"
+                    android:baselineAligned="false"
                     />
             </com.google.android.material.card.MaterialCardView>
 
@@ -73,7 +75,7 @@
                 android:id="@+id/categories_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/most_popular_categories"
                 android:textSize="18dp"
@@ -93,6 +95,47 @@
                 app:layout_constraintStart_toStartOf="@id/card_search"
                 app:layout_constraintEnd_toEndOf="@id/card_search"
                 android:id="@+id/recyclerCategories"
+                />
+
+            <TextView
+                android:id="@+id/area_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Explore Meals by Areas"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@id/card_search"
+                app:layout_constraintTop_toBottomOf="@id/recyclerCategories"/>
+
+            <TextView
+                android:id="@+id/see_all_areas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/view_all"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/card_search"
+                app:layout_constraintTop_toTopOf="@id/area_title"
+                app:layout_constraintBottom_toBottomOf="@id/area_title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/area_title"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                tools:itemCount="9"
+                android:layout_marginTop="20dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_area_name"
+                app:layout_constraintStart_toStartOf="@id/card_search"
+                app:layout_constraintEnd_toEndOf="@id/card_search"
+                android:id="@+id/recyclerarea"
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.abdok.chefscorner.Adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.IngredientFormatDTO;
+import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.Consts;
+import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 
@@ -22,41 +24,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<RecyclerIngredientsNamesAdapter.ViewHolder> {
+public class RecyclerAreaNamesAdapter extends RecyclerView.Adapter<RecyclerAreaNamesAdapter.ViewHolder> {
 
-    private List<IngredientsNamesResponseDTO.IngredientDTO> ingredients;
+    private List<AreasNamesResponseDTO.AreaNameDTO> list;
 
-    public RecyclerIngredientsNamesAdapter(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients) {
-        this.ingredients = new ArrayList<>(ingredients);
-    }
-
-    public void setIngredients(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients) {
-        this.ingredients = ingredients;
-        notifyDataSetChanged();
+    public RecyclerAreaNamesAdapter(List<AreasNamesResponseDTO.AreaNameDTO> list) {
+        this.list = new ArrayList<>(list);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredient_name, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_area_name, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(ingredients.get(position));
+        holder.onBind(list.get(position));
+        Log.i("TAGlll", "onBindViewHolder: "+position);
     }
 
     @Override
     public int getItemCount() {
-        return ingredients!=null? ingredients.size() :0;
+        return list !=null? list.size():0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title , measure;
-        ImageView image;
+        TextView title  , flag;
         MaterialCardView card;
         ConstraintLayout layout;
 
@@ -65,10 +62,11 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.ingredientTitle);
-            image = itemView.findViewById(R.id.ingredientImage);
+
+
+            title = itemView.findViewById(R.id.AreaTitle);
+            flag = itemView.findViewById(R.id.flag);
             card = itemView.findViewById(R.id.imageCard);
-            layout = itemView.findViewById(R.id.main);
 
             int[] colors = {
                     ContextCompat.getColor(itemView.getContext(), R.color.soft_red),
@@ -84,13 +82,12 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
             randomColor = colors[new Random().nextInt(colors.length)];
         }
 
-        public void onBind(IngredientsNamesResponseDTO.IngredientDTO ingredient){
-
-            title.setText(ingredient.getStrIngredient());
+        public void onBind(AreasNamesResponseDTO.AreaNameDTO areaName){
+            String name = areaName.getStrArea();
+            Log.i("TAGlll", "ViewHolder: "+name);
+            title.setText(name);
             card.setCardBackgroundColor(randomColor);
-            Glide.with(itemView.getContext())
-                    .load(Consts.INGREDIENTS_IMAGES_URL+ingredient.getStrIngredient()+".png")
-                    .into(image);
+            flag.setText(CountryFlagMapper.getFlagEmoji(name));
         }
     }
 }

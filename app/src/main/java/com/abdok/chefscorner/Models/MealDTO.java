@@ -492,7 +492,6 @@ public class MealDTO implements Serializable {
 
     public ArrayList<IngredientFormatDTO> getIngredients(){
         ArrayList<IngredientFormatDTO> ingredients = new ArrayList<>();
-
         addIngredients(ingredients,getStrIngredient1(),getStrMeasure1());
         addIngredients(ingredients,getStrIngredient2(),getStrMeasure2());
         addIngredients(ingredients,getStrIngredient3(),getStrMeasure3());
@@ -513,7 +512,6 @@ public class MealDTO implements Serializable {
         addIngredients(ingredients,getStrIngredient18(),getStrMeasure18());
         addIngredients(ingredients,getStrIngredient19(),getStrMeasure19());
         addIngredients(ingredients,getStrIngredient20(),getStrMeasure20());
-
         return ingredients;
     }
 }
