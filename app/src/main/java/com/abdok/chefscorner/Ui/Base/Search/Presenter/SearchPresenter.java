@@ -5,8 +5,9 @@ import android.util.Log;
 import com.abdok.chefscorner.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Search.View.ISearchView;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 public class SearchPresenter implements ISearchPresenter {
 

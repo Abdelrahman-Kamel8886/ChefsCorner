@@ -4,10 +4,11 @@ import com.abdok.chefscorner.Models.RandomMealsResponseDTO;
 import com.abdok.chefscorner.Network.RetroConnection;
 import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View.IMealDetailsView;
 
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 public class MealDetailsPresenter implements IMealDetailsPresenter {
 

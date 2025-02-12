@@ -4,8 +4,9 @@ import com.abdok.chefscorner.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.View.IAllMealsView;
 import com.abdok.chefscorner.Utils.SharedModel;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 public class AllMealsPresenter implements IAllMealsPresenter{
 

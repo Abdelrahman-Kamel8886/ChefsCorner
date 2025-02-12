@@ -20,7 +20,7 @@
         app:layout_constraintWidth_percent="0.5"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/splash_animation"
+        app:lottie_rawRes="@raw/pizza"
         />
 
 
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/app_name"
         android:layout_margin="20dp"
-        android:textColor="@color/gainsboro"
+        android:textColor="@color/white"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

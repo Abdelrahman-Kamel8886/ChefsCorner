@@ -5,7 +5,8 @@ import com.abdok.chefscorner.Ui.Base.Ingredients.Veiw.IAllIngredientsView;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 public class AllIngredientsPresenter implements IAllIngredientsPresenter{
 

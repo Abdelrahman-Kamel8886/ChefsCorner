@@ -16,12 +16,13 @@ import android.view.ViewGroup;
 import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
 import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.databinding.FragmentSplashBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SplashFragment extends Fragment {
-
-    private static final int SPLASH_TIME_OUT = 3000;
+    FragmentSplashBinding binding;
+    private static final int SPLASH_TIME_OUT = 4000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding = FragmentSplashBinding.bind(view);
+        binding.splashImage.setSpeed(1.8f);
         delay();
     }
 

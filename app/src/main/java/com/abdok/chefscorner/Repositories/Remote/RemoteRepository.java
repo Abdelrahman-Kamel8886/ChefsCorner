@@ -9,12 +9,11 @@ import com.abdok.chefscorner.Models.RandomMealsResponseDTO;
 import com.abdok.chefscorner.Network.RetroConnection;
 import com.abdok.chefscorner.Network.RetroServices;
 
-import java.util.ArrayList;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class RemoteRepository implements IRemoteRepo{
 

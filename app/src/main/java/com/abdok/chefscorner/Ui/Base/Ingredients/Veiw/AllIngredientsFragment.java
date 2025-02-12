@@ -22,7 +22,6 @@ import com.abdok.chefscorner.databinding.FragmentAllIngredientsBinding;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 
 
 public class AllIngredientsFragment extends Fragment implements IAllIngredientsView {

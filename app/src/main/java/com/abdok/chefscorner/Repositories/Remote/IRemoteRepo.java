@@ -4,13 +4,11 @@ import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
-import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Models.RandomMealsResponseDTO;
 
-import java.util.ArrayList;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
 
 public interface IRemoteRepo {
 
