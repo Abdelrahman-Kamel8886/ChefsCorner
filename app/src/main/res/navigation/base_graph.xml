@@ -91,6 +91,7 @@
             app:argType="com.abdok.chefscorner.Enums.SearchTypeEnum" />
         <action
             android:id="@+id/action_allMealsFragment_to_mealDetailsFragment"
-            app:destination="@id/mealDetailsFragment" />
+            app:destination="@id/mealDetailsFragment"
+            />
     </fragment>
 </navigation>

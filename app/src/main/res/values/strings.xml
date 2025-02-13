@@ -36,4 +36,5 @@
     <string name="view_all"><u>View All</u></string>
     <string name="most_popular_categories">Most Popular Categories</string>
     <string name="search_by_ingredients">Search by Ingredients</string>
+    <string name="explore_meals_by_areas">Explore Meals by Areas</string>
 </resources>

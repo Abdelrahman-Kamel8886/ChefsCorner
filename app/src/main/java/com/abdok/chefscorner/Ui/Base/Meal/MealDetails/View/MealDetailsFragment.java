@@ -61,6 +61,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
             InitData(mealDTO);
         }
         else {
+            binding.loadingLayout.setVisibility(View.VISIBLE);
             presenter.getMealDetails(id);
         }
 
@@ -69,6 +70,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
 
     @Override
     public void InitData(MealDTO mealDTO) {
+        showMainView();
         Glide.with(requireContext()).load(mealDTO.getStrMealThumb()).placeholder(R.drawable.load).into(binding.image);
         binding.mealTitle.setText(mealDTO.getStrMeal());
         binding.mealCategory.setText(mealDTO.getStrArea()+" "+ mealDTO.getStrCategory()+" "+CountryFlagMapper.getFlagEmoji(mealDTO.getStrArea()));
@@ -124,6 +126,12 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
 
     private void onClicks(){
         binding.backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+    }
+
+    private void showMainView(){
+        binding.loadingLayout.setVisibility(View.GONE);
+        binding.mainLayout.setVisibility(View.VISIBLE);
+
     }
 
     @Override

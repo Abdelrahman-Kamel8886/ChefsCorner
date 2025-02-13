@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,10 +47,8 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
         presenter = new AllMealsPresenter(this);
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.hideBottomNav();
-
         String title = AllMealsFragmentArgs.fromBundle(getArguments()).getTitle();
         SearchTypeEnum type = AllMealsFragmentArgs.fromBundle(getArguments()).getType();
-
         initView(title,type);
     }
 
@@ -63,6 +62,7 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     public void showMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
         adapter = new RecyclerAllMealAdapter(meals);
         binding.recyclerview.setAdapter(adapter);
+        showMainView();
         onClicks();
     }
 
@@ -88,20 +88,33 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
         });
     }
 
+    private void showMainView(){
+        binding.loadingLayout.setVisibility(View.GONE);
+        binding.viewGroup.setVisibility(View.VISIBLE);
+    }
+
     private void navigateToDetails(int id){
         Navigation.findNavController(requireView()).navigate(AllMealsFragmentDirections.actionAllMealsFragmentToMealDetailsFragment(id,null));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("TAGMeals", "onResume: ");
     }
 
     @Override
     public void onStop() {
         super.onStop();
         presenter.clearDisposable();
+        Log.i("TAGMeals", "onStop: ");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        Log.i("TAGMeals", "onDestroyView: ");
     }
 
 }
