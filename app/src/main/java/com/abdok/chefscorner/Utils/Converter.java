@@ -1,5 +1,8 @@
 package com.abdok.chefscorner.Utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.room.TypeConverter;
 
 import com.abdok.chefscorner.Data.Models.DateDTO;
@@ -7,6 +10,8 @@ import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.ByteArrayOutputStream;
 
 public class Converter {
 
@@ -39,5 +44,4 @@ public class Converter {
     public static MealDTO toMealDTO(String mealString) {
         return mealString == null ? null : gson.fromJson(mealString, new TypeToken<MealDTO>() {}.getType());
     }
-
 }

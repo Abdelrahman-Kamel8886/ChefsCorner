@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/planFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Plan.PlanFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Plan.View.PlanFragment"
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" />
     <fragment

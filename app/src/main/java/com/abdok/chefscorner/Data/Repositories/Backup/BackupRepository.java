@@ -1,5 +1,8 @@
 package com.abdok.chefscorner.Data.Repositories.Backup;
 
+import android.graphics.Bitmap;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.DataSources.Local.Room.LocalDataBase;
@@ -18,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -53,15 +57,17 @@ public class BackupRepository implements IBackupRepo {
     @Override
     public void savePlanMealToFirebase(MealDTO meal , DateDTO date) {
         String id = sharedPrefHelper.getUser().getId();
-        PlanMealDto local = new PlanMealDto(id,date,meal);
-        local.setMealId(meal.getIdMeal());
+        //Bitmap bitmap = meal.getBitmap();
 
         PlanMealDto planMealDto = new PlanMealDto(id,date,meal);
         planMealDto.setMealId(meal.getIdMeal());
-        planMealDto.getMeal().setBitmap(null);
+        //planMealDto.getMeal().setBitmap(null);
 
         firebaseRealtimeDataSource.savePlanMeal(planMealDto)
-                .addOnSuccessListener(unused -> savePlanMealToLocal(planMealDto))
+                .addOnSuccessListener(unused ->{
+                   // planMealDto.getMeal().setBitmap(bitmap);
+                    savePlanMealToLocal(planMealDto);
+                } )
                 .addOnFailureListener(e -> {callback.onFailure(e.getMessage());});
     }
 
@@ -99,9 +105,16 @@ public class BackupRepository implements IBackupRepo {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> callback.onSuccess("Meal saved successfully"),
+                        () -> callback.onSuccess("Meal saved successfully to your plan"),
                         throwable -> callback.onFailure(throwable.getMessage())
                 );
+    }
+
+    @Override
+    public Single<List<PlanMealDto> >getLocalPlanMeals(DateDTO dateDTO, String id) {
+        return mealDao.getAllMeals(dateDTO,id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 

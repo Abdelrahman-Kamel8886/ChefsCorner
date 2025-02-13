@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Plan;
+package com.abdok.chefscorner.Ui.Base.Plan.View;
 
 import android.os.Bundle;
 
@@ -14,8 +14,11 @@ import com.abdok.chefscorner.Adapters.RecyclerDatesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerPlanMealAdapter;
 import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
+import com.abdok.chefscorner.Ui.Base.Plan.Presenter.IPlanPresenter;
+import com.abdok.chefscorner.Ui.Base.Plan.Presenter.PlanPresenter;
 import com.abdok.chefscorner.Utils.Helpers.WeekHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentPlanBinding;
@@ -24,12 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlanFragment extends Fragment {
+public class PlanFragment extends Fragment implements IPlanView {
 
     FragmentPlanBinding binding;
     RecyclerDatesAdapter datesAdapter;
     List<DateDTO> datesList;
     RecyclerPlanMealAdapter planMealAdapter;
+
+    IPlanPresenter presenter;
 
     IBaseView baseView;
 
@@ -44,12 +49,10 @@ public class PlanFragment extends Fragment {
         binding = FragmentPlanBinding.bind(view);
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.showMainView();
-
+        presenter = new PlanPresenter(this);
         datesList = new ArrayList(WeekHelper.getCurrentWeek());
         planMealAdapter = new RecyclerPlanMealAdapter();
         binding.recyclerPlan.setAdapter(planMealAdapter);
-
-
         initView();
     }
 
@@ -59,25 +62,21 @@ public class PlanFragment extends Fragment {
         binding.recyclerDates.setAdapter(datesAdapter);
         datesAdapter.setOnDateClickListener(dateDTO -> {
             binding.selectedDay.setText(dateDTO.getDay()+" , "+dateDTO.getDate());
-
-            if(dateDTO.getDay().equals("Sat") || dateDTO.getDay().equals("Sun")){
-                binding.planGroup.setVisibility(View.VISIBLE);
-                binding.emptyGroup.setVisibility(View.GONE);
-            }
-            else {
-                binding.planGroup.setVisibility(View.GONE);
-                binding.emptyGroup.setVisibility(View.VISIBLE);
-            }
-
-
-
+            presenter.getMeals(SharedModel.getUser().getId(), dateDTO);
         });
-        showMeals(SharedModel.getBreakfastMeals());
-
     }
+    @Override
+    public void showMeals(List<PlanMealDto> meals) {
+        if (meals.size()==0){
+            binding.emptyGroup.setVisibility(View.VISIBLE);
+            binding.planGroup.setVisibility(View.GONE);
+        }
+        else{
+            binding.emptyGroup.setVisibility(View.GONE);
+            binding.planGroup.setVisibility(View.VISIBLE);
+            planMealAdapter.setMeals(meals);
+        }
 
-    private void showMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
-        planMealAdapter.setMeals(meals);
     }
 
     @Override

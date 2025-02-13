@@ -23,8 +23,7 @@ public class PlanMealDto implements Serializable {
         this.meal = meal;
     }
 
-    public PlanMealDto() {
-    }
+    public PlanMealDto() {}
 
     public String getId() {
         return id;

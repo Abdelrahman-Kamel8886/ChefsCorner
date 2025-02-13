@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Utils.Helpers.BitmapHelper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -87,7 +88,8 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             image.setImageBitmap(resource);
                             Bitmap retrievedBitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                            mealDTO.setBitmap(retrievedBitmap);
+                            String base64String = BitmapHelper.saveBitmapToBase64(retrievedBitmap);
+                            mealDTO.setBitmapBase64(base64String);
                         }
 
                         @Override
@@ -95,6 +97,7 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
 
                         }
                     });
+
         }
     }
     public interface onItemClickListener{
