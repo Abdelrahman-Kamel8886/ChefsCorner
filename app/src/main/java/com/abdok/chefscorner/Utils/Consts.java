@@ -6,6 +6,4 @@ public class Consts {
     public static final String INGREDIENTS_IMAGES_URL = "https://www.themealdb.com/images/ingredients/";
     public static final String CATEGORIES_IMAGES_URL = "https://www.themealdb.com/images/category/";
     public static final String RECIPES_IMAGES_URL = "https://www.themealdb.com/images/media/meals/";
-
-
 }

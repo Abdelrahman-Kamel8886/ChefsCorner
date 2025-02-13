@@ -15,7 +15,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Ready to plan \nyour week?"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -32,51 +32,93 @@
         app:lottie_rawRes="@raw/plan"
         />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDates"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.12"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/lottie_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardBackgroundColor="@color/mainColor"
-        android:layout_margin="40dp"
-        android:id="@+id/dayBtn1"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        tools:itemCount="7"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginBottom="40dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_date"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:paddingBottom="10dp"
-            android:background="#191E1D"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/selectedDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Wed , 12 Feb 2025"
+        android:paddingHorizontal="10dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/recyclerDates"
+        app:layout_constraintTop_toBottomOf="@id/recyclerDates"/>
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="27"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"
-                android:textSize="18sp"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-            <TextView
-                android:id="@+id/day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tue"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"
-                app:layout_constraintTop_toBottomOf="@id/date"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:background="#191E1D"
-                />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPlan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/recyclerDates"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/selectedDay"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/item_meal"
+        />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/planGroup"
+        app:constraint_referenced_ids="recyclerPlan,selectedDay"
+        android:visibility="gone"
+        />
 
-    </com.google.android.material.card.MaterialCardView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/empty_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintStart_toStartOf="@id/recyclerDates"
+        app:layout_constraintEnd_toEndOf="@id/recyclerDates"
+        app:layout_constraintTop_toBottomOf="@id/recyclerDates"
+        app:layout_constraintWidth_percent="0.5"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/empty"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/emptytxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="!! You have no plan to this day"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/empty_image"
+        app:layout_constraintEnd_toEndOf="@id/empty_image"
+        app:layout_constraintTop_toBottomOf="@id/empty_image"/>
+
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyGroup"
+        app:constraint_referenced_ids="empty_image,emptytxt"
+        android:visibility="gone"
+        />
+
+
+
+
 
 
 

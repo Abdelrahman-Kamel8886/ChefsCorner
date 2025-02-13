@@ -5,5 +5,6 @@ public interface IHomePresenter {
     void getRandomMeals();
     void getBreakFastMeals();
     void getDesertMeals();
+    void clearDisposable();
 
 }

@@ -28,9 +28,22 @@ public class RecyclerAreaNamesAdapter extends RecyclerView.Adapter<RecyclerAreaN
 
     private List<AreasNamesResponseDTO.AreaNameDTO> list;
 
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public RecyclerAreaNamesAdapter(List<AreasNamesResponseDTO.AreaNameDTO> list) {
         this.list = new ArrayList<>(list);
     }
+
+    public void setAreas(List<AreasNamesResponseDTO.AreaNameDTO> areas){
+        this.list = areas;
+        notifyDataSetChanged();
+    }
+
+
 
     @NonNull
     @Override
@@ -84,10 +97,16 @@ public class RecyclerAreaNamesAdapter extends RecyclerView.Adapter<RecyclerAreaN
 
         public void onBind(AreasNamesResponseDTO.AreaNameDTO areaName){
             String name = areaName.getStrArea();
-            Log.i("TAGlll", "ViewHolder: "+name);
             title.setText(name);
             card.setCardBackgroundColor(randomColor);
             flag.setText(CountryFlagMapper.getFlagEmoji(name));
+            itemView.setOnClickListener(v -> {
+                listener.onItemClick(name);
+            });
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(String areaName);
     }
 }

@@ -34,5 +34,7 @@
     <color name="soft_pink">#FFC6FF</color>
     <color name="brown">#A9411D</color>
     <color name="black_alpha_40">#66000000</color>
+    <color name="DeepNavy">#000040</color>
+    <color name="ForestGreen">#388E3C</color>
 
 </resources>

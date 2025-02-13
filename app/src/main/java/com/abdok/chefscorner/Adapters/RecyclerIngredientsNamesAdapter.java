@@ -26,6 +26,12 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
 
     private List<IngredientsNamesResponseDTO.IngredientDTO> ingredients;
 
+    private RecyclerAreaNamesAdapter.OnItemClickListener listener;
+
+    public void setListener(RecyclerAreaNamesAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public RecyclerIngredientsNamesAdapter(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients) {
         this.ingredients = new ArrayList<>(ingredients);
     }
@@ -91,6 +97,10 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
             Glide.with(itemView.getContext())
                     .load(Consts.INGREDIENTS_IMAGES_URL+ingredient.getStrIngredient()+".png")
                     .into(image);
+            itemView.setOnClickListener(v -> listener.onItemClick(ingredient.getStrIngredient()));
         }
+    }
+    public interface OnItemClickListener{
+        void onItemClick(String name);
     }
 }

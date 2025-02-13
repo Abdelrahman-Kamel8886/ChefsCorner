@@ -23,6 +23,12 @@ public class RecyclerIngredientsAdapter extends RecyclerView.Adapter<RecyclerIng
 
     private ArrayList<IngredientFormatDTO> ingredients;
 
+    private RecyclerAreaNamesAdapter.OnItemClickListener listener;
+
+    public void setListener(RecyclerAreaNamesAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public RecyclerIngredientsAdapter(ArrayList<IngredientFormatDTO> ingredients) {
         this.ingredients = ingredients;
     }
@@ -83,6 +89,10 @@ public class RecyclerIngredientsAdapter extends RecyclerView.Adapter<RecyclerIng
             Glide.with(itemView.getContext())
                     .load(Consts.INGREDIENTS_IMAGES_URL+ingredient.getTitle()+".png")
                     .into(image);
+            itemView.setOnClickListener(v -> listener.onItemClick(ingredient.getTitle()));
         }
+    }
+    public interface OnItemClickListener{
+        void onItemClick(String name);
     }
 }

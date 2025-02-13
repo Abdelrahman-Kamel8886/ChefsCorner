@@ -1,5 +1,7 @@
 package com.abdok.chefscorner.Ui.Base.Home;
 
+import static io.reactivex.rxjava3.internal.disposables.DisposableHelper.dispose;
+
 import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.Models.MealDTO;
@@ -15,6 +17,8 @@ import org.reactivestreams.Subscription;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
@@ -38,22 +42,15 @@ public class HomePresenter implements IHomePresenter {
 
     @Override
     public void getRandomMeals() {
-        ArrayList<MealDTO> myMeals = new ArrayList<>();
         Disposable disposable = remoteRepository.getRandomMeals()
-                .subscribe(
-                        randomMealsResponseDTO -> {
-                            myMeals.addAll(randomMealsResponseDTO.getMeals());
-
-                        },
-                        throwable -> {
-                            view.showToast(throwable.getMessage());
-                        },
-                        () -> {
-                            SharedModel.setRandomMeals(myMeals);
+                .subscribe(meals -> {
+                            SharedModel.setRandomMeals((ArrayList<MealDTO>) meals);
                             getBreakFastMeals();
+                        }, throwable -> {
+                            view.showToast(throwable.getMessage());
                         }
-
                 );
+
         compositeDisposable.add(disposable);
     }
 
@@ -81,7 +78,6 @@ public class HomePresenter implements IHomePresenter {
                         categoryMealsResponseDTO -> {
                             SharedModel.setDesertMeals(categoryMealsResponseDTO.getMeals());
                             view.initView();
-                            clearDisposable();
                         },
                         throwable -> {
                             view.showToast(throwable.getMessage());
@@ -90,8 +86,9 @@ public class HomePresenter implements IHomePresenter {
                 );
         compositeDisposable.add(dessert);
     }
-
-    private void clearDisposable() {
+    @Override
+    public void clearDisposable() {
+        compositeDisposable.dispose();
         compositeDisposable.clear();
     }
 

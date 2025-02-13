@@ -19,7 +19,6 @@ public class AllIngredientsPresenter implements IAllIngredientsPresenter{
         this.view = view;
     }
 
-
     @Override
     public void search(String query) {
         Observable<IngredientsNamesResponseDTO.IngredientDTO> observable = Observable.fromIterable(ingredientsList);

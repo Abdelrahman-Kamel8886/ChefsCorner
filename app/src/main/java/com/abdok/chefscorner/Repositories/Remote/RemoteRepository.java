@@ -9,9 +9,14 @@ import com.abdok.chefscorner.Models.RandomMealsResponseDTO;
 import com.abdok.chefscorner.Network.RetroConnection;
 import com.abdok.chefscorner.Network.RetroServices;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -33,10 +38,21 @@ public class RemoteRepository implements IRemoteRepo{
     }
 
     @Override
-    public Flowable<RandomMealsResponseDTO> getRandomMeals() {
+    public Single<List<MealDTO>> getRandomMeals() {
         return retroServices.getRandomMeal()
                 .repeat(10)
+                .flatMapIterable(x->x.getMeals())
                 .subscribeOn(Schedulers.io())
+                .toList()
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<MealDTO> getMealDetails(int id) {
+        return retroServices
+                .getMealDetails(id)
+                .subscribeOn(Schedulers.io())
+                .map(item -> item.getMeals().get(0))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -46,6 +62,21 @@ public class RemoteRepository implements IRemoteRepo{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public Single<CategoryMealsResponseDTO> getIngredientsMeals(String ingredient) {
+        return retroServices.getMealsByIngredient(ingredient)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<CategoryMealsResponseDTO> getAreaMeals(String area) {
+        return retroServices.getMealsByArea(area)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
     @Override
     public Single<IngredientsNamesResponseDTO> getIngredientsNames() {

@@ -54,11 +54,7 @@ public class HomeFragment extends Fragment implements IHomeView {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+
 
     @Override
     public void initView() {
@@ -106,8 +102,6 @@ public class HomeFragment extends Fragment implements IHomeView {
         desertAdapter.setOnItemClickListener(this::onItemClick);
     }
 
-
-
     private void onItemClick(int id){
         navigateToDetails(id , null);
     }
@@ -121,6 +115,14 @@ public class HomeFragment extends Fragment implements IHomeView {
         Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(id,mealDTO));
     }
 
-
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.clearDisposable();
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

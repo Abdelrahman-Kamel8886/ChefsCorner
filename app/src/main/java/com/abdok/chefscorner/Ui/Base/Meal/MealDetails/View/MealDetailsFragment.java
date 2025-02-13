@@ -127,6 +127,12 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        presenter.clearDisposable();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;

@@ -27,6 +27,12 @@ public interface RetroServices {
     @GET("filter.php")
     Single<CategoryMealsResponseDTO> getMealsByCategory(@Query("c") String category);
 
+    @GET("filter.php")
+    Single<CategoryMealsResponseDTO> getMealsByIngredient(@Query("i") String ingredient);
+
+    @GET("filter.php")
+    Single<CategoryMealsResponseDTO> getMealsByArea(@Query("a") String area);
+
 
     @GET("lookup.php")
     Single<RandomMealsResponseDTO> getMealDetails(@Query("i") int id);

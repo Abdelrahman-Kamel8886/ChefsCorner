@@ -72,6 +72,12 @@ public class SearchFragment extends Fragment implements ISearchView{
         binding.seeAllIngredients.setOnClickListener(v -> {
             Navigation.findNavController(requireView()).navigate(SearchFragmentDirections.actionSearchFragmentToAllIngredientsFragment(ingredientsDTO));
         });
+        ingredientsNamesAdapter.setListener(name -> {
+            Navigation
+                    .findNavController(requireView())
+                    .navigate(SearchFragmentDirections
+                            .actionSearchFragmentToAllMealsFragment(name , SearchTypeEnum.INGREDIENT));
+        });
 
     }
 
@@ -94,6 +100,12 @@ public class SearchFragment extends Fragment implements ISearchView{
         binding.recyclerarea.setAdapter(areasNamesAdapter);
         binding.seeAllAreas.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(SearchFragmentDirections.actionSearchFragmentToAreasFragment(areaDTO));
+        });
+        areasNamesAdapter.setListener(areaName -> {
+            Navigation
+                    .findNavController(requireView())
+                    .navigate(SearchFragmentDirections
+                            .actionSearchFragmentToAllMealsFragment(areaName , SearchTypeEnum.AREA));
         });
     }
 

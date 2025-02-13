@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.abdok.chefscorner.Adapters.RecyclerAllMealAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
@@ -53,28 +54,54 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     }
 
     private void initView(String title, SearchTypeEnum type){
-        presenter.getCategoriesMeals(title);
-        binding.title.setText(title+" Category");
-        binding.backBtn.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
+        binding.title.setText(title+" "+type.getValue());
+        presenter.getMeals(title,type);
+    }
+
+
+    @Override
+    public void showMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
+        adapter = new RecyclerAllMealAdapter(meals);
+        binding.recyclerview.setAdapter(adapter);
+        onClicks();
+    }
+
+    @Override
+    public void filterData(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
+        adapter.setMeals(meals);
+    }
+
+    private void onClicks(){
+        adapter.setOnItemClickListener(id ->navigateToDetails(id));
+        binding.backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                presenter.search(newText);
+                return false;
+            }
         });
+    }
+
+    private void navigateToDetails(int id){
+        Navigation.findNavController(requireView()).navigate(AllMealsFragmentDirections.actionAllMealsFragmentToMealDetailsFragment(id,null));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.clearDisposable();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void showMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
-        adapter = new RecyclerAllMealAdapter(meals);
-        binding.recyclerview.setAdapter(adapter);
-        adapter.setOnItemClickListener(id ->navigateToDetails(id));
-    }
-
-    private void navigateToDetails(int id){
-        Navigation.findNavController(requireView()).navigate(AllMealsFragmentDirections.actionAllMealsFragmentToMealDetailsFragment(id,null));
     }
 
 }

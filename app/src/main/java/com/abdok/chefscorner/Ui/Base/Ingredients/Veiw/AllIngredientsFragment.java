@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsNamesAdapter;
+import com.abdok.chefscorner.Enums.SearchTypeEnum;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
@@ -21,7 +22,6 @@ import com.abdok.chefscorner.Ui.Base.Ingredients.Presenter.IAllIngredientsPresen
 import com.abdok.chefscorner.databinding.FragmentAllIngredientsBinding;
 
 import java.util.List;
-
 
 
 public class AllIngredientsFragment extends Fragment implements IAllIngredientsView {
@@ -43,22 +43,22 @@ public class AllIngredientsFragment extends Fragment implements IAllIngredientsV
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.hideBottomNav();
         IngredientsNamesResponseDTO dto = AllIngredientsFragmentArgs.fromBundle(getArguments()).getIngredientsDTO();
-        presenter = new AllIngredientsPresenter(this,dto.getMeals());
+        presenter = new AllIngredientsPresenter(this, dto.getMeals());
         initView(dto.getMeals());
 
     }
 
-    private void initView(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients){
+    private void initView(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients) {
         adapter = new RecyclerIngredientsNamesAdapter(ingredients);
         binding.recyclerview.setAdapter(adapter);
+
         onClicks();
     }
 
 
-    private void onClicks(){
-        binding.backBtn.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
-        });
+    private void onClicks() {
+        adapter.setListener(ingredient -> navigateToDetails(ingredient));
+        binding.backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -75,8 +75,14 @@ public class AllIngredientsFragment extends Fragment implements IAllIngredientsV
 
 
     @Override
-    public void filterData(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients){
+    public void filterData(List<IngredientsNamesResponseDTO.IngredientDTO> ingredients) {
         adapter.setIngredients(ingredients);
+    }
+
+    private void navigateToDetails(String name) {
+        Navigation
+                .findNavController(requireView()).navigate(AllIngredientsFragmentDirections
+                        .actionAllIngredientsFragmentToAllMealsFragment(name, SearchTypeEnum.INGREDIENT));
     }
 
     @Override

@@ -14,33 +14,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
-public class RecyclerAllMealAdapter extends RecyclerView.Adapter<RecyclerAllMealAdapter.ViewHolder> {
+public class RecyclerPlanMealAdapter extends RecyclerView.Adapter<RecyclerPlanMealAdapter.ViewHolder> {
 
     private List<CategoryMealsResponseDTO.CategoryMealDTO> meals;
 
     private onItemClickListener listener;
 
-    public RecyclerAllMealAdapter(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
+    public RecyclerPlanMealAdapter() {
         this.meals = meals;
     }
 
-    public void setOnItemClickListener(onItemClickListener listener){
-        this.listener = listener;
-    }
 
     public void setMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
         this.meals = meals;
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(onItemClickListener listener){
+        this.listener = listener;
+    }
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meal_big, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meal, parent, false);
         ViewHolder holder = new ViewHolder(view);
         Log.i("RecyclerAdapter", "onCreateViewHolder called");
         return holder;
