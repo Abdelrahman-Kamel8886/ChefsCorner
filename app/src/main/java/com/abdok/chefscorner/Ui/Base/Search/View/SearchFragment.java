@@ -1,19 +1,15 @@
 package com.abdok.chefscorner.Ui.Base.Search.View;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 
 import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerCategoriesNamesAdapter;
@@ -27,9 +23,6 @@ import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Search.Presenter.ISearchPresenter;
 import com.abdok.chefscorner.Ui.Base.Search.Presenter.SearchPresenter;
 import com.abdok.chefscorner.databinding.FragmentSearchBinding;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class SearchFragment extends Fragment implements ISearchView{
@@ -55,8 +48,61 @@ public class SearchFragment extends Fragment implements ISearchView{
 
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.showMainView();
+    }
 
-        onClicks();
+
+
+    @Override
+    public void showIngredients(IngredientsNamesResponseDTO ingredientsDTO) {
+        ingredientsNamesAdapter = new RecyclerIngredientsNamesAdapter(ingredientsDTO.getMeals().subList(0,10));
+        binding.recyclerIngredients.setAdapter(ingredientsNamesAdapter);
+        ingredientsNamesAdapter.setListener(name -> navigateToIngredientsAllMeals(name));
+        binding.seeAllIngredients.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(SearchFragmentDirections.actionSearchFragmentToAllIngredientsFragment(ingredientsDTO));
+        });
+    }
+
+    @Override
+    public void showCategoriesNames(CategoriesNamesResponseDTO categoriesDTO) {
+        categoriesNamesAdapter = new RecyclerCategoriesNamesAdapter(categoriesDTO.getMeals());
+        binding.recyclerCategories.setAdapter(categoriesNamesAdapter);
+        categoriesNamesAdapter.setOnItemClickListener(category -> navigateToCategoriesAllMeals(category.getStrCategory()));
+    }
+
+    @Override
+    public void showAreaNames(AreasNamesResponseDTO areaDTO) {
+        areasNamesAdapter = new RecyclerAreaNamesAdapter(areaDTO.getMeals().subList(0,9));
+        binding.recyclerarea.setAdapter(areasNamesAdapter);
+        areasNamesAdapter.setListener(areaName -> navigateToAreaMeals(areaName));
+        binding.seeAllAreas.setOnClickListener(v -> {Navigation.findNavController(v).
+                navigate(SearchFragmentDirections.actionSearchFragmentToAreasFragment(areaDTO));
+        });
+        showMainView();
+    }
+
+    private void showMainView(){
+        binding.loadingLayout.setVisibility(View.GONE);
+        binding.mainView.setVisibility(View.VISIBLE);
+    }
+
+
+    private void navigateToAreaMeals(String areaName){
+        Navigation
+                .findNavController(requireView())
+                .navigate(SearchFragmentDirections
+                        .actionSearchFragmentToAllMealsFragment(areaName , SearchTypeEnum.AREA));
+    }
+    private void navigateToIngredientsAllMeals(String ingredientName){
+        Navigation
+                .findNavController(requireView())
+                .navigate(SearchFragmentDirections
+                        .actionSearchFragmentToAllMealsFragment(ingredientName , SearchTypeEnum.INGREDIENT));
+
+    }
+    private void navigateToCategoriesAllMeals(String categoryName){
+        Navigation
+                .findNavController(requireView())
+                .navigate(SearchFragmentDirections.actionSearchFragmentToAllMealsFragment(categoryName , SearchTypeEnum.CATEGORY));
     }
 
     @Override
@@ -65,56 +111,5 @@ public class SearchFragment extends Fragment implements ISearchView{
         binding = null;
     }
 
-    @Override
-    public void showIngredients(IngredientsNamesResponseDTO ingredientsDTO) {
-        ingredientsNamesAdapter = new RecyclerIngredientsNamesAdapter(ingredientsDTO.getMeals().subList(0,10));
-        binding.recyclerIngredients.setAdapter(ingredientsNamesAdapter);
-        binding.seeAllIngredients.setOnClickListener(v -> {
-            Navigation.findNavController(requireView()).navigate(SearchFragmentDirections.actionSearchFragmentToAllIngredientsFragment(ingredientsDTO));
-        });
-        ingredientsNamesAdapter.setListener(name -> {
-            Navigation
-                    .findNavController(requireView())
-                    .navigate(SearchFragmentDirections
-                            .actionSearchFragmentToAllMealsFragment(name , SearchTypeEnum.INGREDIENT));
-        });
-
-    }
-
-    @Override
-    public void showCategoriesNames(CategoriesNamesResponseDTO categoriesDTO) {
-        categoriesNamesAdapter = new RecyclerCategoriesNamesAdapter(categoriesDTO.getMeals());
-        binding.recyclerCategories.setAdapter(categoriesNamesAdapter);
-
-        categoriesNamesAdapter.setOnItemClickListener(category -> {
-            Navigation
-                    .findNavController(requireView())
-                    .navigate(SearchFragmentDirections.actionSearchFragmentToAllMealsFragment(category.getStrCategory() , SearchTypeEnum.CATEGORY));
-        });
-
-    }
-
-    @Override
-    public void showAreaNames(AreasNamesResponseDTO areaDTO) {
-        areasNamesAdapter = new RecyclerAreaNamesAdapter(areaDTO.getMeals().subList(0,9));
-        binding.recyclerarea.setAdapter(areasNamesAdapter);
-        binding.seeAllAreas.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(SearchFragmentDirections.actionSearchFragmentToAreasFragment(areaDTO));
-        });
-        areasNamesAdapter.setListener(areaName -> {
-            Navigation
-                    .findNavController(requireView())
-                    .navigate(SearchFragmentDirections
-                            .actionSearchFragmentToAllMealsFragment(areaName , SearchTypeEnum.AREA));
-        });
-    }
-
-    private void onClicks(){
-
-    }
-
-    private void navigateToAreas(){
-
-    }
 
 }
