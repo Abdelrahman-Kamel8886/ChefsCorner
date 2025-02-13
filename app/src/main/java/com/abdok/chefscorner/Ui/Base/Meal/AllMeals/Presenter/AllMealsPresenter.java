@@ -1,11 +1,9 @@
 package com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter;
 
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Repositories.Remote.RemoteRepository;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.View.IAllMealsView;
-import com.abdok.chefscorner.Utils.SharedModel;
 
 import java.util.List;
 

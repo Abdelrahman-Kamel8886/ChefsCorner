@@ -1,12 +1,11 @@
 package com.abdok.chefscorner.Ui.Auth;
 
 import android.net.Uri;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

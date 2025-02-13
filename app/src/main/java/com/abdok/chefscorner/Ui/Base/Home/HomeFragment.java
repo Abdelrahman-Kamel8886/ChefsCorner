@@ -7,29 +7,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
 import com.abdok.chefscorner.CustomViews.DatePickerBottomSheet;
-import com.abdok.chefscorner.Models.MealDTO;
+import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentHomeBinding;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -68,45 +61,6 @@ public class HomeFragment extends Fragment implements IHomeView {
         }
     }
 
-
-    private void getData(){
-        myRef.child(SharedModel.getUser().getId()).child("MyPlan").child("13-2-2025")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            MealDTO mealDTO = dataSnapshot.getValue(MealDTO.class);
-                            Log.e("TAGFire", "onDataChange: "+mealDTO.getStrMeal());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-    }
-
-    private void delete(){
-        myRef.child(SharedModel.getUser().getId()).child("MyPlan").child("13-2-2025").child("52835")
-                .removeValue()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-
-        ;
-    }
-
-
-
     @Override
     public void initView() {
         showRandomMeals(SharedModel.getRandomMeals());
@@ -114,12 +68,10 @@ public class HomeFragment extends Fragment implements IHomeView {
         showDesertMeals(SharedModel.getDesertMeals());
     }
 
-
     @Override
     public void showMessage(String message) {
         Snackbar.make(requireView(),message,Snackbar.LENGTH_SHORT).show();
     }
-
     @Override
     public void showRandomMeals(List<MealDTO> meals) {
         adapter = new RecyclerRandomAdapter(meals);
@@ -155,18 +107,18 @@ public class HomeFragment extends Fragment implements IHomeView {
 
             @Override
             public void onAddToPlanClick(MealDTO mealDTO) {
-                showDatePicker();
+                showDatePicker(mealDTO);
             }
         });
         breakfastAdapter.setOnItemClickListener(this::onRandomItemClick);
         desertAdapter.setOnItemClickListener(this::onRandomItemClick);
     }
 
-    private void showDatePicker(){
+    private void showDatePicker(MealDTO meal){
         DatePickerBottomSheet datePickerBottomSheet = new DatePickerBottomSheet();
         datePickerBottomSheet.show(getChildFragmentManager(),datePickerBottomSheet.getTag());
-        datePickerBottomSheet.setOnDateSelectedListener(dateDTO -> {
-            showMessage(dateDTO.getDate()+" "+dateDTO.getDay()+" "+dateDTO.getSubDate());
+        datePickerBottomSheet.setOnDateSelectedListener(date -> {
+            presenter.addMealToPlan(meal,date);
         });
     }
 
@@ -188,6 +140,7 @@ public class HomeFragment extends Fragment implements IHomeView {
         super.onStop();
         presenter.clearDisposable();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

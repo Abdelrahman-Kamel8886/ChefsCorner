@@ -14,7 +14,7 @@ import android.widget.SearchView;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsNamesAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Ingredients.Presenter.AllIngredientsPresenter;

@@ -15,14 +15,11 @@ import android.widget.SearchView;
 
 import com.abdok.chefscorner.Adapters.RecyclerAllMealAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Models.MealDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
-import com.abdok.chefscorner.Ui.Base.Home.HomeFragmentDirections;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter.AllMealsPresenter;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter.IAllMealsPresenter;
-import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.abdok.chefscorner.databinding.FragmentAllMealsBinding;
 
 import java.util.List;

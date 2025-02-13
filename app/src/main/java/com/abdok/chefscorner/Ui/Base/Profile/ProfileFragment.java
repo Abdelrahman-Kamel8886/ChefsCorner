@@ -16,9 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
-import com.abdok.chefscorner.Ui.Auth.Login.LoginFragment;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentProfileBinding;

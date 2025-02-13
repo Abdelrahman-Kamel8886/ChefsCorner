@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Search.Presenter;
 
-import com.abdok.chefscorner.Repositories.Remote.RemoteRepository;
+import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Search.View.ISearchView;
 import com.abdok.chefscorner.Utils.SharedModel;
 

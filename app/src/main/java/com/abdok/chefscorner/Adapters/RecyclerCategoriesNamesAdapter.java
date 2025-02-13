@@ -7,12 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
-import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.Consts;
 import com.bumptech.glide.Glide;
@@ -20,7 +17,6 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<RecyclerCategoriesNamesAdapter.ViewHolder> {
 

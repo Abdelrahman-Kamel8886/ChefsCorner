@@ -53,7 +53,7 @@
             app:argType="integer" />
         <argument
             android:name="Meal"
-            app:argType="com.abdok.chefscorner.Models.MealDTO"
+            app:argType="com.abdok.chefscorner.Data.Models.MealDTO"
             app:nullable="true" />
         <action
             android:id="@+id/action_mealDetailsFragment_to_allMealsFragment"
@@ -66,7 +66,7 @@
         tools:layout="@layout/fragment_areas" >
         <argument
             android:name="areaDTO"
-            app:argType="com.abdok.chefscorner.Models.AreasNamesResponseDTO" />
+            app:argType="com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO" />
         <action
             android:id="@+id/action_areasFragment_to_allMealsFragment"
             app:destination="@id/allMealsFragment" />
@@ -77,7 +77,7 @@
         android:label="AllIngredientsFragment" >
         <argument
             android:name="IngredientsDTO"
-            app:argType="com.abdok.chefscorner.Models.IngredientsNamesResponseDTO" />
+            app:argType="com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO" />
         <action
             android:id="@+id/action_allIngredientsFragment_to_allMealsFragment"
             app:destination="@id/allMealsFragment" />

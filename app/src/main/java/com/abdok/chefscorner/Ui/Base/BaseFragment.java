@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -17,8 +16,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentBaseBinding;

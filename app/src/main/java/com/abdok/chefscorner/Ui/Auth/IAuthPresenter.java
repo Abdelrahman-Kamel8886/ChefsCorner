@@ -1,6 +1,5 @@
 package com.abdok.chefscorner.Ui.Auth;
 
-import com.abdok.chefscorner.Models.UserDTO;
 import com.facebook.AccessToken;
 
 public interface IAuthPresenter {

@@ -14,7 +14,7 @@ import android.widget.SearchView;
 
 import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.Areas.Presenter.AreaPresenter;
 import com.abdok.chefscorner.Ui.Base.Areas.Presenter.IAreaPresenter;

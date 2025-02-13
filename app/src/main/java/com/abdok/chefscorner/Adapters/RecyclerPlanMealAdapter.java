@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
 

@@ -2,7 +2,8 @@ package com.abdok.chefscorner;
 
 import android.app.Application;
 
-import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.DataSources.Local.Room.LocalDataBase;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
 
 public class App extends Application {
 
@@ -10,5 +11,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         SharedPrefHelper.initSharedPref(this);
+        LocalDataBase.initLocalDataBase(this);
     }
 }

@@ -1,9 +1,9 @@
-package com.abdok.chefscorner.Local.SharedPref;
+package com.abdok.chefscorner.Data.DataSources.Local.SharedPref;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.Utils.Converter;
 
 public class SharedPrefHelper {

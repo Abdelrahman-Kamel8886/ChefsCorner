@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
@@ -13,12 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.databinding.FragmentSplashBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SplashFragment extends Fragment {
     FragmentSplashBinding binding;

@@ -1,7 +1,6 @@
 package com.abdok.chefscorner.Adapters;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.R;
-import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

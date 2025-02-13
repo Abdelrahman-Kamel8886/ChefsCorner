@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Network;
+package com.abdok.chefscorner.Data.DataSources.Remote.Retrofit;
 
 import com.abdok.chefscorner.Utils.Consts;
 

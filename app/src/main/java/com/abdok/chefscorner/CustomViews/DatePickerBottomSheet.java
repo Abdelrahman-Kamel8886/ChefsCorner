@@ -1,6 +1,5 @@
 package com.abdok.chefscorner.CustomViews;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.Utils.Helpers.WeekHelper;
 import com.abdok.chefscorner.databinding.BottomSheetDatePickerBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

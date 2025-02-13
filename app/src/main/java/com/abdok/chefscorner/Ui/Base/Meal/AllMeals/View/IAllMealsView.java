@@ -1,8 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Meal.AllMeals.View;
 
-import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 
 import java.util.List;
 

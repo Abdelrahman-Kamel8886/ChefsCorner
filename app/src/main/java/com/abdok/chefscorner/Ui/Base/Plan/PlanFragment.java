@@ -6,22 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.abdok.chefscorner.Adapters.RecyclerDatesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerPlanMealAdapter;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Utils.Helpers.WeekHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentPlanBinding;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
 package com.abdok.chefscorner.Utils;
 
-import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
-import com.abdok.chefscorner.Models.MealDTO;
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;

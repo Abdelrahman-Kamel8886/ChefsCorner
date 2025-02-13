@@ -4,8 +4,8 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.abdok.chefscorner.Local.SharedPref.SharedPrefHelper;
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;

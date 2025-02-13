@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Auth.SignUp;
 
-import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 
 public interface ISignUpPresenter {
 

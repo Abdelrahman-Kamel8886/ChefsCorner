@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.IngredientFormatDTO;
+import com.abdok.chefscorner.Data.Models.IngredientFormatDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.Consts;
 import com.bumptech.glide.Glide;

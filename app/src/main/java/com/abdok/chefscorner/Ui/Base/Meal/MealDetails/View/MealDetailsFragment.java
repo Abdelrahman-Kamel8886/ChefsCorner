@@ -13,11 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 
-import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Models.IngredientFormatDTO;
-import com.abdok.chefscorner.Models.MealDTO;
+import com.abdok.chefscorner.Data.Models.IngredientFormatDTO;
+import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.IMealDetailsPresenter;
 import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.MealDetailsPresenter;

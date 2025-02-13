@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Models;
+package com.abdok.chefscorner.Data.Models;
 
 import java.util.List;
 

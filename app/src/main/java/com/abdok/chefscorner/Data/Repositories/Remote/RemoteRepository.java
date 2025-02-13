@@ -1,22 +1,17 @@
-package com.abdok.chefscorner.Repositories.Remote;
+package com.abdok.chefscorner.Data.Repositories.Remote;
 
-import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
-import com.abdok.chefscorner.Models.MealDTO;
-import com.abdok.chefscorner.Models.RandomMealsResponseDTO;
-import com.abdok.chefscorner.Network.RetroConnection;
-import com.abdok.chefscorner.Network.RetroServices;
+import com.abdok.chefscorner.Data.DataSources.Remote.Retrofit.RetroConnection;
+import com.abdok.chefscorner.Data.DataSources.Remote.Retrofit.RetroServices;
+import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Data.Models.MealDTO;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 

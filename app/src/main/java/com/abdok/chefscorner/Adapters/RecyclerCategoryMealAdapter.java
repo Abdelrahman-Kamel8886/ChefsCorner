@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
