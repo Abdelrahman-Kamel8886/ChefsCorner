@@ -10,5 +10,6 @@ public interface IAllMealsView {
 
     void showMeals(List<CategoryMealsResponseDTO.CategoryMealDTO> meals);
     void filterData(List<CategoryMealsResponseDTO.CategoryMealDTO> meals);
+    void navigateUp();
 
 }

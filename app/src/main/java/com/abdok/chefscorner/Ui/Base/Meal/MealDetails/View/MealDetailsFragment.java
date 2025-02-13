@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 
+import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
+import com.abdok.chefscorner.Enums.SearchTypeEnum;
 import com.abdok.chefscorner.Models.IngredientFormatDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.R;
@@ -95,6 +97,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         binding.itemsCount.setText(itemText);
         adapter = new RecyclerIngredientsAdapter(ingredients);
         binding.recyclerIngredients.setAdapter(adapter);
+        adapter.setListener(name -> navigateToIngredients(name));
     }
 
     private void showTags(String tags){
@@ -132,6 +135,10 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         binding.loadingLayout.setVisibility(View.GONE);
         binding.mainLayout.setVisibility(View.VISIBLE);
 
+    }
+
+    private void navigateToIngredients(String name){
+        Navigation.findNavController(requireView()).navigate(MealDetailsFragmentDirections.actionMealDetailsFragmentToAllMealsFragment(name, SearchTypeEnum.INGREDIENT));
     }
 
     @Override

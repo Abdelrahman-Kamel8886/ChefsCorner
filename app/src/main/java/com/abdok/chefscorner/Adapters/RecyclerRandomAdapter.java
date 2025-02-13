@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -55,12 +56,15 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
         TextView title;
         ImageView image;
         MaterialCardView mealCard;
+        MaterialButton addToPlanBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.meal_title);
             image = itemView.findViewById(R.id.meal_image);
             mealCard = itemView.findViewById(R.id.mealCard);
+            addToPlanBtn = itemView.findViewById(R.id.addtoPlanBtn);
+
         }
         public void onBind(MealDTO mealDTO){
             title.setText(mealDTO.getStrMeal());
@@ -69,9 +73,11 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
                     .placeholder(R.drawable.load)
                     .into(image);
             mealCard.setOnClickListener(v -> listener.onItemClick(mealDTO));
+            addToPlanBtn.setOnClickListener(v -> listener.onAddToPlanClick(meals.get(getAdapterPosition())));
         }
     }
     public interface onItemClickListener{
         void onItemClick(MealDTO mealDTO);
+        void onAddToPlanClick(MealDTO mealDTO);
     }
 }

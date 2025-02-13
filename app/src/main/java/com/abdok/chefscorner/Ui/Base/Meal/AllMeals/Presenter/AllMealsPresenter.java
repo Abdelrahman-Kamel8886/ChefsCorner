@@ -48,7 +48,8 @@ public class AllMealsPresenter implements IAllMealsPresenter{
                         categoryMealsResponseDTO -> {
                             meals = categoryMealsResponseDTO.getMeals();
                             view.showMeals(categoryMealsResponseDTO.getMeals());
-                        }
+                        },
+                        t->{view.navigateUp();}
                 );
         compositeDisposable.add(disposable);
     }
@@ -60,7 +61,8 @@ public class AllMealsPresenter implements IAllMealsPresenter{
                         categoryMealsResponseDTO -> {
                             meals = categoryMealsResponseDTO.getMeals();
                             view.showMeals(categoryMealsResponseDTO.getMeals());
-                        }
+                        },
+                        t->{view.navigateUp();}
                 );
         compositeDisposable.add(disposable);
     }
@@ -72,7 +74,8 @@ public class AllMealsPresenter implements IAllMealsPresenter{
                         categoryMealsResponseDTO -> {
                             meals = categoryMealsResponseDTO.getMeals();
                             view.showMeals(categoryMealsResponseDTO.getMeals());
-                        }
+                        },
+                        t->{view.navigateUp();}
                 );
         compositeDisposable.add(disposable);
     }

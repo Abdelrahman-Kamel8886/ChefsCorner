@@ -35,4 +35,18 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="CustomCalendarView">
+        <item name="android:dateTextAppearance">@style/CustomDateText</item>
+        <item name="android:weekDayTextAppearance">@style/CustomWeekDayText</item>
+    </style>
+
+    <style name="CustomDateText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FF0000</item> <!-- Change text color -->
+    </style>
+
+    <style name="CustomWeekDayText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#00FF00</item> <!-- Change week day color -->
+    </style>
+
+
 </resources>

@@ -23,9 +23,9 @@ public class RecyclerIngredientsAdapter extends RecyclerView.Adapter<RecyclerIng
 
     private ArrayList<IngredientFormatDTO> ingredients;
 
-    private RecyclerAreaNamesAdapter.OnItemClickListener listener;
+    private OnItemClickListener listener;
 
-    public void setListener(RecyclerAreaNamesAdapter.OnItemClickListener listener) {
+    public void setListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 

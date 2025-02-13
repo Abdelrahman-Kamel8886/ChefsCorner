@@ -36,8 +36,16 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     IBaseView baseView;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e("TAGMeals", "onCreate: ");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("TAGMeals", "onCreateView: ");
         return inflater.inflate(R.layout.fragment_all_meals, container, false);
+
     }
 
     @Override
@@ -50,6 +58,7 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
         String title = AllMealsFragmentArgs.fromBundle(getArguments()).getTitle();
         SearchTypeEnum type = AllMealsFragmentArgs.fromBundle(getArguments()).getType();
         initView(title,type);
+        Log.e("TAGMeals", "onViewCreated: " );
     }
 
     private void initView(String title, SearchTypeEnum type){
@@ -69,6 +78,11 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     @Override
     public void filterData(List<CategoryMealsResponseDTO.CategoryMealDTO> meals) {
         adapter.setMeals(meals);
+    }
+
+    @Override
+    public void navigateUp() {
+        Navigation.findNavController(requireView()).navigateUp();
     }
 
     private void onClicks(){
@@ -97,6 +111,7 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
         Navigation.findNavController(requireView()).navigate(AllMealsFragmentDirections.actionAllMealsFragmentToMealDetailsFragment(id,null));
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -106,7 +121,6 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     @Override
     public void onStop() {
         super.onStop();
-        presenter.clearDisposable();
         Log.i("TAGMeals", "onStop: ");
     }
 
@@ -117,4 +131,9 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
         Log.i("TAGMeals", "onDestroyView: ");
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("TAGMeals", "onDestroy: ");
+    }
 }

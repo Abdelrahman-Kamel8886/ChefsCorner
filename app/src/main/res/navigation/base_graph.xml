@@ -55,6 +55,9 @@
             android:name="Meal"
             app:argType="com.abdok.chefscorner.Models.MealDTO"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_mealDetailsFragment_to_allMealsFragment"
+            app:destination="@id/allMealsFragment" />
     </fragment>
     <fragment
         android:id="@+id/areasFragment"
