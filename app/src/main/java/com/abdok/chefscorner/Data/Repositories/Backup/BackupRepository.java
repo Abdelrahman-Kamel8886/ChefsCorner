@@ -53,10 +53,15 @@ public class BackupRepository implements IBackupRepo {
     @Override
     public void savePlanMealToFirebase(MealDTO meal , DateDTO date) {
         String id = sharedPrefHelper.getUser().getId();
-        PlanMealDto dto = new PlanMealDto(id,date,meal);
-        dto.setMealId(meal.getIdMeal());
-        firebaseRealtimeDataSource.savePlanMeal(dto)
-                .addOnSuccessListener(unused -> savePlanMealToLocal(dto))
+        PlanMealDto local = new PlanMealDto(id,date,meal);
+        local.setMealId(meal.getIdMeal());
+
+        PlanMealDto planMealDto = new PlanMealDto(id,date,meal);
+        planMealDto.setMealId(meal.getIdMeal());
+        planMealDto.getMeal().setBitmap(null);
+
+        firebaseRealtimeDataSource.savePlanMeal(planMealDto)
+                .addOnSuccessListener(unused -> savePlanMealToLocal(planMealDto))
                 .addOnFailureListener(e -> {callback.onFailure(e.getMessage());});
     }
 

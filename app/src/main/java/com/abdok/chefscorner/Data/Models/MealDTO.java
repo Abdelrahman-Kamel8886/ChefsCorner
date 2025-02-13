@@ -1,9 +1,12 @@
 package com.abdok.chefscorner.Data.Models;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MealDTO implements Serializable {
+    private Bitmap bitmap;
     private int id;
     private String idMeal;
     private String strMeal;
@@ -483,6 +486,13 @@ public class MealDTO implements Serializable {
         this.dateModified = dateModified;
     }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     private void addIngredients(ArrayList<IngredientFormatDTO> ingredients , String ingredient, String measure){
         if (ingredient!=null && measure!=null && !ingredient.isEmpty() && !measure.isEmpty()){

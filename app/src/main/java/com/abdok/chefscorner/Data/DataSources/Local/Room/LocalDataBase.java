@@ -11,7 +11,7 @@ import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.Utils.Converter;
 
 
-@Database(entities = {PlanMealDto.class}, version = 2)
+@Database(entities = {PlanMealDto.class}, version = 1)
 @TypeConverters({Converter.class})
 public abstract class LocalDataBase extends RoomDatabase {
 

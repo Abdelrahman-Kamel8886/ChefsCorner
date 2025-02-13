@@ -1,5 +1,8 @@
 package com.abdok.chefscorner.Adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -68,12 +74,27 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
         }
         public void onBind(MealDTO mealDTO){
             title.setText(mealDTO.getStrMeal());
-            Glide.with(itemView.getContext())
-                    .load(mealDTO.getStrMealThumb())
-                    .placeholder(R.drawable.load)
-                    .into(image);
+
             mealCard.setOnClickListener(v -> listener.onItemClick(mealDTO));
             addToPlanBtn.setOnClickListener(v -> listener.onAddToPlanClick(meals.get(getAdapterPosition())));
+
+            Glide.with(itemView.getContext())
+                    .asBitmap()
+                    .load(mealDTO.getStrMealThumb())
+                    .placeholder(R.drawable.load)
+                    .into(new CustomTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            image.setImageBitmap(resource);
+                            Bitmap retrievedBitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                            mealDTO.setBitmap(retrievedBitmap);
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
         }
     }
     public interface onItemClickListener{

@@ -1,6 +1,8 @@
 package com.abdok.chefscorner.Data.Models;
 
-public class DateDTO {
+import java.io.Serializable;
+
+public class DateDTO implements Serializable {
 
     private String date;
     private String subDate;

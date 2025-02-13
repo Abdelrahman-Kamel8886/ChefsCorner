@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "plan_meal_table", primaryKeys = {"id", "mealId", "date"})
-public class PlanMealDto {
+public class PlanMealDto implements Serializable {
 
     @NonNull
     private String id;

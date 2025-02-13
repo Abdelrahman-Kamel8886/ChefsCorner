@@ -25,7 +25,7 @@
                 android:layout_height="250dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/meal_image"
-                android:src="@drawable/background"
+                android:src="@drawable/load"
                 android:scaleType="fitXY"
                 />
             <TextView
