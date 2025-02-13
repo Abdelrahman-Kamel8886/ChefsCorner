@@ -22,6 +22,7 @@ import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Search.Presenter.ISearchPresenter;
 import com.abdok.chefscorner.Ui.Base.Search.Presenter.SearchPresenter;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentSearchBinding;
 
 
@@ -42,15 +43,29 @@ public class SearchFragment extends Fragment implements ISearchView{
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentSearchBinding.bind(view);
         presenter = new SearchPresenter(this);
-        presenter.getIngredientsNames();
-        presenter.getCategoriesNames();
-        presenter.getAreasNames();
-
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.showMainView();
+
+        checkForData();
     }
 
+    private void checkForData(){
+        if (SharedModel.getIngredientsNamesResponse()==null||SharedModel.getCategoriesNamesResponse()==null||SharedModel.getAreasNamesResponse()==null){
+            binding.loadingLayout.setVisibility(View.VISIBLE);
+            presenter.getIngredientsNames();
+            presenter.getCategoriesNames();
+            presenter.getAreasNames();
+        }
+        else{
+            initView();
+        }
+    }
 
+    private void initView(){
+        showIngredients(SharedModel.getIngredientsNamesResponse());
+        showCategoriesNames(SharedModel.getCategoriesNamesResponse());
+        showAreaNames(SharedModel.getAreasNamesResponse());
+    }
 
     @Override
     public void showIngredients(IngredientsNamesResponseDTO ingredientsDTO) {
