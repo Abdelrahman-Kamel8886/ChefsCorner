@@ -37,4 +37,7 @@
     <color name="DeepNavy">#000040</color>
     <color name="ForestGreen">#388E3C</color>
 
+    <color name="errorRed">#D32F2F</color>
+    <color name="successGreen">#4CAF50</color>
+
 </resources>

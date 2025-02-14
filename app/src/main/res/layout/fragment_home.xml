@@ -8,17 +8,90 @@
     android:background="@color/white"
     >
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:id="@+id/loading_layout"
+        android:visibility="gone"
+        android:gravity="center"
+        >
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress_bar"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/noInternetImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no_internet" />
+
+    <TextView
+        android:id="@+id/noInternetTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/poppins_bold"
+        android:text="No internet connection. Please check your network."
+        android:paddingHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/errorRed"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noInternetImage" />
+
+    <androidx.constraintlayout.widget.Group
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="noInternetImage,noInternetTxt"
+        android:id="@+id/noInternetView"/>
+
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="100dp">
+            android:paddingBottom="100dp"
+            android:visibility="gone">
 
 
             <TextView
@@ -37,9 +110,9 @@
                 android:id="@+id/randomRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_random_meal"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/daily_meal_title" />
+                app:layout_constraintTop_toBottomOf="@id/daily_meal_title"
+                tools:listitem="@layout/item_random_meal" />
 
             <TextView
                 android:id="@+id/ortxt"
@@ -56,20 +129,20 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"
                 android:layout_height="1dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="8dp"
                 app:dividerColor="@color/slateGray"
                 app:layout_constraintBottom_toBottomOf="@id/ortxt"
                 app:layout_constraintEnd_toStartOf="@id/ortxt"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="20dp"
                 app:layout_constraintTop_toTopOf="@id/ortxt" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
-                app:dividerColor="@color/slateGray"
                 android:layout_marginEnd="20dp"
+                app:dividerColor="@color/slateGray"
                 app:layout_constraintBottom_toBottomOf="@id/ortxt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ortxt"
@@ -79,45 +152,41 @@
                 android:id="@+id/breakFast_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/break_fast"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@id/daily_meal_title"
-                app:layout_constraintTop_toBottomOf="@id/ortxt"
-                android:layout_marginTop="20dp"/>
+                app:layout_constraintTop_toBottomOf="@id/ortxt" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/breakFastRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/breakFastRecycler"
                 android:orientation="horizontal"
-                tools:listitem="@layout/item_category_meal"
-                app:layout_constraintTop_toBottomOf="@id/breakFast_title"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
+                app:layout_constraintTop_toBottomOf="@id/breakFast_title"
+                tools:listitem="@layout/item_category_meal" />
 
             <TextView
                 android:id="@+id/desert_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/deserts"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@id/daily_meal_title"
-                app:layout_constraintTop_toBottomOf="@id/breakFastRecycler"
-                android:layout_marginTop="20dp"/>
+                app:layout_constraintTop_toBottomOf="@id/breakFastRecycler" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/desertsRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/desertsRecycler"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/desert_title"
-                tools:listitem="@layout/item_category_meal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
-
-
+                app:layout_constraintTop_toBottomOf="@id/desert_title"
+                tools:listitem="@layout/item_category_meal" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

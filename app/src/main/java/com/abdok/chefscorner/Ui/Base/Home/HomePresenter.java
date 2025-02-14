@@ -41,7 +41,7 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
                             SharedModel.setRandomMeals((ArrayList<MealDTO>) meals);
                             getBreakFastMeals();
                         }, throwable -> {
-                            view.showMessage(throwable.getMessage());
+                            view.showError();
                         }
                 );
 
@@ -59,7 +59,7 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
                             getDesertMeals();
                         },
                         throwable -> {
-                            view.showMessage(throwable.getMessage());
+                            view.showError();
                         }
                 );
         compositeDisposable.add(breakfast);
@@ -74,7 +74,7 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
                             view.initView();
                         },
                         throwable -> {
-                            view.showMessage(throwable.getMessage());
+                            view.showError();
                         }
 
                 );

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,8 +76,15 @@ public class PlanFragment extends Fragment implements IPlanView {
             binding.emptyGroup.setVisibility(View.GONE);
             binding.planGroup.setVisibility(View.VISIBLE);
             planMealAdapter.setMeals(meals);
+            planMealAdapter.setOnItemClickListener(planMealDto -> {
+                navigateToMealDetails(planMealDto);
+            });
         }
 
+    }
+
+    private void navigateToMealDetails(PlanMealDto meal){
+        Navigation.findNavController(requireView()).navigate(PlanFragmentDirections.actionPlanFragmentToOfflineMealDetailsFragment(meal));
     }
 
     @Override
