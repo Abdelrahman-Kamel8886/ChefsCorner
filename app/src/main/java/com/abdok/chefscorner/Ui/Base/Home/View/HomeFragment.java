@@ -13,7 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -272,9 +275,16 @@ public class HomeFragment extends Fragment implements IHomeView {
         GuestDialog guestDialog = new GuestDialog();
         guestDialog.show(getChildFragmentManager(), "GuestDialog");
         guestDialog.setOnItemClickListener(()->{
-            Snackbar.make(requireView(), "SignUp", Snackbar.LENGTH_SHORT).show();
+            navigateToLogin();
         });
 
+    }
+
+    private void navigateToLogin(){
+        NavController navController = NavHostFragment.findNavController(requireActivity().getSupportFragmentManager().findFragmentById(R.id.container));
+        navController.navigate(R.id.loginFragment, null, new NavOptions.Builder()
+                .setPopUpTo(R.id.baseFragment, true)
+                .build());
     }
 
     @Override
