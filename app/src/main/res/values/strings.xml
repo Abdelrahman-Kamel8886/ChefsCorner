@@ -37,4 +37,6 @@
     <string name="most_popular_categories">Most Popular Categories</string>
     <string name="search_by_ingredients">Search by Ingredients</string>
     <string name="explore_meals_by_areas">Explore Meals by Areas</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="internet_connection_restored">Internet Connection Restored</string>
 </resources>

@@ -1,5 +1,10 @@
 package com.abdok.chefscorner.Ui.Base.Search.Presenter;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+
 import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Search.View.ISearchView;
 import com.abdok.chefscorner.Utils.SharedModel;
@@ -26,7 +31,7 @@ public class SearchPresenter implements ISearchPresenter {
                 .subscribe(ingredientsNamesResponseDTO -> {
                     SharedModel.setIngredientsNamesResponse(ingredientsNamesResponseDTO);
                     view.showIngredients(ingredientsNamesResponseDTO);
-                }, throwable -> {
+                }, throwable -> {view.showError();
                 });
        compositeDisposable.add(d);
     }
@@ -37,8 +42,7 @@ public class SearchPresenter implements ISearchPresenter {
                 .subscribe(areasNamesResponseDTO -> {
                     SharedModel.setAreasNamesResponse(areasNamesResponseDTO);
                     view.showAreaNames(areasNamesResponseDTO);
-                }, throwable -> {
-                });
+                }, throwable -> {view.showError();});
         compositeDisposable.add(d);
     }
 
@@ -48,9 +52,14 @@ public class SearchPresenter implements ISearchPresenter {
                 .subscribe(categoriesNamesResponseDTO -> {
                     SharedModel.setCategoriesNamesResponse(categoriesNamesResponseDTO);
                     view.showCategoriesNames(categoriesNamesResponseDTO);
-                }, throwable -> {
+                }, throwable -> {view.showError();
 
                 });
         compositeDisposable.add(d);
+    }
+
+    @Override
+    public void onDestroy(){
+        compositeDisposable.dispose();
     }
 }

@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Home;
+package com.abdok.chefscorner.Ui.Base.Home.View;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -15,18 +15,20 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
 import com.abdok.chefscorner.CustomViews.DatePickerBottomSheet;
 import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Ui.Base.Home.Presenter.HomePresenter;
+import com.abdok.chefscorner.Ui.Base.Home.Presenter.IHomePresenter;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
@@ -60,15 +62,29 @@ public class HomeFragment extends Fragment implements IHomeView {
         binding = FragmentHomeBinding.bind(view);
         presenter = new HomePresenter(this);
         baseView = (IBaseView) getParentFragment().getParentFragment();
-        checkForData();
+
+        if (!isInternetAvailable()){
+            showError();
+        }
+        else {
+            checkForData();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        registerNetworkCallback();
     }
 
     private void checkForData(){
         if (SharedModel.getRandomMeals()==null||SharedModel.getBreakfastMeals()==null||SharedModel.getDesertMeals()==null){
             presenter.start();
+            Log.e("HomeTAG", "checkForData1: "+internetConnectionLost);
         }
         else{
             initView();
+            Log.e("HomeTAG", "checkForData2: "+internetConnectionLost);
         }
     }
 
@@ -81,16 +97,13 @@ public class HomeFragment extends Fragment implements IHomeView {
 
     @Override
     public void showMessage(String message) {
-        View view = getView();
-        if (view == null) {
-            view = getActivity().findViewById(android.R.id.content); // Fallback to root view
-        }
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+        showCustomSnackBar(message, R.color.charcoal, Gravity.BOTTOM);
     }
 
     @Override
     public void showError() {
-        showCustomSnackBar("Internet Connection Lost", R.color.errorRed, Gravity.TOP);
+        Log.e("HomeTAG", "showError: "+internetConnectionLost);
+        showCustomSnackBar(getString(R.string.no_internet_connection), R.color.errorRed, Gravity.TOP);
         baseView.showMainView();
         binding.mainLayout.setVisibility(View.GONE);
         binding.loadingLayout.setVisibility(View.GONE);
@@ -162,27 +175,22 @@ public class HomeFragment extends Fragment implements IHomeView {
     private void navigateToDetails(int id , MealDTO mealDTO){
         Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(id,mealDTO));
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-       registerNetworkCallback();
-    }
-
     private void reloadData(){
-        showCustomSnackBar("Internet Connection Restored", R.color.successGreen, Gravity.BOTTOM);
+        Log.e("HomeTAG", "reloadData: "+internetConnectionLost);
+        showCustomSnackBar(getString(R.string.internet_connection_restored), R.color.successGreen, Gravity.BOTTOM);
         binding.noInternetView.setVisibility(View.GONE);
         binding.loadingLayout.setVisibility(View.VISIBLE);
         checkForData();
     }
 
     private void registerNetworkCallback() {
+        Log.e("HomeTAG", "registerNetworkCallback: "+internetConnectionLost );
         connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
         networkCallback = new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(@NonNull Network network) {
                 requireActivity().runOnUiThread(() ->{
+                    Log.e("HomeTAG", "onAvailable: "+internetConnectionLost);
                     if (internetConnectionLost){
 
                         reloadData();
@@ -193,12 +201,25 @@ public class HomeFragment extends Fragment implements IHomeView {
 
             @Override
             public void onLost(@NonNull Network network) {
+                Log.e("HomeTAG", "onLost: "+internetConnectionLost);
                 requireActivity().runOnUiThread(() ->
                 {
 
                     internetConnectionLost = true;
                     showError();
                 });
+            }
+
+            @Override
+            public void onUnavailable() {
+                super.onUnavailable();
+                Log.e("HomeTAG", "onUnavailable: "+internetConnectionLost);
+            }
+
+            @Override
+            public void onLosing(@NonNull Network network, int maxMsToLive) {
+                super.onLosing(network, maxMsToLive);
+                Log.e("HomeTAG", "onLosing: "+internetConnectionLost);
             }
         };
 
@@ -226,10 +247,21 @@ public class HomeFragment extends Fragment implements IHomeView {
         snackbar.show();
     }
 
+    private boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            Network network = cm.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+                return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onStop() {
         super.onStop();
-        presenter.clearDisposable();
         if (connectivityManager != null && networkCallback != null) {
             connectivityManager.unregisterNetworkCallback(networkCallback);
         }
@@ -238,7 +270,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        presenter.clearDisposable();
         binding = null;
     }
 }

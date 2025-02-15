@@ -55,17 +55,22 @@ public class OfflineMealDetailsFragment extends Fragment implements IOfflineMeal
         binding.mainLayout.setVisibility(View.VISIBLE);
         //init Meal
         MealDTO meal = planMeal.getMeal();
-        Bitmap bitmap = BitmapHelper.getBitmapFromBase64(meal.getBitmapBase64());
-        if (bitmap != null) {
-            binding.image.setImageBitmap(bitmap);
-        }
-        else{
-            Glide.with(requireContext())
-                    .load(meal.getStrMealThumb())
-                    .placeholder(R.drawable.load)
-                    .error(R.drawable.no_image)
-                    .into(binding.image);
-        }
+        Glide.with(requireContext())
+                .load(meal.getStrMealThumb())
+                .placeholder(R.drawable.load)
+                .error(R.drawable.no_image)
+                .into(binding.image);
+//        Bitmap bitmap = BitmapHelper.getBitmapFromBase64(meal.getBitmapBase64());
+//        if (bitmap != null) {
+//            binding.image.setImageBitmap(bitmap);
+//        }
+//        else{
+//            Glide.with(requireContext())
+//                    .load(meal.getStrMealThumb())
+//                    .placeholder(R.drawable.load)
+//                    .error(R.drawable.no_image)
+//                    .into(binding.image);
+//        }
         binding.mealTitle.setText(meal.getStrMeal());
         binding.mealCategory.setText(meal.getStrArea()+" "+ meal.getStrCategory()+" "+ CountryFlagMapper.getFlagEmoji(meal.getStrArea()));
         binding.mealInstructions.setText(meal.getStrInstructions());

@@ -80,23 +80,29 @@ public class RecyclerRandomAdapter extends RecyclerView.Adapter<RecyclerRandomAd
             addToPlanBtn.setOnClickListener(v -> listener.onAddToPlanClick(meals.get(getAdapterPosition())));
 
             Glide.with(itemView.getContext())
-                    .asBitmap()
                     .load(mealDTO.getStrMealThumb())
                     .placeholder(R.drawable.load)
-                    .into(new CustomTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            image.setImageBitmap(resource);
-                            Bitmap retrievedBitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                            String base64String = BitmapHelper.saveBitmapToBase64(retrievedBitmap);
-                            mealDTO.setBitmapBase64(base64String);
-                        }
+                    .error(R.drawable.no_image)
+                    .into(image);
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                        }
-                    });
+//            Glide.with(itemView.getContext())
+//                    .asBitmap()
+//                    .load(mealDTO.getStrMealThumb())
+//                    .placeholder(R.drawable.load)
+//                    .into(new CustomTarget<Bitmap>() {
+//                        @Override
+//                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                            image.setImageBitmap(resource);
+//                            Bitmap retrievedBitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+//                            String base64String = BitmapHelper.saveBitmapToBase64(retrievedBitmap);
+//                            mealDTO.setBitmapBase64(base64String);
+//                        }
+//
+//                        @Override
+//                        public void onLoadCleared(@Nullable Drawable placeholder) {
+//
+//                        }
+//                    });
 
         }
     }

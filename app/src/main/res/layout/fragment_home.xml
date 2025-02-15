@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Ui.Base.Home.HomeFragment"
+    tools:context=".Ui.Base.Home.View.HomeFragment"
     android:background="@color/white"
     >
 

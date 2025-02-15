@@ -9,4 +9,5 @@ public interface ISearchView {
     void showIngredients(IngredientsNamesResponseDTO ingredientsDTO);
     void showCategoriesNames(CategoriesNamesResponseDTO categoriesDTO);
     void showAreaNames(AreasNamesResponseDTO areaDTO);
+    void showError();
 }

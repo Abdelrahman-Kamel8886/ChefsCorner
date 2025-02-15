@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Home.HomeFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Home.View.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action

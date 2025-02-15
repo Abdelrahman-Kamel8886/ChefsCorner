@@ -74,16 +74,21 @@ public class RecyclerPlanMealAdapter extends RecyclerView.Adapter<RecyclerPlanMe
         }
         public void onBind(PlanMealDto meal){
             title.setText(meal.getMeal().getStrMeal());
-            Bitmap bitmap = BitmapHelper.getBitmapFromBase64(meal.getMeal().getBitmapBase64());
-            if (bitmap != null) {
-                image.setImageBitmap(bitmap);
-            }
-            else{
-                Glide.with(itemView.getContext())
-                        .load(meal.getMeal().getStrMealThumb())
-                        .placeholder(R.drawable.load)
-                        .into(image);
-            }
+            Glide.with(itemView.getContext())
+                    .load(meal.getMeal().getStrMealThumb())
+                    .placeholder(R.drawable.load)
+                    .error(R.drawable.no_image)
+                    .into(image);
+//            Bitmap bitmap = BitmapHelper.getBitmapFromBase64(meal.getMeal().getBitmapBase64());
+//            if (bitmap != null) {
+//                image.setImageBitmap(bitmap);
+//            }
+//            else{
+//                Glide.with(itemView.getContext())
+//                        .load(meal.getMeal().getStrMealThumb())
+//                        .placeholder(R.drawable.load)
+//                        .into(image);
+//            }
             mealCard.setOnClickListener(v -> {
                 listener.onItemClick(meal);
             });

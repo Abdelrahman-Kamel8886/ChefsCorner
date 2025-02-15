@@ -1,10 +1,11 @@
-package com.abdok.chefscorner.Ui.Base.Home;
+package com.abdok.chefscorner.Ui.Base.Home.Presenter;
 
 import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
 import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
+import com.abdok.chefscorner.Ui.Base.Home.View.IHomeView;
 import com.abdok.chefscorner.Utils.SharedModel;
 
 import java.util.ArrayList;
@@ -93,6 +94,10 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
 
     @Override
     public void onSuccess(String message) {
+        sendMsg(message);
+    }
+
+    private void sendMsg(String message){
         view.showMessage(message);
     }
 

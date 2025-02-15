@@ -1,17 +1,23 @@
 package com.abdok.chefscorner.Ui.Base.Meal.AllMeals.View;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.abdok.chefscorner.Adapters.RecyclerAllMealAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
@@ -21,6 +27,7 @@ import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter.AllMealsPresenter;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter.IAllMealsPresenter;
 import com.abdok.chefscorner.databinding.FragmentAllMealsBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -79,6 +86,7 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
 
     @Override
     public void navigateUp() {
+        showCustomSnackBar(getString(R.string.no_internet_connection), R.color.errorRed, Gravity.TOP);
         Navigation.findNavController(requireView()).navigateUp();
     }
 
@@ -102,6 +110,22 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     private void showMainView(){
         binding.loadingLayout.setVisibility(View.GONE);
         binding.viewGroup.setVisibility(View.VISIBLE);
+    }
+    private void showCustomSnackBar(String message, int colorResId, int gravity) {
+        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
+
+        View snackbarView = snackbar.getView();
+        int color = ContextCompat.getColor(requireContext(), colorResId);
+        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+        params.gravity = gravity;
+        snackbarView.setLayoutParams(params);
+
+        snackbar.show();
     }
 
     private void navigateToDetails(int id){

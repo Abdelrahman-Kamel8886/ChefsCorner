@@ -6,5 +6,6 @@ public interface ISearchPresenter {
     void getIngredientsNames();
     void getAreasNames();
     void getCategoriesNames();
+    void onDestroy();
 
 }
