@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
 import com.abdok.chefscorner.CustomViews.DatePickerBottomSheet;
+import com.abdok.chefscorner.CustomViews.GuestDialog;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Ui.Base.Home.Presenter.HomePresenter;
 import com.abdok.chefscorner.Ui.Base.Home.Presenter.IHomePresenter;
@@ -149,7 +150,14 @@ public class HomeFragment extends Fragment implements IHomeView {
 
             @Override
             public void onAddToPlanClick(MealDTO mealDTO) {
-                showDatePicker(mealDTO);
+                if (SharedModel.getUser()==null){
+                    showGuestDialog();
+                }
+
+                else{
+                    showDatePicker(mealDTO);
+                }
+
             }
         });
         breakfastAdapter.setOnItemClickListener(this::onRandomItemClick);
@@ -258,6 +266,15 @@ public class HomeFragment extends Fragment implements IHomeView {
             }
         }
         return false;
+    }
+
+    private void showGuestDialog() {
+        GuestDialog guestDialog = new GuestDialog();
+        guestDialog.show(getChildFragmentManager(), "GuestDialog");
+        guestDialog.setOnItemClickListener(()->{
+            Snackbar.make(requireView(), "SignUp", Snackbar.LENGTH_SHORT).show();
+        });
+
     }
 
     @Override

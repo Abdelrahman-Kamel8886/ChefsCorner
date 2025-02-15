@@ -113,13 +113,6 @@ public class BaseFragment extends Fragment implements IBaseView {
             }
 
         });
-
-        binding.userName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showGuestBottomSheet();
-            }
-        });
     }
 
     private void navigateToProfile() {
@@ -128,22 +121,22 @@ public class BaseFragment extends Fragment implements IBaseView {
         navController.navigate(R.id.profileFragment);
     }
 
-    private void showGuestBottomSheet() {
-        GuestBottomSheet guestBottomSheet = new GuestBottomSheet();
-        guestBottomSheet.show(getChildFragmentManager(), "guest_bottom_sheet");
-        guestBottomSheet.setOnItemClickListener(new GuestBottomSheet.OnItemClickListener() {
-            @Override
-            public void onCancelClick() {
-
-            }
-
-            @Override
-            public void onSignUpClick() {
-
-            }
-        });
-
-    }
+//    private void showGuestBottomSheet() {
+//        GuestBottomSheet guestBottomSheet = new GuestBottomSheet();
+//        guestBottomSheet.show(getChildFragmentManager(), "guest_bottom_sheet");
+//        guestBottomSheet.setOnItemClickListener(new GuestBottomSheet.OnItemClickListener() {
+//            @Override
+//            public void onCancelClick() {
+//
+//            }
+//
+//            @Override
+//            public void onSignUpClick() {
+//
+//            }
+//        });
+//
+//    }
 
     private void showGuestDialog() {
         GuestDialog guestDialog = new GuestDialog();

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentFavoritesBinding;
 
 
@@ -31,6 +32,13 @@ public class FavoritesFragment extends Fragment {
         binding = FragmentFavoritesBinding.bind(view);
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.showMainView();
+
+        if (SharedModel.getUser() == null){
+            binding.guestView.setVisibility(View.VISIBLE);
+        }
+        else{
+        }
+
     }
 
     @Override
