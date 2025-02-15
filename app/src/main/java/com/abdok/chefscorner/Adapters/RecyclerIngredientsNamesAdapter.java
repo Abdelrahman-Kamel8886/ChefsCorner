@@ -95,6 +95,7 @@ public class RecyclerIngredientsNamesAdapter extends RecyclerView.Adapter<Recycl
             card.setCardBackgroundColor(randomColor);
             Glide.with(itemView.getContext())
                     .load(Consts.INGREDIENTS_IMAGES_URL+ingredient.getStrIngredient()+".png")
+                    .placeholder(R.drawable.load)
                     .into(image);
             itemView.setOnClickListener(v -> listener.onItemClick(ingredient.getStrIngredient()));
         }

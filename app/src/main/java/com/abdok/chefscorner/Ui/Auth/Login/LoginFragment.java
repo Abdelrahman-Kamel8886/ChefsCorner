@@ -79,6 +79,10 @@ public class LoginFragment extends Fragment implements IAuthView {
             Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_regiesterFragment);
         });
 
+        binding.guestBtn.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_baseFragment);
+        });
+
     }
 
     private void callFacebook() {

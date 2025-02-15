@@ -39,4 +39,8 @@
     <string name="explore_meals_by_areas">Explore Meals by Areas</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="internet_connection_restored">Internet Connection Restored</string>
+    <string name="guest">Guest</string>
+    <string name="sign_up_for_more_features">Sign Up for More Features</string>
+    <string name="guest_text">Add recipes to your favourite list or add it to your plan over the current Week and More!</string>
+    <string name="cancel"><u>Cancel</u></string>
 </resources>

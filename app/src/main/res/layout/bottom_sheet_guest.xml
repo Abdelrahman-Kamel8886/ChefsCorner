@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_bottom_sheet"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="@color/lightGray"
+        app:layout_constraintWidth_percent="0.25"
+        app:cardCornerRadius="100dp"
+        android:id="@+id/line"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up_for_more_features"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/title"/>
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/guest_text"
+        android:textSize="14dp"
+        android:fontFamily="@font/poppins"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+       android:paddingHorizontal="20dp"
+        android:textColor="@color/charcoalGray"
+        android:layout_marginTop="10dp"
+        android:id="@+id/sub_title"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title"
+        android:text="Cancel"
+        style="@style/button_style"
+        android:backgroundTint="@color/errorRed"
+        app:layout_constraintEnd_toStartOf="@id/signUpBtn"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signUpBtn"
+        style="@style/button_style"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/singup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancelBtn"
+        app:layout_constraintTop_toTopOf="@id/cancelBtn"
+        app:layout_constraintBottom_toBottomOf="@id/cancelBtn"
+        app:layout_constraintWidth_percent="0.4" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

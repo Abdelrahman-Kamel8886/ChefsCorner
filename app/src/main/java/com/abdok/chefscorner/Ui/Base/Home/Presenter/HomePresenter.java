@@ -1,5 +1,7 @@
 package com.abdok.chefscorner.Ui.Base.Home.Presenter;
 
+import androidx.annotation.NonNull;
+
 import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
@@ -7,6 +9,8 @@ import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
 import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Home.View.IHomeView;
 import com.abdok.chefscorner.Utils.SharedModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,15 +93,38 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
 
     @Override
     public void addMealToPlan(MealDTO mealDTO, DateDTO date) {
-        backupRepository.savePlanMeal(mealDTO,date);
+        backupRepository.savePlanMealToFirebase(mealDTO,date).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                PlanMealDto meal = new PlanMealDto(SharedModel.getUser().getId(),date,mealDTO);
+                meal.setMealId(mealDTO.getIdMeal());
+                saveToLocal(meal);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                view.showMessage(e.getMessage());
+            }
+        });
     }
+
+    private void saveToLocal(PlanMealDto meal){
+        Disposable disposable = backupRepository.savePlanMealToLocal(meal)
+                .subscribe(
+                        () -> view.showMessage("Meal saved successfully to your plan"),
+                        throwable -> view.showMessage(throwable.getMessage())
+                );
+    }
+
+//    @Override
+//    public void addMealToPlan(MealDTO mealDTO, DateDTO date) {
+//        backupRepository.savePlanMeal(mealDTO,date);
+//    }
+
+
 
     @Override
     public void onSuccess(String message) {
-        sendMsg(message);
-    }
-
-    private void sendMsg(String message){
         view.showMessage(message);
     }
 

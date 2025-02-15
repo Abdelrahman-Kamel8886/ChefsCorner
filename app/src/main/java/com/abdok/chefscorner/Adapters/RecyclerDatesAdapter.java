@@ -42,29 +42,7 @@ public class RecyclerDatesAdapter extends RecyclerView.Adapter<RecyclerDatesAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.onBind(list.get(position));
-
-        holder.card.setOnClickListener(v -> {
-            selectedPosition = position;
-            notifyDataSetChanged();
-            onDateClickListener.onDateClick(list.get(position));
-        });
-
-        if(selectedPosition == position){
-            holder.card.setCardBackgroundColor(holder.itemView.getContext().getColor(R.color.mainColor));
-            holder.card.setStrokeColor(holder.itemView.getContext().getColor(R.color.mainColor));
-            holder.backgroundDate.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.white));
-            holder.date.setTextColor(holder.itemView.getContext().getColor(R.color.charcoal));
-            holder.day.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.card.setCardBackgroundColor(holder.itemView.getContext().getColor(R.color.DeepNavy));
-            holder.card.setStrokeColor(holder.itemView.getContext().getColor(R.color.DeepNavy));
-            holder.backgroundDate.setBackgroundColor(holder.itemView.getContext().getColor(R.color.DeepNavy));
-            holder.date.setTextColor(holder.itemView.getContext().getColor(R.color.white));
-            holder.day.setVisibility(View.GONE);
-        }
-
+        holder.onBind(list.get(position) , position);
     }
 
     @Override
@@ -89,11 +67,30 @@ public class RecyclerDatesAdapter extends RecyclerView.Adapter<RecyclerDatesAdap
             backgroundDate = itemView.findViewById(R.id.backgroundDate);
         }
 
-        public void onBind(DateDTO dateDTO){
+        public void onBind(DateDTO dateDTO , int position){
             date.setText(dateDTO.getSubDate());
             day.setText(dateDTO.getDay());
 
+            card.setOnClickListener(v -> {
+                selectedPosition = position;
+                notifyDataSetChanged();
+                onDateClickListener.onDateClick(dateDTO);
+            });
 
+            if(selectedPosition == position){
+                card.setCardBackgroundColor(itemView.getContext().getColor(R.color.mainColor));
+                card.setStrokeColor(itemView.getContext().getColor(R.color.mainColor));
+                backgroundDate.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.white));
+                date.setTextColor(itemView.getContext().getColor(R.color.charcoal));
+                day.setVisibility(View.VISIBLE);
+            }
+            else{
+                card.setCardBackgroundColor(itemView.getContext().getColor(R.color.DeepNavy));
+                card.setStrokeColor(itemView.getContext().getColor(R.color.DeepNavy));
+                backgroundDate.setBackgroundColor(itemView.getContext().getColor(R.color.DeepNavy));
+                date.setTextColor(itemView.getContext().getColor(R.color.white));
+                day.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -54,11 +54,21 @@ public class PlanFragment extends Fragment implements IPlanView {
         datesList = new ArrayList(WeekHelper.getCurrentWeek());
         planMealAdapter = new RecyclerPlanMealAdapter();
         binding.recyclerPlan.setAdapter(planMealAdapter);
+
+        if (SharedModel.getUser() == null){
+            binding.userView.setVisibility(View.GONE);
+            binding.guestView.setVisibility(View.VISIBLE);
+        }
+        else{
+            binding.userView.setVisibility(View.VISIBLE);
+            binding.guestView.setVisibility(View.GONE);
+
+        }
+
         initView();
     }
 
     private void initView() {
-
         datesAdapter = new RecyclerDatesAdapter(datesList);
         binding.recyclerDates.setAdapter(datesAdapter);
         datesAdapter.setOnDateClickListener(dateDTO -> {
@@ -73,6 +83,8 @@ public class PlanFragment extends Fragment implements IPlanView {
             binding.planGroup.setVisibility(View.GONE);
         }
         else{
+            String count = meals.size()<9 ? meals.size()+" items" : meals.size()+" item";
+            binding.itemsCount.setText(count);
             binding.emptyGroup.setVisibility(View.GONE);
             binding.planGroup.setVisibility(View.VISIBLE);
             planMealAdapter.setMeals(meals);

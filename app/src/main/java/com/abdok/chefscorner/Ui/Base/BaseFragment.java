@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,14 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.abdok.chefscorner.CustomViews.GuestBottomSheet;
+import com.abdok.chefscorner.CustomViews.GuestDialog;
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentBaseBinding;
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem;
 
 
@@ -51,8 +58,14 @@ public class BaseFragment extends Fragment implements IBaseView {
         NavController navController = navHostFragment.getNavController();
         binding.nav.setupWithNavController(navController);
 
+
+
+
+
+
         SharedModel.setUser(SharedPrefHelper.getInstance().getUser());
         showUserData(SharedModel.getUser());
+
     }
 
     @Override
@@ -83,22 +96,62 @@ public class BaseFragment extends Fragment implements IBaseView {
     }
 
     private void showUserData(UserDTO user) {
-        binding.userName.setText("Hi, " + user.getName());
-        if (user.getPhotoUrl() != null) {
+        String username = user!=null ?user.getName() : getString(R.string.guest);
+        binding.userName.setText("Hi, " + username);
+        if (user!=null && user.getPhotoUrl() != null) {
             Glide.with(requireContext()).load(user.getPhotoUrl()).into(binding.avatarImg);
         }
-
     }
 
-
     private void onClicks() {
-        binding.avatarImg.setOnClickListener(v -> navigateToProfile());
+        binding.avatarImg.setOnClickListener(v -> {
+            if (SharedModel.getUser() == null){
+                showGuestDialog();
+            }
+            else {
+                navigateToProfile();
+            }
+
+        });
+
+        binding.userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showGuestBottomSheet();
+            }
+        });
     }
 
     private void navigateToProfile() {
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.container);
         NavController navController = navHostFragment.getNavController();
         navController.navigate(R.id.profileFragment);
+    }
+
+    private void showGuestBottomSheet() {
+        GuestBottomSheet guestBottomSheet = new GuestBottomSheet();
+        guestBottomSheet.show(getChildFragmentManager(), "guest_bottom_sheet");
+        guestBottomSheet.setOnItemClickListener(new GuestBottomSheet.OnItemClickListener() {
+            @Override
+            public void onCancelClick() {
+
+            }
+
+            @Override
+            public void onSignUpClick() {
+
+            }
+        });
+
+    }
+
+    private void showGuestDialog() {
+        GuestDialog guestDialog = new GuestDialog();
+        guestDialog.show(getChildFragmentManager(), "GuestDialog");
+        guestDialog.setOnItemClickListener(()->{
+            Snackbar.make(requireView(), "SignUp", Snackbar.LENGTH_SHORT).show();
+        });
+
     }
 
     @Override

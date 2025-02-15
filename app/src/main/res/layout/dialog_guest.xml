@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_dialog"
+    android:layout_margin="20dp"
+    >
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up_for_more_features"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/title"/>
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/guest_text"
+        android:textSize="14dp"
+        android:fontFamily="@font/poppins"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+       android:paddingHorizontal="20dp"
+        android:textColor="@color/charcoalGray"
+        android:layout_marginTop="10dp"
+        android:id="@+id/sub_title"
+        />
+
+    <TextView
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title"
+        android:text="@string/cancel"
+        android:textColor="@color/errorRed"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toStartOf="@id/signUpBtn"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/signUpBtn"
+        android:textColor="@color/mainColor"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
+        android:textSize="16dp"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cancelBtn"
+        android:layout_marginEnd="40dp"
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

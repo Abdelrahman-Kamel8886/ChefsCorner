@@ -1,8 +1,5 @@
 package com.abdok.chefscorner.Data.Repositories.Backup;
 
-import android.graphics.Bitmap;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.DataSources.Local.Room.LocalDataBase;
@@ -12,6 +9,7 @@ import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
 import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -21,8 +19,8 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class BackupRepository implements IBackupRepo {
@@ -55,7 +53,7 @@ public class BackupRepository implements IBackupRepo {
     }
 
     @Override
-    public void savePlanMealToFirebase(MealDTO meal , DateDTO date) {
+    public Task<Void> savePlanMealToFirebase(MealDTO meal , DateDTO date) {
         String id = sharedPrefHelper.getUser().getId();
         //Bitmap bitmap = meal.getBitmap();
 
@@ -63,12 +61,7 @@ public class BackupRepository implements IBackupRepo {
         planMealDto.setMealId(meal.getIdMeal());
         //planMealDto.getMeal().setBitmap(null);
 
-        firebaseRealtimeDataSource.savePlanMeal(planMealDto)
-                .addOnSuccessListener(unused ->{
-                   // planMealDto.getMeal().setBitmap(bitmap);
-                    savePlanMealToLocal(planMealDto);
-                } )
-                .addOnFailureListener(e -> {callback.onFailure(e.getMessage());});
+       return firebaseRealtimeDataSource.savePlanMeal(planMealDto);
     }
 
     @Override
@@ -100,14 +93,14 @@ public class BackupRepository implements IBackupRepo {
     }
 
     @Override
-    public void savePlanMealToLocal(PlanMealDto meal) {
-        Disposable disposable = mealDao.insert(meal)
+    public Completable savePlanMealToLocal(PlanMealDto meal) {
+        return mealDao.insert(meal)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> callback.onSuccess("Meal saved successfully to your plan"),
-                        throwable -> callback.onFailure(throwable.getMessage())
-                );
+                .observeOn(AndroidSchedulers.mainThread());
+//                .subscribe(
+//                        () -> callback.onSuccess("Meal saved successfully to your plan"),
+//                        throwable -> callback.onFailure(throwable.getMessage())
+//                );
     }
 
     @Override

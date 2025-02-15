@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
@@ -184,7 +185,6 @@ public class HomeFragment extends Fragment implements IHomeView {
     }
 
     private void registerNetworkCallback() {
-        Log.e("HomeTAG", "registerNetworkCallback: "+internetConnectionLost );
         connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkCallback = new ConnectivityManager.NetworkCallback() {
             @Override
@@ -204,23 +204,11 @@ public class HomeFragment extends Fragment implements IHomeView {
                 Log.e("HomeTAG", "onLost: "+internetConnectionLost);
                 requireActivity().runOnUiThread(() ->
                 {
-
                     internetConnectionLost = true;
                     showError();
                 });
             }
 
-            @Override
-            public void onUnavailable() {
-                super.onUnavailable();
-                Log.e("HomeTAG", "onUnavailable: "+internetConnectionLost);
-            }
-
-            @Override
-            public void onLosing(@NonNull Network network, int maxMsToLive) {
-                super.onLosing(network, maxMsToLive);
-                Log.e("HomeTAG", "onLosing: "+internetConnectionLost);
-            }
         };
 
         NetworkRequest networkRequest = new NetworkRequest.Builder()
@@ -231,20 +219,33 @@ public class HomeFragment extends Fragment implements IHomeView {
     }
 
     private void showCustomSnackBar(String message , int colorResId , int gravity){
-        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
+        try {
+            View view = requireActivity().findViewById(android.R.id.content);
 
-        View snackbarView = snackbar.getView();
-        int color = ContextCompat.getColor(requireContext(), colorResId);
-        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+            if (view != null){
+                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
 
-        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-        textView.setTextColor(Color.WHITE);
+                View snackbarView = snackbar.getView();
+                int color = ContextCompat.getColor(requireContext(), colorResId);
+                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
 
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-        params.gravity = gravity;
-        snackbarView.setLayoutParams(params);
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
 
-        snackbar.show();
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                params.gravity = gravity;
+                snackbarView.setLayoutParams(params);
+
+                snackbar.show();
+            }
+            else{
+                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     private boolean isInternetAvailable() {
@@ -270,7 +271,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenter.clearDisposable();
+       // presenter.clearDisposable();
         binding = null;
     }
 }
