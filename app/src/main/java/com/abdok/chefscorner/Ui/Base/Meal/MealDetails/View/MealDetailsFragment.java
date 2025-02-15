@@ -22,6 +22,7 @@ import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.IMealDetailsPres
 import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.MealDetailsPresenter;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Utils.CountryFlagMapper;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentMealDetailsBinding;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
@@ -54,7 +55,6 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
 
     private void initView(){
         baseView.hideBottomNav();
-
         int id = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
         MealDTO mealDTO = MealDetailsFragmentArgs.fromBundle(getArguments()).getMeal();
 
@@ -133,8 +133,18 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     private void showMainView(){
         binding.loadingLayout.setVisibility(View.GONE);
         binding.mainLayout.setVisibility(View.VISIBLE);
+        if (SharedModel.getUser()==null){
+            showGuestView();
+        }
 
     }
+
+    private void showGuestView() {
+        binding.addtoPlanBtn.setVisibility(View.GONE);
+        binding.bottomLayout.setVisibility(View.GONE);
+        binding.saveBtn.setVisibility(View.GONE);
+    }
+
 
     private void navigateToIngredients(String name){
         Navigation.findNavController(requireView()).navigate(MealDetailsFragmentDirections.actionMealDetailsFragmentToAllMealsFragment(name, SearchTypeEnum.INGREDIENT));

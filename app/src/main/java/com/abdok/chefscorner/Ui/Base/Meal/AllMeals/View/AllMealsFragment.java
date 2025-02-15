@@ -26,6 +26,7 @@ import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter.AllMealsPresenter;
 import com.abdok.chefscorner.Ui.Base.Meal.AllMeals.Presenter.IAllMealsPresenter;
+import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.abdok.chefscorner.databinding.FragmentAllMealsBinding;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -38,6 +39,9 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     RecyclerAllMealAdapter adapter;
     IAllMealsPresenter presenter;
     IBaseView baseView;
+
+    public static final String CATEGORY_EMOJI = "🍽️";
+    public static final String INGREDIENT_EMOJI = "🥕";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +70,17 @@ public class AllMealsFragment extends Fragment implements IAllMealsView {
     }
 
     private void initView(String title, SearchTypeEnum type){
-        binding.title.setText(title+" "+type.getValue());
+        String str = title+" "+type.getValue();
+        String code = "";
+        if (type==SearchTypeEnum.AREA){
+            code = CountryFlagMapper.getFlagEmoji(title)+ " ";
+            code+=str;
+        }
+        else {
+            code = str;
+        }
+
+        binding.title.setText(code);
         presenter.getMeals(title,type);
     }
 
