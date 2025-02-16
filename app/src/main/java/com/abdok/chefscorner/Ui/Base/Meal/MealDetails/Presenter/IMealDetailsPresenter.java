@@ -6,7 +6,8 @@ public interface IMealDetailsPresenter {
 
     void getMealDetails(int id);
     void clearDisposable();
-
     void addToFav(MealDTO mealDTO);
+    void removeFromFav(MealDTO mealDTO);
+    void checkIfMealIsFav(MealDTO mealDTO);
 
 }

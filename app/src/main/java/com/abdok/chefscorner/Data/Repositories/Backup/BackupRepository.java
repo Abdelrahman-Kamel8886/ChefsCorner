@@ -144,5 +144,12 @@ public class BackupRepository implements IBackupRepo {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Single<Boolean> isExistInFavorite(String id, String mealId) {
+        return mealDao.isExistsInFavourite(id,mealId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 }

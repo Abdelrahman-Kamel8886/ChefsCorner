@@ -1,7 +1,11 @@
 package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +48,8 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     IMealDetailsPresenter presenter;
     IBaseView baseView;
 
+    Boolean isFav;
+
     RecyclerIngredientsAdapter adapter;
 
     @Override
@@ -64,6 +71,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         baseView.hideBottomNav();
         int id = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
         MealDTO mealDTO = MealDetailsFragmentArgs.fromBundle(getArguments()).getMeal();
+
 
         if (mealDTO!=null){
             InitData(mealDTO);
@@ -106,8 +114,12 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     }
 
 
+
     @Override
     public void InitData(MealDTO mealDTO) {
+        if (SharedModel.getUser()!=null){
+            presenter.checkIfMealIsFav(mealDTO);
+        }
         showMainView();
         Glide.with(requireContext()).load(mealDTO.getStrMealThumb()).placeholder(R.drawable.load).into(binding.image);
         binding.mealTitle.setText(mealDTO.getStrMeal());
@@ -130,11 +142,32 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     @Override
     public void onAddedToFavSuccess(String message) {
         showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
+        isFav = true;
+        binding.saveBtn.setImageResource(R.drawable.baseline_bookmark_remove_24);
+    }
+
+    @Override
+    public void onRemovedFromFavSuccess(String message) {
+        showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
+        isFav = false;
+        binding.saveBtn.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
     }
 
     @Override
     public void showError(String message) {
-        showCustomSnackBar(message, R.color.errorRed, Gravity.TOP);
+        Log.e("TAGError", "showError: "+message);
+        showCustomSnackBar(getString(R.string.an_error_occurred_check_your_internet_connection), R.color.errorRed, Gravity.TOP);
+    }
+
+    @Override
+    public void toggleFavBtn(Boolean isExists) {
+        isFav = isExists;
+        if (isExists){
+            binding.saveBtn.setImageResource(R.drawable.baseline_bookmark_remove_24);
+        }
+        else {
+            binding.saveBtn.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
+        }
     }
 
     private void showIngredients(ArrayList<IngredientFormatDTO> ingredients){
@@ -176,7 +209,19 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     private void onClicks(MealDTO mealDTO){
         binding.backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         binding.saveBtn.setOnClickListener(v -> {
-            presenter.addToFav(mealDTO);
+            if (isInternetAvailable()){
+                if (isFav){
+                    Log.e("TAGError", "onClicks: add "+isFav );
+                    presenter.removeFromFav(mealDTO);
+                }
+                else {
+                    Log.e("TAGError", "onClicks: add "+isFav );
+                    presenter.addToFav(mealDTO);
+                }
+            }
+            else{
+                showError("no internet");
+            }
         });
     }
 
@@ -186,7 +231,6 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         if (SharedModel.getUser()==null){
             showGuestView();
         }
-
     }
 
     private void showGuestView() {
@@ -198,6 +242,18 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
 
     private void navigateToIngredients(String name){
         Navigation.findNavController(requireView()).navigate(MealDetailsFragmentDirections.actionMealDetailsFragmentToAllMealsFragment(name, SearchTypeEnum.INGREDIENT));
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            Network network = cm.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+                return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+            }
+        }
+        return false;
     }
 
     @Override

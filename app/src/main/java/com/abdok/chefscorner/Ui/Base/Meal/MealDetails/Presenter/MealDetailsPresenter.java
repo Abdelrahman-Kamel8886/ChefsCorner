@@ -1,5 +1,7 @@
 package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
@@ -73,12 +75,60 @@ public class MealDetailsPresenter implements IMealDetailsPresenter {
         Disposable disposable = backupRepository.saveFavoriteMealToLocal(meal)
                 .subscribe(
                         () -> {
-                            view.onAddedToFavSuccess("Meal added to favourites");
+                            view.onAddedToFavSuccess("Meal added to favourites successfully");
                         },
                         throwable -> {
                             view.showError(throwable.getMessage());
                         }
                 );
+        compositeDisposable.add(disposable);
     }
 
+    @Override
+    public void checkIfMealIsFav(MealDTO mealDTO) {
+        String id = SharedModel.getUser().getId();
+        Disposable disposable = backupRepository.isExistInFavorite(id, mealDTO.getIdMeal())
+                .subscribe(
+                        isExists -> {
+                            view.toggleFavBtn(isExists);
+                        },
+                        throwable -> {
+                            view.showError(throwable.getMessage());
+                        }
+                );
+        compositeDisposable.add(disposable);
+
+    }
+
+    @Override
+    public void removeFromFav(MealDTO mealDTO) {
+        String id = SharedModel.getUser().getId();
+        FavouriteMealDto favouriteMealDto = new FavouriteMealDto(mealDTO, mealDTO.getIdMeal(), id);
+        backupRepository.deleteFavoriteMealFromFirebase(favouriteMealDto)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        removeFromFavLocal(favouriteMealDto);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        view.showError(e.getMessage());
+                    }
+                });
+
+    }
+
+    private void removeFromFavLocal(FavouriteMealDto meal){
+        Disposable disposable = backupRepository.deleteFavoriteMealFromLocal(meal)
+                .subscribe(
+                        () -> {
+                            view.onRemovedFromFavSuccess("Meal removed from favourites successfully");
+                        },
+                        throwable -> {
+                            view.showError(throwable.getMessage());
+                        }
+                );
+        compositeDisposable.add(disposable);
+    }
 }

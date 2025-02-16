@@ -94,7 +94,6 @@
         tools:text="3 items"
         android:layout_marginEnd="20dp"
         android:id="@+id/itemsCount"
-        android:textColor="@color/tropicalAqua"
         android:fontFamily="@font/poppins_bold"
         app:layout_constraintTop_toTopOf="@id/title"
         app:layout_constraintEnd_toEndOf="parent"

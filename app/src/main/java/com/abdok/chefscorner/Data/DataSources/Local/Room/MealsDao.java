@@ -40,4 +40,9 @@ public interface MealsDao {
 
     @Delete
     Completable deleteFromFavourite(FavouriteMealDto favouriteMealDto);
+
+
+    @Query("SELECT EXISTS(SELECT * FROM favourite_meals_table WHERE id = :id and mealId = :mealId)")
+    Single<Boolean> isExistsInFavourite(String id , String mealId);
+
 }

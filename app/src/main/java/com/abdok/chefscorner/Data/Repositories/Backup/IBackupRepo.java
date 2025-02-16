@@ -34,5 +34,7 @@ public interface IBackupRepo {
     Single<List<FavouriteMealDto>> getLocalFavoriteMeals(String id);
     Completable deleteFavoriteMealFromLocal(FavouriteMealDto meal);
 
+    Single<Boolean> isExistInFavorite(String id , String mealId);
+
 
 }

@@ -7,6 +7,8 @@ public interface IMealDetailsView {
     void InitData(MealDTO mealDTO);
     void showInformation(String message);
     void onAddedToFavSuccess(String message);
+    void onRemovedFromFavSuccess(String message);
     void showError(String message);
+    void toggleFavBtn(Boolean isExists);
 
 }

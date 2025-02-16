@@ -49,4 +49,5 @@
     <string name="remove_from_your_plan">Remove From Your Plan</string>
     <string name="you_cannot_remove_meal_from_plan_without_internet_connection">You Cannot Remove Meal From Plan Without Internet Connection</string>
     <string name="you_cannot_remove_meal_from_favourites_without_internet_connection">You cannot remove meal from favourites without internet connection</string>
+    <string name="an_error_occurred_check_your_internet_connection">An error occurred check your connection</string>
 </resources>
