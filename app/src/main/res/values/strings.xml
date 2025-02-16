@@ -46,4 +46,6 @@
     <string name="categories">Categories</string>
     <string name="ingredients">Ingredients</string>
     <string name="areas">Areas</string>
+    <string name="remove_from_your_plan">Remove From Your Plan</string>
+    <string name="you_cannot_remove_meal_from_plan_without_internet_connection">You Cannot Remove Meal From Plan Without Internet Connection</string>
 </resources>

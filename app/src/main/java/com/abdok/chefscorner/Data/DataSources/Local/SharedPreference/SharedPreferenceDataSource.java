@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Data.DataSources.Local.SharedPref;
+package com.abdok.chefscorner.Data.DataSources.Local.SharedPreference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,25 +6,25 @@ import android.content.SharedPreferences;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.Utils.Converter;
 
-public class SharedPrefHelper {
+public class SharedPreferenceDataSource {
 
     private static final String PREF_NAME = "ChefCornerPrefs";
     private static final String KEY_USER = "user";
 
-    private static SharedPrefHelper instance;
+    private static SharedPreferenceDataSource instance;
     private final SharedPreferences sharedPreferences;
 
-    private SharedPrefHelper(Context context) {
+    private SharedPreferenceDataSource(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     public static synchronized void initSharedPref(Context context) {
         if (instance == null) {
-            instance = new SharedPrefHelper(context);
+            instance = new SharedPreferenceDataSource(context);
         }
     }
 
-    public static synchronized SharedPrefHelper getInstance() {
+    public static synchronized SharedPreferenceDataSource getInstance() {
         return instance;
     }
 

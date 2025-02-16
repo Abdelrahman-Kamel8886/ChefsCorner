@@ -11,11 +11,13 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface IBackupRepo {
-    void savePlanMeal(MealDTO meal , DateDTO date);
+
+
     Task<Void> savePlanMealToFirebase(MealDTO meal , DateDTO date);
-    void deletePlanMealFromFirebase(PlanMealDto dto);
+    Task<Void> deletePlanMealFromFirebase(PlanMealDto dto);
     List<PlanMealDto> getPlanMeals(String id);
 
     Completable savePlanMealToLocal(PlanMealDto meal);
     Single<List<PlanMealDto> > getLocalPlanMeals(DateDTO dateDTO, String id);
+    Completable deletePlanMealFromLocal(PlanMealDto meal);
 }

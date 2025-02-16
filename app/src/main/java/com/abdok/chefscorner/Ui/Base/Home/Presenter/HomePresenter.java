@@ -19,7 +19,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 
-public class HomePresenter implements IHomePresenter , BackupRepository.BackupCallback {
+public class HomePresenter implements IHomePresenter  {
 
     private IHomeView view;
     private RemoteRepository remoteRepository;
@@ -30,7 +30,7 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
     public HomePresenter(IHomeView view) {
         this.view = view;
         remoteRepository = RemoteRepository.getInstance();
-        backupRepository = BackupRepository.getInstance(this);
+        backupRepository = BackupRepository.getInstance();
 
     }
 
@@ -116,24 +116,4 @@ public class HomePresenter implements IHomePresenter , BackupRepository.BackupCa
                 );
     }
 
-//    @Override
-//    public void addMealToPlan(MealDTO mealDTO, DateDTO date) {
-//        backupRepository.savePlanMeal(mealDTO,date);
-//    }
-
-
-
-    @Override
-    public void onSuccess(String message) {
-        view.showMessage(message);
-    }
-
-    @Override
-    public void onFailure(String message) {
-        view.showMessage(message);
-    }
-
-    @Override
-    public void onPlanMealsReceived(List<PlanMealDto> planMealDtos) {
-    }
 }

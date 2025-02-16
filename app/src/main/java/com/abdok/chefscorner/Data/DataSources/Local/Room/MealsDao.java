@@ -18,9 +18,13 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface MealsDao {
 
+
     @Query("SELECT * FROM plan_meal_table WHERE date = :dateDTO and id = :id")
     Single<List<PlanMealDto>> getAllMeals(DateDTO dateDTO , String id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insert(PlanMealDto planMeal);
+
+    @Delete
+    Completable delete(PlanMealDto planMeal);
 }

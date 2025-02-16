@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.databinding.FragmentSplashBinding;
@@ -39,7 +39,7 @@ public class SplashFragment extends Fragment {
     }
 
     private void checkUser() {
-        UserDTO user = SharedPrefHelper.getInstance().getUser();
+        UserDTO user = SharedPreferenceDataSource.getInstance().getUser();
         if (user!=null){
             NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_baseFragment);
         }

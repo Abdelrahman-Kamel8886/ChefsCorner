@@ -19,8 +19,8 @@
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" >
         <action
-            android:id="@+id/action_planFragment_to_offlineMealDetailsFragment"
-            app:destination="@id/offlineMealDetailsFragment" />
+            android:id="@+id/action_planFragment_to_PlanMealDetailsFragment"
+            app:destination="@id/PlanMealDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -46,11 +46,7 @@
         android:id="@+id/favoritesFragment"
         android:name="com.abdok.chefscorner.Ui.Base.Favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" >
-        <action
-            android:id="@+id/action_favoritesFragment_to_offlineMealDetailsFragment"
-            app:destination="@id/offlineMealDetailsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/mealDetailsFragment"
         android:name="com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View.MealDetailsFragment"
@@ -106,9 +102,9 @@
             />
     </fragment>
     <fragment
-        android:id="@+id/offlineMealDetailsFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.View.OfflineMealDetailsFragment"
-        android:label="OfflineMealDetailsFragment" >
+        android:id="@+id/PlanMealDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.View.PlanMealDetailsDetailsFragment"
+        android:label="PlanMealDetailsFragment">
         <argument
             android:name="PlanMeal"
             app:argType="com.abdok.chefscorner.Data.Models.PlanMealDto" />

@@ -11,7 +11,7 @@ public class PlanPresenter implements IPlanPresenter{
 
     public PlanPresenter(IPlanView view) {
         this.view = view;
-        this.backupRepository = BackupRepository.getInstance(null);
+        this.backupRepository = BackupRepository.getInstance();
     }
 
     @Override
@@ -19,4 +19,7 @@ public class PlanPresenter implements IPlanPresenter{
         backupRepository.getLocalPlanMeals(date,id)
                 .subscribe(view::showMeals);
     }
+
+
+
 }

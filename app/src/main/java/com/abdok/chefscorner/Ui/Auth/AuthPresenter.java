@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -98,7 +98,7 @@ public class AuthPresenter implements IAuthPresenter{
         Uri photoUri = user.getPhotoUrl();
         String photoUrlString = photoUri != null ? photoUri.toString() : null;
         UserDTO userDTO = new UserDTO(user.getUid(),user.getDisplayName(),user.getEmail(),photoUrlString);
-        SharedPrefHelper.getInstance().saveUser(userDTO);
+        SharedPreferenceDataSource.getInstance().saveUser(userDTO);
         view.navigateToBase();
     }
 

@@ -18,7 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.abdok.chefscorner.CustomViews.GuestDialog.GuestDialog;
-import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.SharedModel;
@@ -58,7 +58,7 @@ public class BaseFragment extends Fragment implements IBaseView {
 
 
 
-        SharedModel.setUser(SharedPrefHelper.getInstance().getUser());
+        SharedModel.setUser(SharedPreferenceDataSource.getInstance().getUser());
         showUserData(SharedModel.getUser());
 
     }

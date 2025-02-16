@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.abdok.chefscorner.Data.DataSources.Local.Room.LocalDataBase;
 import com.abdok.chefscorner.Data.DataSources.Local.Room.MealsDao;
 import com.abdok.chefscorner.Data.DataSources.Remote.FirebaseRealtime.FirebaseRealtimeDataSource;
-import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
@@ -27,34 +27,28 @@ public class BackupRepository implements IBackupRepo {
 
     private FirebaseRealtimeDataSource firebaseRealtimeDataSource;
     private MealsDao mealDao;
-    private SharedPrefHelper sharedPrefHelper;
-    private BackupCallback callback;
+    private SharedPreferenceDataSource sharedPreferenceDataSource;
     private static BackupRepository instance;
 
 
-    private BackupRepository(BackupCallback callback) {
+    private BackupRepository() {
         this.firebaseRealtimeDataSource = FirebaseRealtimeDataSource.getInstance();
-        this.sharedPrefHelper = SharedPrefHelper.getInstance();
-        this.callback = callback;
+        this.sharedPreferenceDataSource = SharedPreferenceDataSource.getInstance();
         this.mealDao = LocalDataBase.getDao();
     }
 
-    public static synchronized BackupRepository getInstance(BackupCallback callback) {
+    public static synchronized BackupRepository getInstance() {
         if (instance == null) {
-            instance = new BackupRepository(callback);
+            instance = new BackupRepository();
         }
         return instance;
     }
 
 
-    @Override
-    public void savePlanMeal(MealDTO meal, DateDTO date) {
-        savePlanMealToFirebase(meal, date);
-    }
 
     @Override
     public Task<Void> savePlanMealToFirebase(MealDTO meal , DateDTO date) {
-        String id = sharedPrefHelper.getUser().getId();
+        String id = sharedPreferenceDataSource.getUser().getId();
         //Bitmap bitmap = meal.getBitmap();
 
         PlanMealDto planMealDto = new PlanMealDto(id,date,meal);
@@ -65,10 +59,8 @@ public class BackupRepository implements IBackupRepo {
     }
 
     @Override
-    public void deletePlanMealFromFirebase(PlanMealDto dto) {
-        firebaseRealtimeDataSource.deletePlanMeal(dto)
-                .addOnSuccessListener(unused -> callback.onSuccess("Meal deleted successfully"))
-                .addOnFailureListener(e -> {callback.onFailure(e.getMessage());});
+    public Task<Void> deletePlanMealFromFirebase(PlanMealDto dto) {
+        return firebaseRealtimeDataSource.deletePlanMeal(dto);
     }
 
     @Override
@@ -82,7 +74,7 @@ public class BackupRepository implements IBackupRepo {
                             PlanMealDto planMealDto = dataSnapshot.getValue(PlanMealDto.class);
                             planMealDtos.add(planMealDto);
                         }
-                        callback.onPlanMealsReceived(planMealDtos);
+                        //callback.onPlanMealsReceived(planMealDtos);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -97,10 +89,6 @@ public class BackupRepository implements IBackupRepo {
         return mealDao.insert(meal)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-//                .subscribe(
-//                        () -> callback.onSuccess("Meal saved successfully to your plan"),
-//                        throwable -> callback.onFailure(throwable.getMessage())
-//                );
     }
 
     @Override
@@ -110,11 +98,12 @@ public class BackupRepository implements IBackupRepo {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-
-    public interface BackupCallback {
-        void onSuccess(String message);
-        void onFailure(String message);
-        void onPlanMealsReceived(List<PlanMealDto> planMealDtos);
+    @Override
+    public Completable deletePlanMealFromLocal(PlanMealDto meal) {
+        return mealDao.delete(meal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
+
 
 }

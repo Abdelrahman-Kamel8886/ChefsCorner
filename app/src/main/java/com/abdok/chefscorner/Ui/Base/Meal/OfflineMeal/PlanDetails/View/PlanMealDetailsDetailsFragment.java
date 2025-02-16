@@ -1,16 +1,27 @@
-package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.View;
+package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.View;
 
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
 import com.abdok.chefscorner.Data.Models.IngredientFormatDTO;
@@ -18,19 +29,23 @@ import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
-import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter.MealDetailsPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.Presnter.IPlanMDPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.Presnter.PlanMealDetailsPresenter;
 import com.abdok.chefscorner.Utils.CountryFlagMapper;
-import com.abdok.chefscorner.Utils.Helpers.BitmapHelper;
 import com.abdok.chefscorner.databinding.FragmentMealDetailsBinding;
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class OfflineMealDetailsFragment extends Fragment implements IOfflineMealView {
+public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDView {
 
     FragmentMealDetailsBinding binding;
     RecyclerIngredientsAdapter adapter;
     IBaseView baseView;
+    IPlanMDPresenter presenter;
+
+    PlanMealDto planMeal;
 
 
     @Nullable
@@ -44,13 +59,18 @@ public class OfflineMealDetailsFragment extends Fragment implements IOfflineMeal
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         baseView = (IBaseView) getParentFragment().getParentFragment();
-        PlanMealDto planMeal = OfflineMealDetailsFragmentArgs.fromBundle(getArguments()).getPlanMeal();
+        presenter = new PlanMealDetailsPresenter(this);
+        planMeal = PlanMealDetailsDetailsFragmentArgs.fromBundle(getArguments()).getPlanMeal();
         initView(planMeal);
     }
 
     private void initView(PlanMealDto planMeal){
-
         baseView.hideBottomNav();
+        binding.saveBtn.setVisibility(View.GONE);
+        binding.addtoPlanBtn.setText(R.string.remove_from_your_plan);
+        binding.addtoPlanBtn.setTextColor(getContext().getColor(R.color.white));
+        binding.addtoPlanBtn.setBackgroundTintList(getContext().getColorStateList(R.color.errorRed));
+
         binding.loadingLayout.setVisibility(View.GONE);
         binding.mainLayout.setVisibility(View.VISIBLE);
         //init Meal
@@ -79,6 +99,8 @@ public class OfflineMealDetailsFragment extends Fragment implements IOfflineMeal
         if (meal.getStrTags()!=null && !meal.getStrTags().isEmpty()){
             showTags(meal.getStrTags());
         }
+
+        onClicks();
     }
 
     private void showIngredients(ArrayList<IngredientFormatDTO> ingredients){
@@ -113,6 +135,76 @@ public class OfflineMealDetailsFragment extends Fragment implements IOfflineMeal
             binding.webview.setVisibility(View.GONE);
             // binding.webview.loadData("<p>Invalid YouTube URL</p>", "text/html", "utf-8");
         }
+    }
+
+    private void onClicks(){
+        binding.addtoPlanBtn.setOnClickListener(v -> {
+            if (isInternetAvailable()){
+                presenter.removeFromPlan(planMeal);
+            }
+            else{
+                showCustomSnackBar(getString(R.string.you_cannot_remove_meal_from_plan_without_internet_connection), R.color.errorRed, Gravity.TOP);
+            }
+        });
+        binding.backBtn.setOnClickListener(v -> navigateUp());
+    }
+
+    private void showCustomSnackBar(String message , int colorResId , int gravity){
+        try {
+            View view = requireActivity().findViewById(android.R.id.content);
+
+            if (view != null){
+                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+
+                View snackbarView = snackbar.getView();
+                int color = ContextCompat.getColor(requireContext(), colorResId);
+                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                params.gravity = gravity;
+                snackbarView.setLayoutParams(params);
+
+                snackbar.show();
+            }
+            else{
+                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            Network network = cm.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+                return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRemoveFromPlanSuccess(String message) {
+        showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
+        navigateUp();
+    }
+
+    @Override
+    public void onRemoveFromPlanFailed(String message) {
+        showCustomSnackBar(message, R.color.errorRed, Gravity.TOP);
+    }
+
+    private void navigateUp(){
+        Navigation.findNavController(requireView()).navigateUp();
     }
 
     @Override

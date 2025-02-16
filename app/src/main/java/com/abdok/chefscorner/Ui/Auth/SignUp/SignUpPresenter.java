@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,7 +80,7 @@ public class SignUpPresenter implements ISignUpPresenter{
 
     @Override
     public void cacheUserData(UserDTO user) {
-        SharedPrefHelper.getInstance().saveUser(user);
+        SharedPreferenceDataSource.getInstance().saveUser(user);
         view.navigateToBase();
     }
 }

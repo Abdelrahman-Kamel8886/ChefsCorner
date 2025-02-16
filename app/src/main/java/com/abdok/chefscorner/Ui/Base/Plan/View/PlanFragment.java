@@ -107,7 +107,7 @@ public class PlanFragment extends Fragment implements IPlanView {
     }
 
     private void navigateToMealDetails(PlanMealDto meal){
-        Navigation.findNavController(requireView()).navigate(PlanFragmentDirections.actionPlanFragmentToOfflineMealDetailsFragment(meal));
+        Navigation.findNavController(requireView()).navigate(PlanFragmentDirections.actionPlanFragmentToPlanMealDetailsFragment(meal));
     }
 
     @Override
