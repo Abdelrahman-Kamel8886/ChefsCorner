@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.View;
+package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.FavouriteDetails.View;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -24,13 +24,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
+import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Models.IngredientFormatDTO;
 import com.abdok.chefscorner.Data.Models.MealDTO;
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
-import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.Presnter.IPlanMDPresenter;
-import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.Presnter.PlanMealDetailsPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.FavouriteDetails.Presenter.FavMealDetailsPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.FavouriteDetails.Presenter.IFavMDPresenter;
 import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.abdok.chefscorner.databinding.FragmentMealDetailsBinding;
 import com.bumptech.glide.Glide;
@@ -38,14 +38,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDView {
+public class FavouriteMealDetailsFragment extends Fragment implements IFavMDView {
 
     FragmentMealDetailsBinding binding;
     RecyclerIngredientsAdapter adapter;
     IBaseView baseView;
-    IPlanMDPresenter presenter;
-
-    PlanMealDto planMeal;
+    FavouriteMealDto favouriteMealDto;
+    IFavMDPresenter presenter;
 
 
     @Nullable
@@ -59,38 +58,29 @@ public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         baseView = (IBaseView) getParentFragment().getParentFragment();
-        presenter = new PlanMealDetailsPresenter(this);
-        planMeal = PlanMealDetailsDetailsFragmentArgs.fromBundle(getArguments()).getPlanMeal();
-        initView(planMeal);
+        favouriteMealDto = FavouriteMealDetailsFragmentArgs.fromBundle(getArguments()).getFavouriteMeal();
+        presenter = new FavMealDetailsPresenter(this);
+        initView(favouriteMealDto);
     }
 
-    private void initView(PlanMealDto planMeal){
+    private void initView(FavouriteMealDto favouriteMealDto){
         baseView.hideBottomNav();
         binding.saveBtn.setVisibility(View.GONE);
-        binding.addtoPlanBtn.setText(R.string.remove_from_your_plan);
+        binding.addtoPlanBtn.setText("Remove from your Favourite Meals");
         binding.addtoPlanBtn.setTextColor(getContext().getColor(R.color.white));
         binding.addtoPlanBtn.setBackgroundTintList(getContext().getColorStateList(R.color.errorRed));
 
         binding.loadingLayout.setVisibility(View.GONE);
         binding.mainLayout.setVisibility(View.VISIBLE);
+
         //init Meal
-        MealDTO meal = planMeal.getMeal();
+        MealDTO meal = favouriteMealDto.getMeal();
         Glide.with(requireContext())
                 .load(meal.getStrMealThumb())
                 .placeholder(R.drawable.load)
                 .error(R.drawable.no_image)
                 .into(binding.image);
-//        Bitmap bitmap = BitmapHelper.getBitmapFromBase64(meal.getBitmapBase64());
-//        if (bitmap != null) {
-//            binding.image.setImageBitmap(bitmap);
-//        }
-//        else{
-//            Glide.with(requireContext())
-//                    .load(meal.getStrMealThumb())
-//                    .placeholder(R.drawable.load)
-//                    .error(R.drawable.no_image)
-//                    .into(binding.image);
-//        }
+
         binding.mealTitle.setText(meal.getStrMeal());
         binding.mealCategory.setText(meal.getStrArea()+" "+ meal.getStrCategory()+" "+ CountryFlagMapper.getFlagEmoji(meal.getStrArea()));
         binding.mealInstructions.setText(meal.getStrInstructions());
@@ -101,6 +91,7 @@ public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDV
         }
 
         onClicks();
+
     }
 
     private void showIngredients(ArrayList<IngredientFormatDTO> ingredients){
@@ -140,10 +131,10 @@ public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDV
     private void onClicks(){
         binding.addtoPlanBtn.setOnClickListener(v -> {
             if (isInternetAvailable()){
-                presenter.removeFromPlan(planMeal);
+                presenter.removeFromFav(favouriteMealDto);
             }
             else{
-                showCustomSnackBar(getString(R.string.you_cannot_remove_meal_from_plan_without_internet_connection), R.color.errorRed, Gravity.TOP);
+                showCustomSnackBar(getString(R.string.you_cannot_remove_meal_from_favourites_without_internet_connection), R.color.errorRed, Gravity.TOP);
             }
         });
         binding.backBtn.setOnClickListener(v -> navigateUp());
@@ -192,26 +183,18 @@ public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDV
     }
 
 
-
-
-    @Override
-    public void onRemoveFromPlanSuccess(String message) {
-        showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
-        navigateUp();
-    }
-
-    @Override
-    public void onRemoveFromPlanFailed(String message) {
-        showCustomSnackBar(message, R.color.errorRed, Gravity.TOP);
-    }
-
     private void navigateUp(){
         Navigation.findNavController(requireView()).navigateUp();
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public void onRemoveFromFavSuccess(String message) {
+        showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
+        navigateUp();
+    }
+
+    @Override
+    public void onRemoveFromFavFailed(String message) {
+        showCustomSnackBar(message, R.color.errorRed, Gravity.TOP);
     }
 }

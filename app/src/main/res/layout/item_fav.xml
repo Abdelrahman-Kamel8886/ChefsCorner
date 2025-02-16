@@ -23,7 +23,7 @@
             android:padding="10dp">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="140dp"
+                android:layout_width="130dp"
                 android:layout_height="100dp"
                 app:cardBackgroundColor="@color/leafGreen"
                 app:cardCornerRadius="20sp"

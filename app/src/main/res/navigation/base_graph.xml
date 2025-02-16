@@ -46,7 +46,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.abdok.chefscorner.Ui.Base.Favorites.View.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_favouriteMealDetailsFragment"
+            app:destination="@id/favouriteMealDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
         android:name="com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View.MealDetailsFragment"
@@ -108,5 +112,13 @@
         <argument
             android:name="PlanMeal"
             app:argType="com.abdok.chefscorner.Data.Models.PlanMealDto" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteMealDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.FavouriteDetails.View.FavouriteMealDetailsFragment"
+        android:label="FavouriteMealDetailsFragment" >
+        <argument
+            android:name="FavouriteMeal"
+            app:argType="com.abdok.chefscorner.Data.Models.FavouriteMealDto" />
     </fragment>
 </navigation>

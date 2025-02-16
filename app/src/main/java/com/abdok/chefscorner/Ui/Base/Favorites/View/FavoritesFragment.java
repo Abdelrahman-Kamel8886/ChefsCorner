@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.Gravity;
@@ -52,8 +53,6 @@ public class FavoritesFragment extends Fragment implements IFavView {
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.showMainView();
         presenter = new FavouritesPresenter(this);
-        adapter = new RecyclerFavMealAdapter();
-        binding.recyclerView.setAdapter(adapter);
 
         if (SharedModel.getUser() == null){
             binding.guestView.setVisibility(View.VISIBLE);
@@ -88,12 +87,14 @@ public class FavoritesFragment extends Fragment implements IFavView {
             binding.recyclerView.setVisibility(View.VISIBLE);
             binding.emptyGroup.setVisibility(View.GONE);
 
+            adapter = new RecyclerFavMealAdapter();
             adapter.setMeals(meals);
-            adapter.notifyDataSetChanged();
+            binding.recyclerView.setAdapter(adapter);
+
             adapter.setOnItemClickListener(new RecyclerFavMealAdapter.onItemClickListener() {
                 @Override
                 public void onItemClick(FavouriteMealDto meal) {
-
+                    navigateToFavDetails(meal);
                 }
 
                 @Override
@@ -109,6 +110,10 @@ public class FavoritesFragment extends Fragment implements IFavView {
             binding.emptyGroup.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    private void navigateToFavDetails(FavouriteMealDto meal){
+        Navigation.findNavController(requireView()).navigate(FavoritesFragmentDirections.actionFavoritesFragmentToFavouriteMealDetailsFragment(meal));
     }
 
     @Override
