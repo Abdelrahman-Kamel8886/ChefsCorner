@@ -29,8 +29,8 @@ import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
-import com.abdok.chefscorner.CustomViews.DatePickerBottomSheet;
-import com.abdok.chefscorner.CustomViews.GuestDialog;
+import com.abdok.chefscorner.CustomViews.DateSheet.DatePickerBottomSheet;
+import com.abdok.chefscorner.CustomViews.GuestDialog.GuestDialog;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Ui.Base.Home.Presenter.HomePresenter;
 import com.abdok.chefscorner.Ui.Base.Home.Presenter.IHomePresenter;

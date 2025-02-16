@@ -43,4 +43,7 @@
     <string name="sign_up_for_more_features">Sign Up for More Features</string>
     <string name="guest_text">Add recipes to your favourite list or add it to your plan over the current Week and More!</string>
     <string name="cancel"><u>Cancel</u></string>
+    <string name="categories">Categories</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="areas">Areas</string>
 </resources>

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -17,20 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.abdok.chefscorner.CustomViews.GuestBottomSheet;
-import com.abdok.chefscorner.CustomViews.GuestDialog;
+import com.abdok.chefscorner.CustomViews.GuestDialog.GuestDialog;
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPref.SharedPrefHelper;
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentBaseBinding;
 import com.bumptech.glide.Glide;
-import com.google.android.material.snackbar.Snackbar;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function2;
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem;
 
 

@@ -9,7 +9,6 @@
     app:cardElevation="20dp"
     app:cardUseCompatPadding="true"
     android:clickable="true"
-    app:rippleColor="@color/lightSilver"
     android:id="@+id/mealCard"
     >
 

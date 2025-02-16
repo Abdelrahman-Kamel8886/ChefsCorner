@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerCategoriesNamesAdapter;
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsNamesAdapter;
+import com.abdok.chefscorner.Ui.Base.Search.SearchSheet.View.SearchBottomSheetFragment;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
 import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
@@ -44,6 +46,7 @@ public class SearchFragment extends Fragment implements ISearchView {
     RecyclerIngredientsNamesAdapter ingredientsNamesAdapter;
     RecyclerCategoriesNamesAdapter categoriesNamesAdapter;
     RecyclerAreaNamesAdapter areasNamesAdapter;
+    GridLayoutManager layoutManager;
     ISearchPresenter presenter;
     IBaseView baseView;
 
@@ -61,6 +64,7 @@ public class SearchFragment extends Fragment implements ISearchView {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentSearchBinding.bind(view);
         presenter = new SearchPresenter(this);
+        layoutManager= new GridLayoutManager(requireContext(), 2);
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.showMainView();
 
@@ -115,6 +119,28 @@ public class SearchFragment extends Fragment implements ISearchView {
                     navigate(SearchFragmentDirections.actionSearchFragmentToAreasFragment(areaDTO));
         });
         showMainView();
+        binding.cardSearch.setOnClickListener(v -> showSearchBottomSheet());
+    }
+
+    private void showSearchBottomSheet(){
+        SearchBottomSheetFragment bottomSheetFragment = new SearchBottomSheetFragment();
+        bottomSheetFragment.show(getParentFragmentManager(), bottomSheetFragment.getTag());
+        bottomSheetFragment.setOnItemClickListener(new SearchBottomSheetFragment.OnItemClickListener() {
+            @Override
+            public void onCategoryClick(String category) {
+                navigateToCategoriesAllMeals(category);
+            }
+
+            @Override
+            public void onAreaClick(String area) {
+                navigateToAreaMeals(area);
+            }
+
+            @Override
+            public void onIngredientClick(String ingredient) {
+                navigateToIngredientsAllMeals(ingredient);
+            }
+        });
     }
 
     @Override
@@ -138,7 +164,6 @@ public class SearchFragment extends Fragment implements ISearchView {
         binding.loadingLayout.setVisibility(View.VISIBLE);
         checkForData();
     }
-
 
     private void registerNetworkCallback() {
         connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);

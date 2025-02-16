@@ -40,6 +40,11 @@ public class RecyclerCategoriesNamesAdapter extends RecyclerView.Adapter<Recycle
         return holder;
     }
 
+    public void setList(List<CategoriesNamesResponseDTO.CategoryNameDTO> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.onBind(list.get(position));

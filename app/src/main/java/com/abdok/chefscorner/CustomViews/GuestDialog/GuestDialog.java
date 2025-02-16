@@ -1,17 +1,14 @@
-package com.abdok.chefscorner.CustomViews;
+package com.abdok.chefscorner.CustomViews.GuestDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.abdok.chefscorner.R;
-import com.abdok.chefscorner.databinding.BottomSheetGuestBinding;
 import com.abdok.chefscorner.databinding.DialogGuestBinding;
 
 public class GuestDialog extends DialogFragment {

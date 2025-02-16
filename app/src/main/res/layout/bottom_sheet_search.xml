@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rounded_bottom_sheet">
+
+    <ImageButton
+        android:id="@+id/closeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/baseline_close_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/card_search"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Search"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18dp"
+        app:layout_constraintTop_toTopOf="@id/closeBtn"
+        app:layout_constraintStart_toEndOf="@id/closeBtn"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/closeBtn"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="100dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="5dp"
+        >
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            android:background="@color/white"
+            android:queryBackground="@color/white"
+            android:baselineAligned="false"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/card_search"
+        app:layout_constraintStart_toStartOf="@id/card_search"
+        app:layout_constraintEnd_toEndOf="@id/card_search"
+        android:id="@+id/chipGroup"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        app:singleSelection="true"
+        >
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/categoriesChip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/categories"
+            android:textColor="@color/darkCharcoalGray"
+            app:chipBackgroundColor="@color/soft_green"
+            />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/areasChip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/areas"
+            android:textColor="@color/darkCharcoalGray"
+            app:chipBackgroundColor="@color/soft_red"
+            />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/ingredientsChip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredients"
+            android:textColor="@color/darkCharcoalGray"
+            app:chipBackgroundColor="@color/sky_blue"
+            />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:spanCount="2"
+        app:layout_constraintStart_toStartOf="@id/card_search"
+        app:layout_constraintEnd_toEndOf="@id/card_search"
+        app:layout_constraintTop_toBottomOf="@id/chipGroup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:paddingVertical="20dp"
+        tools:listitem="@layout/item_category_name"
+        android:id="@+id/recyclerSearch"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

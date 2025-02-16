@@ -1,10 +1,5 @@
 package com.abdok.chefscorner.Ui.Base.Search.Presenter;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-
 import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Search.View.ISearchView;
 import com.abdok.chefscorner.Utils.SharedModel;
@@ -13,11 +8,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 
-public class SearchPresenter implements ISearchPresenter {
+public class SearchPresenter implements ISearchPresenter{
 
-    ISearchView view;
-    RemoteRepository remoteRepository;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ISearchView view;
+    private RemoteRepository remoteRepository;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public SearchPresenter(ISearchView view) {
         this.view = view;
@@ -62,4 +57,5 @@ public class SearchPresenter implements ISearchPresenter {
     public void onDestroy(){
         compositeDisposable.dispose();
     }
+
 }
