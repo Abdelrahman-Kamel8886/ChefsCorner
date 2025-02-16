@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".Ui.Base.Favorites.FavoritesFragment">
+    tools:context=".Ui.Base.Favorites.View.FavoritesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -75,6 +75,84 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Favourite Recipes"
+        android:id="@+id/title"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3 items"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/itemsCount"
+        android:textColor="@color/tropicalAqua"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        android:textSize="12sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:id="@+id/recyclerView"
+        android:padding="20dp"
+        android:visibility="gone"
+        tools:listitem="@layout/item_fav"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/empty_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.6"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/empty"
+        />
+
+    <TextView
+        android:id="@+id/emptytxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="!! You have no favourites yet"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/empty_image"
+        app:layout_constraintEnd_toEndOf="@id/empty_image"
+        app:layout_constraintTop_toBottomOf="@id/empty_image"/>
+
+
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyGroup"
+        app:constraint_referenced_ids="empty_image,emptytxt"
+        android:visibility="gone"
+        />
+
+
+
 
 
 

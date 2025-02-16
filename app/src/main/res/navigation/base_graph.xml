@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Favorites.FavoritesFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Favorites.View.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
@@ -103,7 +103,7 @@
     </fragment>
     <fragment
         android:id="@+id/PlanMealDetailsFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.View.PlanMealDetailsDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.View.PlanMealDetailsDetailsFragment"
         android:label="PlanMealDetailsFragment">
         <argument
             android:name="PlanMeal"

@@ -14,9 +14,10 @@ public class FavouriteMealDto implements Serializable {
     private String mealId;
     private MealDTO meal;
 
-    public FavouriteMealDto(String id, MealDTO meal) {
-        this.id = id;
+    public FavouriteMealDto(MealDTO meal, @NonNull String mealId, @NonNull String id) {
         this.meal = meal;
+        this.mealId = mealId;
+        this.id = id;
     }
 
     public FavouriteMealDto() {}

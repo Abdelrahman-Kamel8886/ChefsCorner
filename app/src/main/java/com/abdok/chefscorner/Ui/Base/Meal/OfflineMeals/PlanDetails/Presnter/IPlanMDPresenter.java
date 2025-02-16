@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.Presnter;
+package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.Presnter;
 
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 

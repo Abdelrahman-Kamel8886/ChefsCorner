@@ -7,11 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.Utils.Converter;
 
 
-@Database(entities = {PlanMealDto.class}, version = 1)
+@Database(entities = {PlanMealDto.class , FavouriteMealDto.class}, version = 1)
 @TypeConverters({Converter.class})
 public abstract class LocalDataBase extends RoomDatabase {
 

@@ -1,17 +1,24 @@
 package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
@@ -68,6 +75,36 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
 
     }
 
+    private void showCustomSnackBar(String message , int colorResId , int gravity){
+        try {
+            View view = requireActivity().findViewById(android.R.id.content);
+
+            if (view != null){
+                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+
+                View snackbarView = snackbar.getView();
+                int color = ContextCompat.getColor(requireContext(), colorResId);
+                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                params.gravity = gravity;
+                snackbarView.setLayoutParams(params);
+
+                snackbar.show();
+            }
+            else{
+                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     @Override
     public void InitData(MealDTO mealDTO) {
@@ -82,12 +119,22 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         if (mealDTO.getStrTags()!=null && !mealDTO.getStrTags().isEmpty()){
             showTags(mealDTO.getStrTags());
         }
-        onClicks();
+        onClicks(mealDTO);
     }
 
     @Override
     public void showInformation(String message) {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAddedToFavSuccess(String message) {
+        showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
+    }
+
+    @Override
+    public void showError(String message) {
+        showCustomSnackBar(message, R.color.errorRed, Gravity.TOP);
     }
 
     private void showIngredients(ArrayList<IngredientFormatDTO> ingredients){
@@ -126,8 +173,11 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         }
     }
 
-    private void onClicks(){
+    private void onClicks(MealDTO mealDTO){
         binding.backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        binding.saveBtn.setOnClickListener(v -> {
+            presenter.addToFav(mealDTO);
+        });
     }
 
     private void showMainView(){

@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.View;
+package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.View;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -29,8 +29,8 @@ import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
-import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.Presnter.IPlanMDPresenter;
-import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.Presnter.PlanMealDetailsPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.Presnter.IPlanMDPresenter;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.Presnter.PlanMealDetailsPresenter;
 import com.abdok.chefscorner.Utils.CountryFlagMapper;
 import com.abdok.chefscorner.databinding.FragmentMealDetailsBinding;
 import com.bumptech.glide.Glide;
@@ -190,6 +190,8 @@ public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDV
         }
         return false;
     }
+
+
 
 
     @Override

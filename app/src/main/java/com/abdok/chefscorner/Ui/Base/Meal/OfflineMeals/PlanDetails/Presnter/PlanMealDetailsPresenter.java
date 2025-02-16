@@ -1,10 +1,10 @@
-package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.Presnter;
+package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.Presnter;
 
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
-import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.View.IPlanMDView;
+import com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.View.IPlanMDView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 

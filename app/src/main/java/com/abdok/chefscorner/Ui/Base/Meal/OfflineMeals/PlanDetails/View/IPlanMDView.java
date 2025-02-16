@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeal.PlanDetails.View;
+package com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.View;
 
 public interface IPlanMDView {
     void onRemoveFromPlanSuccess(String message);

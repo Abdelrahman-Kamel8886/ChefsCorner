@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:strokeWidth="0sp"
+        android:id="@+id/card1"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/tropicalAqua"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mainLayout"
+
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                app:cardBackgroundColor="@color/leafGreen"
+                app:cardCornerRadius="20sp"
+                android:id="@+id/card2"
+                app:strokeColor="@color/white"
+                app:strokeWidth="0sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/local_img"
+                        android:src="@drawable/ko"
+                        android:scaleType="fitXY"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/card2"
+                app:layout_constraintEnd_toEndOf="@id/card2"
+                app:layout_constraintTop_toBottomOf="@id/card2"
+                android:id="@+id/title"
+                android:text="Egyptian Koshary nknknknknknk"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp"
+                android:minLines="2"
+                android:maxLines="2"
+                android:layout_marginTop="10sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:id="@+id/area_title"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="🇪🇬 Egyptian"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="2dp"
+                android:background="@drawable/circle_background"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/card2"
+                app:layout_constraintBottom_toBottomOf="@id/card2"
+                android:layout_margin="10dp"
+                android:id="@+id/category_title"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Dinner"
+                android:textSize="8sp"
+                android:textColor="@color/white"
+                android:background="@drawable/circle_background"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="2dp"
+                android:layout_marginStart="10sp"
+                />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveBtn"
+                app:layout_constraintTop_toTopOf="@id/card2"
+                app:layout_constraintEnd_toEndOf="@id/card2"
+                android:layout_margin="10dp"
+                android:padding="2dp"
+                android:src="@drawable/baseline_bookmark_remove_24"
+                android:background="@drawable/circle_background"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:id="@+id/mainLayout"
+        android:visibility="gone"
+        android:elevation="2sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

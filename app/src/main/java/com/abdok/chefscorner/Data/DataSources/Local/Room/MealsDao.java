@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 
 import java.util.List;
@@ -18,13 +19,25 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface MealsDao {
 
+    //Plan Meals
 
     @Query("SELECT * FROM plan_meal_table WHERE date = :dateDTO and id = :id")
     Single<List<PlanMealDto>> getAllMeals(DateDTO dateDTO , String id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    Completable insert(PlanMealDto planMeal);
+    Completable insertToPlan(PlanMealDto planMeal);
 
     @Delete
-    Completable delete(PlanMealDto planMeal);
+    Completable deleteFromPlan(PlanMealDto planMeal);
+
+    //Favourite Meals
+
+    @Query("SELECT * FROM favourite_meals_table WHERE id = :id")
+    Single<List<FavouriteMealDto>> getAllFavouriteMeals(String id);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertToFavourite(FavouriteMealDto favouriteMealDto);
+
+    @Delete
+    Completable deleteFromFavourite(FavouriteMealDto favouriteMealDto);
 }

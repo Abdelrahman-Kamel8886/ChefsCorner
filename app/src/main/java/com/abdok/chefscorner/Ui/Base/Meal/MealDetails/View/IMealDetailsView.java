@@ -4,7 +4,9 @@ import com.abdok.chefscorner.Data.Models.MealDTO;
 
 public interface IMealDetailsView {
 
-    public void InitData(MealDTO mealDTO);
-    public void showInformation(String message);
+    void InitData(MealDTO mealDTO);
+    void showInformation(String message);
+    void onAddedToFavSuccess(String message);
+    void showError(String message);
 
 }
