@@ -57,4 +57,5 @@
     <string name="search_with_meal_name">Search by meal</string>
     <string name="search_with_ingredient_name">Search by ingredient</string>
     <string name="search_by_category_area_or_ingredient">Search by category, area or ingredient</string>
+    <string name="google_sign_in_failed">Google Sign-In failed</string>
 </resources>

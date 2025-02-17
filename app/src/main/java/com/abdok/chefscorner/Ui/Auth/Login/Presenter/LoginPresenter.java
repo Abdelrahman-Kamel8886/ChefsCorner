@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Auth.Login;
+package com.abdok.chefscorner.Ui.Auth.Login.Presenter;
 
 import android.net.Uri;
 
@@ -8,6 +8,7 @@ import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPrefe
 import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.Data.Repositories.Authentication.AuthRepository;
 import com.abdok.chefscorner.Data.Repositories.Authentication.IAuthRepo;
+import com.abdok.chefscorner.Ui.Auth.Login.View.ILoginView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

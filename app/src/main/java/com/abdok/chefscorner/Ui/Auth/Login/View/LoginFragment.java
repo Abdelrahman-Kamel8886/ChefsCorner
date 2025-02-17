@@ -1,7 +1,6 @@
-package com.abdok.chefscorner.Ui.Auth.Login;
+package com.abdok.chefscorner.Ui.Auth.Login.View;
 
-import static android.app.Activity.RESULT_OK;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,31 +23,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Ui.Auth.Google.GooglePresenter;
+import com.abdok.chefscorner.Ui.Auth.Google.IGooglePresenter;
+import com.abdok.chefscorner.Ui.Auth.Google.IGoogleView;
+import com.abdok.chefscorner.Ui.Auth.Login.Presenter.ILoginPresenter;
+import com.abdok.chefscorner.Ui.Auth.Login.Presenter.LoginPresenter;
 import com.abdok.chefscorner.databinding.FragmentLoginBinding;
-import com.abdok.chefscorner.Ui.Auth.AuthPresenter;
-import com.abdok.chefscorner.Ui.Auth.IAuthPresenter;
-import com.abdok.chefscorner.Ui.Auth.IAuthView;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Arrays;
 
+public class LoginFragment extends Fragment implements ILoginView , IGoogleView {
 
-public class LoginFragment extends Fragment implements ILoginView {
-
-    ILoginPresenter presenter;
+    private static final int RC_SIGN_IN = 123 ;
+    ILoginPresenter loginPresenter;
+    IGooglePresenter googlePresenter;
     FragmentLoginBinding binding;
 
-    private CallbackManager callbackManager;
+    private GoogleSignInClient mGoogleSignInClient;
+    private ActivityResultLauncher<Intent> googleSignInLauncher;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,35 +57,67 @@ public class LoginFragment extends Fragment implements ILoginView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentLoginBinding.bind(view);
-        presenter = new LoginPresenter(this);
-//        presenter = new AuthPresenter(this , getContext().getString(R.string.default_web_client_id));
-        callbackManager = CallbackManager.Factory.create();
+
+        loginPresenter = new LoginPresenter(this);
+        googlePresenter = new GooglePresenter(this);
+
+        initializeGoogle();
         onClicks();
+
+    }
+
+    private void initializeGoogle(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+        // Initialize the ActivityResultLauncher
+        googleSignInLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null) {
+                    GoogleSignInResult signInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                    if (signInResult.isSuccess()) {
+                        GoogleSignInAccount account = signInResult.getSignInAccount();
+                        handleGoogleSignInResult(account);
+                    } else {
+                        showInformation(getString(R.string.google_sign_in_failed));
+                    }
+                }
+            }
+        });
     }
 
     private void onClicks(){
-        binding.loginBtn.setOnClickListener(v -> {
-            binding.progressBar.setVisibility(View.VISIBLE);
-            binding.loginBtn.setEnabled(false);
-            String email = binding.editEmail.getText().toString();
-            String password = binding.editpassword.getText().toString();
-            presenter.loginWithEmail(email,password);
+        binding.loginBtn.setOnClickListener(v -> loginWithEmail());
+        binding.googleBtn.setOnClickListener(v -> signInWithGoogle());
+        binding.signUpTxt.setOnClickListener(v -> navigateToSignUp());
+        binding.guestBtn.setOnClickListener(v -> navigateAsGuest());
 
-        });
-//        binding.googleBtn.setOnClickListener(v -> {
-//            presenter.callGoogle();
-//        });
 //        binding.facebookBtn.setOnClickListener(v -> {
 //            callFacebook();
 //        });
-        binding.signUpTxt.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_regiesterFragment);
-        });
+    }
 
-        binding.guestBtn.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_baseFragment);
-        });
+    private void loginWithEmail(){
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.loginBtn.setEnabled(false);
+        String email = binding.editEmail.getText().toString();
+        String password = binding.editpassword.getText().toString();
+        loginPresenter.loginWithEmail(email,password);
+    }
 
+    private void signInWithGoogle() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        googleSignInLauncher.launch(signInIntent); // Launch the sign-in intent
+    }
+
+    private void handleGoogleSignInResult(GoogleSignInAccount account) {
+        googlePresenter.handleGoogleSignIn(account);
     }
 
 //    private void callFacebook() {
@@ -133,17 +162,15 @@ public class LoginFragment extends Fragment implements ILoginView {
         showCustomSnackBar(msg, R.color.errorRed, Gravity.TOP);
     }
 
-
-
-//    @Override
-//    public void callGoogle(GoogleSignInClient mGoogleSignInClient) {
-//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//        googleSignInLauncher.launch(signInIntent);
-//    }
-
     @Override
     public void navigateToBase() {
         binding.progressBar.setVisibility(View.GONE);
+        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_baseFragment);
+    }
+    private void navigateToSignUp() {
+        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_regiesterFragment);
+    }
+    private void navigateAsGuest() {
         Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_baseFragment);
     }
 
@@ -175,25 +202,20 @@ public class LoginFragment extends Fragment implements ILoginView {
         }
     }
 
-//    private final ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            result -> {
-//                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-//                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-//                    try {
-//                        GoogleSignInAccount account = task.getResult(ApiException.class);
-//                        presenter.signInWithGoogle(account.getIdToken());
-//                    } catch (ApiException e) {
-//                        Log.e("GoogleSignIn", "Sign-in failed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//    );
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        presenter = null;
+        loginPresenter = null;
+    }
+
+    @Override
+    public void onGoogleAuthSuccess() {
+        navigateToBase();
+    }
+
+    @Override
+    public void onGoogleAuthFailure(String message) {
+        showInformation(message);
     }
 }
