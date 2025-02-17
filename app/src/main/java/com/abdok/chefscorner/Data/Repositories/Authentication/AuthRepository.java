@@ -1,10 +1,12 @@
 package com.abdok.chefscorner.Data.Repositories.Authentication;
 
 import com.abdok.chefscorner.Data.DataSources.Remote.FireBaseAuthentication.FirebaseAuthDataSource;
+import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -35,14 +37,20 @@ public class AuthRepository implements IAuthRepo {
         return firebaseAuthDataSource.getCurrentUser();
     }
 
+    public Task<AuthResult> signUpWithEmail(String email, String password) {
+        return firebaseAuthDataSource.getAuth().createUserWithEmailAndPassword(email, password);
+    }
+
     @Override
     public Task<AuthResult> googleSignIn(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         return firebaseAuthDataSource.getAuth().signInWithCredential(credential);
     }
 
-    public Task<AuthResult> signUpWithEmail(String email, String password) {
-        return firebaseAuthDataSource.getAuth().createUserWithEmailAndPassword(email, password);
+    @Override
+    public Task<AuthResult> signInWithFacebook(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        return firebaseAuthDataSource.getAuth().signInWithCredential(credential);
     }
 
     @Override

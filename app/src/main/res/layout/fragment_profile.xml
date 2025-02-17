@@ -21,9 +21,8 @@
         android:layout_width="86dp"
         android:layout_height="86dp"
         android:id="@+id/avatarView"
-        app:layout_constraintTop_toBottomOf="@id/backBtn"
+        app:layout_constraintTop_toTopOf="@id/user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="100dp"
         app:strokeWidth="0dp"
@@ -34,7 +33,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/user_avatar"
             android:id="@+id/avatarImg"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             />
     </com.google.android.material.card.MaterialCardView>
 
@@ -42,15 +41,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/user_name"
-        tools:text="Abdelrahman Kamel"
+        tools:text="عبد الرحمن كامل "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/avatarView"
-        app:layout_constraintTop_toTopOf="@id/avatarView"
+        app:layout_constraintTop_toBottomOf="@id/backBtn"
         android:layout_marginHorizontal="20dp"
+        android:maxLines="2"
+        android:minLines="2"
+        android:textAlignment="textStart"
+        android:gravity="center"
         android:paddingEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/avatarView"
         android:fontFamily="@font/poppins_bold"
         android:textSize="24sp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/black"/>
 
 

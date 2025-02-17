@@ -3,9 +3,9 @@
 
     <string name="default_web_client_id">543620628181-rudc55ev2c2rn3gvad6qfalcdvlg88rg.apps.googleusercontent.com</string>
 
-    <string name="facebook_app_id">584874657697794</string>
+    <string name="facebook_app_id">632604309463399</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">244b9467ba5e9d1bc309f5791f37a404</string>
+    <string name="facebook_client_token">48a577988db449a37f7175ff181e8b3e</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -58,4 +58,6 @@
     <string name="search_with_ingredient_name">Search by ingredient</string>
     <string name="search_by_category_area_or_ingredient">Search by category, area or ingredient</string>
     <string name="google_sign_in_failed">Google Sign-In failed</string>
+    <string name="facebook_login_failed">"Facebook login Failed: "</string>
+    <string name="facebook_login_canceled">Facebook login canceled</string>
 </resources>

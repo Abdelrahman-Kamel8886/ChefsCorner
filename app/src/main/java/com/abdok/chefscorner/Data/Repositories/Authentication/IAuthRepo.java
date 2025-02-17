@@ -1,5 +1,6 @@
 package com.abdok.chefscorner.Data.Repositories.Authentication;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,4 +18,7 @@ public interface IAuthRepo {
 
     //Google
     Task<AuthResult> googleSignIn(GoogleSignInAccount account);
+
+    //Facebook
+    Task<AuthResult> signInWithFacebook(AccessToken token);
 }

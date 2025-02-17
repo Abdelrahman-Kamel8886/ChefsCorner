@@ -28,6 +28,7 @@ import com.abdok.chefscorner.Ui.Auth.Google.IGooglePresenter;
 import com.abdok.chefscorner.Ui.Auth.Google.IGoogleView;
 import com.abdok.chefscorner.Ui.Auth.Login.Presenter.ILoginPresenter;
 import com.abdok.chefscorner.Ui.Auth.Login.Presenter.LoginPresenter;
+import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.databinding.FragmentLoginBinding;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -144,7 +145,7 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
 //            }
 //        });
 //    }
-//
+
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -159,7 +160,7 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     public void showInformation(String msg) {
         binding.progressBar.setVisibility(View.GONE);
         binding.loginBtn.setEnabled(true);
-        showCustomSnackBar(msg, R.color.errorRed, Gravity.TOP);
+        SnackBarHelper.showCustomSnackBar(requireActivity(),msg, R.color.errorRed, Gravity.TOP);
     }
 
     @Override
@@ -172,34 +173,6 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     }
     private void navigateAsGuest() {
         Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_baseFragment);
-    }
-
-    private void showCustomSnackBar(String message , int colorResId , int gravity){
-        try {
-            View view = requireActivity().findViewById(android.R.id.content);
-
-            if (view != null){
-                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
-
-                View snackbarView = snackbar.getView();
-                int color = ContextCompat.getColor(requireContext(), colorResId);
-                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
-
-                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-                params.gravity = gravity;
-                snackbarView.setLayoutParams(params);
-
-                snackbar.show();
-            }
-            else{
-                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Override
