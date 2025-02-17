@@ -3,6 +3,7 @@ package com.abdok.chefscorner.Ui.Auth.Login;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -10,14 +11,18 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.databinding.FragmentLoginBinding;
@@ -39,9 +44,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Arrays;
 
 
-public class LoginFragment extends Fragment implements IAuthView {
+public class LoginFragment extends Fragment implements ILoginView {
 
-    IAuthPresenter presenter;
+    ILoginPresenter presenter;
     FragmentLoginBinding binding;
 
     private CallbackManager callbackManager;
@@ -55,7 +60,8 @@ public class LoginFragment extends Fragment implements IAuthView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentLoginBinding.bind(view);
-        presenter = new AuthPresenter(this , getContext().getString(R.string.default_web_client_id));
+        presenter = new LoginPresenter(this);
+//        presenter = new AuthPresenter(this , getContext().getString(R.string.default_web_client_id));
         callbackManager = CallbackManager.Factory.create();
         onClicks();
     }
@@ -69,12 +75,12 @@ public class LoginFragment extends Fragment implements IAuthView {
             presenter.loginWithEmail(email,password);
 
         });
-        binding.googleBtn.setOnClickListener(v -> {
-            presenter.callGoogle();
-        });
-        binding.facebookBtn.setOnClickListener(v -> {
-            callFacebook();
-        });
+//        binding.googleBtn.setOnClickListener(v -> {
+//            presenter.callGoogle();
+//        });
+//        binding.facebookBtn.setOnClickListener(v -> {
+//            callFacebook();
+//        });
         binding.signUpTxt.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_regiesterFragment);
         });
@@ -85,62 +91,55 @@ public class LoginFragment extends Fragment implements IAuthView {
 
     }
 
-    private void callFacebook() {
-        LoginManager.getInstance().logInWithReadPermissions(
-                getActivity(),
-                Arrays.asList("email", "public_profile")
-        );
-
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                presenter.handleFacebookAccessToken(loginResult.getAccessToken());
-                showInformation("Facebook login successful");
-            }
-
-            @Override
-            public void onCancel() {
-                showInformation("Facebook login canceled");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                showInformation("Facebook login error: " + error.getMessage());
-            }
-        });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (callbackManager != null) {
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+//    private void callFacebook() {
+//        LoginManager.getInstance().logInWithReadPermissions(
+//                getActivity(),
+//                Arrays.asList("email", "public_profile")
+//        );
+//
+//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                presenter.handleFacebookAccessToken(loginResult.getAccessToken());
+//                showInformation("Facebook login successful");
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                showInformation("Facebook login canceled");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                showInformation("Facebook login error: " + error.getMessage());
+//            }
+//        });
+//    }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (callbackManager != null) {
+//            callbackManager.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
 
 
     @Override
     public void showInformation(String msg) {
         binding.progressBar.setVisibility(View.GONE);
         binding.loginBtn.setEnabled(true);
-        Snackbar snackbar = Snackbar.make(requireView(), msg, Snackbar.LENGTH_LONG);
-        View snackbarView = snackbar.getView();
-        snackbarView.setBackgroundColor(Color.BLACK);
-        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-        textView.setTextColor(Color.WHITE);
-        textView.setTextSize(16);
-        snackbar.show();
-
+        showCustomSnackBar(msg, R.color.errorRed, Gravity.TOP);
     }
 
 
 
-    @Override
-    public void callGoogle(GoogleSignInClient mGoogleSignInClient) {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        googleSignInLauncher.launch(signInIntent);
-    }
+//    @Override
+//    public void callGoogle(GoogleSignInClient mGoogleSignInClient) {
+//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//        googleSignInLauncher.launch(signInIntent);
+//    }
 
     @Override
     public void navigateToBase() {
@@ -148,20 +147,48 @@ public class LoginFragment extends Fragment implements IAuthView {
         Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_baseFragment);
     }
 
-    private final ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-                    try {
-                        GoogleSignInAccount account = task.getResult(ApiException.class);
-                        presenter.signInWithGoogle(account.getIdToken());
-                    } catch (ApiException e) {
-                        Log.e("GoogleSignIn", "Sign-in failed: " + e.getMessage());
-                    }
-                }
+    private void showCustomSnackBar(String message , int colorResId , int gravity){
+        try {
+            View view = requireActivity().findViewById(android.R.id.content);
+
+            if (view != null){
+                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+
+                View snackbarView = snackbar.getView();
+                int color = ContextCompat.getColor(requireContext(), colorResId);
+                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                params.gravity = gravity;
+                snackbarView.setLayoutParams(params);
+
+                snackbar.show();
             }
-    );
+            else{
+                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+//    private final ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            result -> {
+//                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+//                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+//                    try {
+//                        GoogleSignInAccount account = task.getResult(ApiException.class);
+//                        presenter.signInWithGoogle(account.getIdToken());
+//                    } catch (ApiException e) {
+//                        Log.e("GoogleSignIn", "Sign-in failed: " + e.getMessage());
+//                    }
+//                }
+//            }
+//    );
 
     @Override
     public void onDestroyView() {

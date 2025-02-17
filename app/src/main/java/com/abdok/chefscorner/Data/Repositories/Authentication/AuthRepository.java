@@ -3,6 +3,7 @@ package com.abdok.chefscorner.Data.Repositories.Authentication;
 import com.abdok.chefscorner.Data.DataSources.Remote.FireBaseAuthentication.FirebaseAuthDataSource;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AuthRepository implements IAuthRepo{
 
@@ -25,7 +26,10 @@ public class AuthRepository implements IAuthRepo{
          return firebaseAuthDataSource.getAuth().signInWithEmailAndPassword(email, password);
     }
 
-
+    @Override
+    public FirebaseUser getCurrentUser() {
+        return firebaseAuthDataSource.getCurrentUser();
+    }
 
 
 

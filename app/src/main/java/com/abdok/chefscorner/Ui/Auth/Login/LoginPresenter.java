@@ -1,15 +1,19 @@
 package com.abdok.chefscorner.Ui.Auth.Login;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
+import com.abdok.chefscorner.Data.Models.UserDTO;
 import com.abdok.chefscorner.Data.Repositories.Authentication.AuthRepository;
 import com.abdok.chefscorner.Data.Repositories.Authentication.IAuthRepo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginPresenter implements ILoginPresenter{
-
 
     ILoginView view;
     IAuthRepo authRepo;
@@ -18,8 +22,6 @@ public class LoginPresenter implements ILoginPresenter{
         this.view = view;
         authRepo = AuthRepository.getInstance();
     }
-
-
 
     @Override
     public boolean validateEmail(String email, String password) {
@@ -54,6 +56,11 @@ public class LoginPresenter implements ILoginPresenter{
 
     @Override
     public void cacheUserData() {
-
+        FirebaseUser user = authRepo.getCurrentUser();
+        Uri photoUri = user.getPhotoUrl();
+        String photoUrlString = photoUri != null ? photoUri.toString() : null;
+        UserDTO userDTO = new UserDTO(user.getUid(),user.getDisplayName(),user.getEmail(),photoUrlString);
+        SharedPreferenceDataSource.getInstance().saveUser(userDTO);
+        view.navigateToBase();
     }
 }

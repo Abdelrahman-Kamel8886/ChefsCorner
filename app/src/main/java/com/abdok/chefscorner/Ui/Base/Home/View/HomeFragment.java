@@ -256,8 +256,6 @@ public class HomeFragment extends Fragment implements IHomeView {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
     private boolean isInternetAvailable() {

@@ -1,6 +1,7 @@
 package com.abdok.chefscorner.Data.DataSources.Remote.FireBaseAuthentication;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseAuthDataSource {
 
@@ -20,6 +21,10 @@ public class FirebaseAuthDataSource {
 
     public FirebaseAuth getAuth() {
         return auth;
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return auth.getCurrentUser();
     }
 
 }
