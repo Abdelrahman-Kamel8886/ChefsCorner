@@ -8,6 +8,10 @@ public class DateDTO implements Serializable {
     private String subDate;
     private String day;
 
+
+    public DateDTO() {
+    }
+
     public DateDTO(String date, String subDate, String day) {
         this.date = date;
         this.subDate = subDate;

@@ -8,7 +8,11 @@ public interface IHomePresenter {
     void getRandomMeals();
     void getBreakFastMeals();
     void getDesertMeals();
-    void clearDisposable();
-    void addMealToPlan(MealDTO mealDTO , DateDTO date);
 
+    void addMealToPlan(MealDTO mealDTO , DateDTO date);
+    void syncPlanMeals(String id);
+
+    void syncFavouriteMeals(String id);
+
+    void clearDisposable();
 }

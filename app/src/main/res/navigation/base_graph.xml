@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Profile.ProfileFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.Profile.View.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment

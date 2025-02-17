@@ -1,8 +1,11 @@
 package com.abdok.chefscorner.Ui.Base.Home.Presenter;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
@@ -11,6 +14,9 @@ import com.abdok.chefscorner.Ui.Base.Home.View.IHomeView;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,19 +92,13 @@ public class HomePresenter implements IHomePresenter  {
         compositeDisposable.add(dessert);
     }
     @Override
-    public void clearDisposable() {
-        compositeDisposable.dispose();
-        compositeDisposable.clear();
-    }
-
-    @Override
     public void addMealToPlan(MealDTO mealDTO, DateDTO date) {
         backupRepository.savePlanMealToFirebase(mealDTO,date).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 PlanMealDto meal = new PlanMealDto(SharedModel.getUser().getId(),date,mealDTO);
                 meal.setMealId(mealDTO.getIdMeal());
-                saveToLocal(meal);
+                savePlanMealToLocal(meal);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -108,12 +108,92 @@ public class HomePresenter implements IHomePresenter  {
         });
     }
 
-    private void saveToLocal(PlanMealDto meal){
+    @Override
+    public void syncPlanMeals(String id) {
+        backupRepository.getPlanMeals(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<PlanMealDto> planMealDtos = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot mealSnapshot : dataSnapshot.getChildren()) {
+                        PlanMealDto planMealDto = mealSnapshot.getValue(PlanMealDto.class);
+                        planMealDtos.add(planMealDto);
+                    }
+                }
+                syncPlanMealsToLocal(planMealDtos);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void syncFavouriteMeals(String id) {
+        backupRepository.getFavoriteMeals(id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<FavouriteMealDto> favouriteMealDtos = new ArrayList<>();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            FavouriteMealDto favouriteMealDto = dataSnapshot.getValue(FavouriteMealDto.class);
+                            favouriteMealDtos.add(favouriteMealDto);
+                        }
+                        syncFavouriteMealsToLocal(favouriteMealDtos);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void syncPlanMealsToLocal(List<PlanMealDto> planMealDtos){
+       clearPlanMealTable(planMealDtos);
+    }
+
+    private void clearPlanMealTable(List<PlanMealDto> planMealDtos){
+        Disposable disposable = backupRepository.clearPlanMealTable().subscribe(
+                () -> insertAllToPlan(planMealDtos)
+        );
+        compositeDisposable.add(disposable);
+    }
+
+    private void insertAllToPlan(List<PlanMealDto> planMealDtos){
+        Disposable disposable =backupRepository.insertAllToPlan(planMealDtos).subscribe();
+        compositeDisposable.add(disposable);
+    }
+
+    private void syncFavouriteMealsToLocal(List<FavouriteMealDto> favouriteMealDtos){
+        clearFavouriteMealTable(favouriteMealDtos);
+    }
+
+    private void clearFavouriteMealTable(List<FavouriteMealDto> favouriteMealDtos){
+        Disposable disposable = backupRepository.clearFavoriteMealTable().subscribe(
+                () -> insertAllToFavorite(favouriteMealDtos)
+        );
+        compositeDisposable.add(disposable);
+    }
+    private void insertAllToFavorite(List<FavouriteMealDto> favouriteMealDtos){
+        Disposable disposable =backupRepository.insertAllToFavorite(favouriteMealDtos).subscribe();
+        compositeDisposable.add(disposable);
+    }
+
+    private void savePlanMealToLocal(PlanMealDto meal){
         Disposable disposable = backupRepository.savePlanMealToLocal(meal)
                 .subscribe(
                         () -> view.showMessage("Meal saved successfully to your plan"),
                         throwable -> view.showMessage(throwable.getMessage())
                 );
+        compositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void clearDisposable() {
+        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
 }

@@ -9,17 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Utils.Converter;
 import com.abdok.chefscorner.Utils.Helpers.WeekHelper;
 import com.abdok.chefscorner.databinding.BottomSheetDatePickerBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class DatePickerBottomSheet extends BottomSheetDialogFragment {
+public class DatePickerBottomSheet extends BottomSheetDialogFragment{
 
+    private String mealId;
     private BottomSheetDatePickerBinding binding;
 
     private OnDateSelectedListener onDateSelectedListener;
@@ -28,17 +31,25 @@ public class DatePickerBottomSheet extends BottomSheetDialogFragment {
         this.onDateSelectedListener = onDateSelectedListener;
     }
 
+    public DatePickerBottomSheet() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = BottomSheetDatePickerBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView();
+//        presenter = new DatePickerPresenter(this);
+//        presenter.getExistDates(mealId);
+    }
+
+    private void initView(){
         List<DateDTO> weekData = WeekHelper.getCurrentWeek();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());

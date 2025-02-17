@@ -263,7 +263,6 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:padding="10dp"
                     android:src="@drawable/google_icon" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -274,15 +273,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
-                app:cardBackgroundColor="#485a96"
                 app:cardCornerRadius="100dp"
                 app:strokeWidth="0dp">
 
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
                     android:src="@drawable/facebook_icon" />
 
             </com.google.android.material.card.MaterialCardView>

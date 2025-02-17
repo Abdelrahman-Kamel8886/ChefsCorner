@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abdok.chefscorner.Adapters.RecyclerIngredientsAdapter;
+import com.abdok.chefscorner.CustomViews.DateSheet.DatePickerBottomSheet;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
 import com.abdok.chefscorner.Data.Models.IngredientFormatDTO;
 import com.abdok.chefscorner.Data.Models.MealDTO;
@@ -170,6 +171,11 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
         }
     }
 
+    @Override
+    public void onAddedToPlanSuccess(String message) {
+        showCustomSnackBar(message, R.color.successGreen, Gravity.TOP);
+    }
+
     private void showIngredients(ArrayList<IngredientFormatDTO> ingredients){
         int size = ingredients.size();
         String itemText = size>9? size+" item" : size+" items";
@@ -223,6 +229,15 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
                 showError("no internet");
             }
         });
+
+        binding.addtoPlanBtn.setOnClickListener(v -> {
+            if(isInternetAvailable()){
+                showDatePicker(mealDTO);
+            }
+            else{
+                showError("no internet");
+            }
+        });
     }
 
     private void showMainView(){
@@ -254,6 +269,14 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
             }
         }
         return false;
+    }
+
+    private void showDatePicker(MealDTO meal){
+        DatePickerBottomSheet datePickerBottomSheet = new DatePickerBottomSheet();
+        datePickerBottomSheet.show(getChildFragmentManager(),datePickerBottomSheet.getTag());
+        datePickerBottomSheet.setOnDateSelectedListener(date -> {
+            presenter.addMealToPlan(meal,date);
+        });
     }
 
     @Override

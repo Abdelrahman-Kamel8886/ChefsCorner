@@ -1,6 +1,7 @@
-package com.abdok.chefscorner.Ui.Base.Profile;
+package com.abdok.chefscorner.Ui.Base.Profile.Presenter;
 
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
+import com.abdok.chefscorner.Ui.Base.Profile.View.IProfileView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

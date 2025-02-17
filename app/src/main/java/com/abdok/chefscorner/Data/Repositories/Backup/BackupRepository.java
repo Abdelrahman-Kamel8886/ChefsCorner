@@ -1,7 +1,5 @@
 package com.abdok.chefscorner.Data.Repositories.Backup;
 
-import androidx.annotation.NonNull;
-
 import com.abdok.chefscorner.Data.DataSources.Local.Room.LocalDataBase;
 import com.abdok.chefscorner.Data.DataSources.Local.Room.MealsDao;
 import com.abdok.chefscorner.Data.DataSources.Remote.FirebaseRealtime.FirebaseRealtimeDataSource;
@@ -11,12 +9,8 @@ import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Models.MealDTO;
 import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -67,24 +61,8 @@ public class BackupRepository implements IBackupRepo {
     }
 
     @Override
-    public List<PlanMealDto> getPlanMeals(String id) {
-        firebaseRealtimeDataSource.getPlanMeals(id)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        List<PlanMealDto> planMealDtos = new ArrayList<>();
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            PlanMealDto planMealDto = dataSnapshot.getValue(PlanMealDto.class);
-                            planMealDtos.add(planMealDto);
-                        }
-                        //callback.onPlanMealsReceived(planMealDtos);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-
-        return Collections.emptyList();
+    public DatabaseReference getPlanMeals(String id) {
+       return firebaseRealtimeDataSource.getPlanMeals(id);
     }
 
     @Override
@@ -109,6 +87,25 @@ public class BackupRepository implements IBackupRepo {
     }
 
     @Override
+    public Single<List<DateDTO>> getAllDaysMealAdded(String mealId, String id) {
+        return mealDao.getAllDaysMealAdded(mealId,id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Completable clearPlanMealTable() {
+        return mealDao.clearPlanMealTable()
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable insertAllToPlan(List<PlanMealDto> planMeals) {
+        return mealDao.insertAllToPlan(planMeals)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
     public Task<Void> saveFavoriteMealToFirebase(FavouriteMealDto meal) {
         return firebaseRealtimeDataSource.saveFavoriteMeal(meal);
     }
@@ -119,8 +116,8 @@ public class BackupRepository implements IBackupRepo {
     }
 
     @Override
-    public List<MealDTO> getFavoriteMeals(String id) {
-        return Collections.emptyList();
+    public DatabaseReference getFavoriteMeals(String id) {
+        return firebaseRealtimeDataSource.getFavoriteMeals(id);
     }
 
     @Override
@@ -149,6 +146,16 @@ public class BackupRepository implements IBackupRepo {
         return mealDao.isExistsInFavourite(id,mealId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Completable clearFavoriteMealTable() {
+        return mealDao.clearFavouriteMealTable().subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Completable insertAllToFavorite(List<FavouriteMealDto> favoriteMeals) {
+        return mealDao.insertAllToFavourite(favoriteMeals).subscribeOn(Schedulers.io());
     }
 
 

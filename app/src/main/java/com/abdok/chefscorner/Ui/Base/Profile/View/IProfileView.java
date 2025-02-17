@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Profile;
+package com.abdok.chefscorner.Ui.Base.Profile.View;
 
 import com.abdok.chefscorner.Data.Models.UserDTO;
 

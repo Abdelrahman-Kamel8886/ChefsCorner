@@ -30,6 +30,15 @@ public interface MealsDao {
     @Delete
     Completable deleteFromPlan(PlanMealDto planMeal);
 
+    @Query("SELECT date FROM plan_meal_table WHERE MealId = :mealId AND id = :id")
+    Single<List<DateDTO>> getAllDaysMealAdded(String mealId, String id);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertAllToPlan(List<PlanMealDto> planMeals);
+
+    @Query("DELETE FROM plan_meal_table")
+    Completable clearPlanMealTable();
+
     //Favourite Meals
 
     @Query("SELECT * FROM favourite_meals_table WHERE id = :id")
@@ -44,5 +53,11 @@ public interface MealsDao {
 
     @Query("SELECT EXISTS(SELECT * FROM favourite_meals_table WHERE id = :id and mealId = :mealId)")
     Single<Boolean> isExistsInFavourite(String id , String mealId);
+
+    @Query("DELETE FROM favourite_meals_table")
+    Completable clearFavouriteMealTable();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertAllToFavourite(List<FavouriteMealDto> favouriteMeals);
 
 }

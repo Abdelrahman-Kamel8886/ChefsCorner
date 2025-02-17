@@ -1,11 +1,11 @@
 package com.abdok.chefscorner.Ui.Base.Meal.MealDetails.Presenter;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
+import com.abdok.chefscorner.Data.Models.DateDTO;
 import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Data.Models.PlanMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
 import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View.IMealDetailsView;
@@ -98,6 +98,31 @@ public class MealDetailsPresenter implements IMealDetailsPresenter {
                 );
         compositeDisposable.add(disposable);
 
+    }
+
+    @Override
+    public void addMealToPlan(MealDTO mealDTO, DateDTO date) {
+        backupRepository.savePlanMealToFirebase(mealDTO,date).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                PlanMealDto meal = new PlanMealDto(SharedModel.getUser().getId(),date,mealDTO);
+                meal.setMealId(mealDTO.getIdMeal());
+                savePlanToLocal(meal);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                view.showError(e.getMessage());
+            }
+        });
+    }
+    private void savePlanToLocal(PlanMealDto meal){
+        Disposable disposable = backupRepository.savePlanMealToLocal(meal)
+                .subscribe(
+                        () -> view.onAddedToPlanSuccess("Meal saved successfully to your plan"),
+                        throwable -> view.showError(throwable.getMessage())
+                );
+        compositeDisposable.add(disposable);
     }
 
     @Override

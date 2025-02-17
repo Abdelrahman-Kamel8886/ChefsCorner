@@ -10,5 +10,6 @@ public interface IMealDetailsView {
     void onRemovedFromFavSuccess(String message);
     void showError(String message);
     void toggleFavBtn(Boolean isExists);
+    void onAddedToPlanSuccess(String message);
 
 }

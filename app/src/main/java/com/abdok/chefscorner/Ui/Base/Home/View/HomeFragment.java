@@ -85,11 +85,14 @@ public class HomeFragment extends Fragment implements IHomeView {
     private void checkForData(){
         if (SharedModel.getRandomMeals()==null||SharedModel.getBreakfastMeals()==null||SharedModel.getDesertMeals()==null){
             presenter.start();
-            Log.e("HomeTAG", "checkForData1: "+internetConnectionLost);
+            if (SharedModel.getUser()!=null){
+                String id = SharedModel.getUser().getId();
+                presenter.syncFavouriteMeals(id);
+                presenter.syncPlanMeals(id);
+            }
         }
         else{
             initView();
-            Log.e("HomeTAG", "checkForData2: "+internetConnectionLost);
         }
     }
 
