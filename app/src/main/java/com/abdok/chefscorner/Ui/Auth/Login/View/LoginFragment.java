@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,13 +24,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Ui.Auth.Facebook.FacebookPresenter;
+import com.abdok.chefscorner.Ui.Auth.Facebook.IFacebookPresenter;
+import com.abdok.chefscorner.Ui.Auth.Facebook.IFacebookView;
 import com.abdok.chefscorner.Ui.Auth.Google.GooglePresenter;
 import com.abdok.chefscorner.Ui.Auth.Google.IGooglePresenter;
 import com.abdok.chefscorner.Ui.Auth.Google.IGoogleView;
 import com.abdok.chefscorner.Ui.Auth.Login.Presenter.ILoginPresenter;
 import com.abdok.chefscorner.Ui.Auth.Login.Presenter.LoginPresenter;
+import com.abdok.chefscorner.Ui.Auth.SignUp.View.RegiesterFragment;
 import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.databinding.FragmentLoginBinding;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -38,8 +49,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Arrays;
 
-public class LoginFragment extends Fragment implements ILoginView , IGoogleView {
+
+public class LoginFragment extends Fragment implements ILoginView , IGoogleView , IFacebookView {
 
     private static final int RC_SIGN_IN = 123 ;
     ILoginPresenter loginPresenter;
@@ -49,6 +62,10 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> googleSignInLauncher;
 
+    //Facebook
+    private CallbackManager callbackManager;
+    IFacebookPresenter facebookPresenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
@@ -57,14 +74,56 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        callbackManager = CallbackManager.Factory.create();
+
         binding = FragmentLoginBinding.bind(view);
 
         loginPresenter = new LoginPresenter(this);
         googlePresenter = new GooglePresenter(this);
+        facebookPresenter = new FacebookPresenter(this);
 
         initializeGoogle();
+        initializeFacebook();
+
         onClicks();
 
+    }
+
+    private void initializeFacebook() {
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("FacebookLogin", "Success: " + loginResult);
+                AccessToken accessToken = loginResult.getAccessToken();
+                facebookPresenter.handleFacebookLogin(accessToken);
+            }
+
+            @Override
+            public void onCancel() {
+                showInformation("Login canceled");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                showInformation("Login failed: " + error.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (callbackManager != null) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void startFacebookLogin() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        LoginManager.getInstance().logInWithReadPermissions(
+                LoginFragment.this,
+                Arrays.asList("email", "public_profile")
+        );
     }
 
     private void initializeGoogle(){
@@ -97,10 +156,7 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
         binding.googleBtn.setOnClickListener(v -> signInWithGoogle());
         binding.signUpTxt.setOnClickListener(v -> navigateToSignUp());
         binding.guestBtn.setOnClickListener(v -> navigateAsGuest());
-
-//        binding.facebookBtn.setOnClickListener(v -> {
-//            callFacebook();
-//        });
+        binding.facebookBtn.setOnClickListener(v -> startFacebookLogin());
     }
 
     private void loginWithEmail(){
@@ -120,41 +176,6 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     private void handleGoogleSignInResult(GoogleSignInAccount account) {
         googlePresenter.handleGoogleSignIn(account);
     }
-
-//    private void callFacebook() {
-//        LoginManager.getInstance().logInWithReadPermissions(
-//                getActivity(),
-//                Arrays.asList("email", "public_profile")
-//        );
-//
-//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                presenter.handleFacebookAccessToken(loginResult.getAccessToken());
-//                showInformation("Facebook login successful");
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                showInformation("Facebook login canceled");
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//                showInformation("Facebook login error: " + error.getMessage());
-//            }
-//        });
-//    }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (callbackManager != null) {
-//            callbackManager.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
-
 
     @Override
     public void showInformation(String msg) {
@@ -176,13 +197,6 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-        loginPresenter = null;
-    }
-
-    @Override
     public void onGoogleAuthSuccess() {
         navigateToBase();
     }
@@ -190,5 +204,22 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     @Override
     public void onGoogleAuthFailure(String message) {
         showInformation(message);
+    }
+
+    @Override
+    public void onFacebookAuthSuccess() {
+        navigateToBase();
+    }
+
+    @Override
+    public void onFacebookAuthFailure(String message) {
+        showInformation(message);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+        loginPresenter = null;
     }
 }
