@@ -173,11 +173,15 @@ public class HomePresenter implements IHomePresenter  {
     private void clearFavouriteMealTable(List<FavouriteMealDto> favouriteMealDtos){
         Disposable disposable = backupRepository.clearFavoriteMealTable().subscribe(
                 () -> insertAllToFavorite(favouriteMealDtos)
+                , throwable -> Log.e("HomeTAG", "clearFavouriteMealTable: "+throwable.getMessage())
         );
         compositeDisposable.add(disposable);
     }
     private void insertAllToFavorite(List<FavouriteMealDto> favouriteMealDtos){
-        Disposable disposable =backupRepository.insertAllToFavorite(favouriteMealDtos).subscribe();
+        Disposable disposable =backupRepository.insertAllToFavorite(favouriteMealDtos).subscribe(
+                () -> Log.e("HomeTAG", "insertAllToFavorite: ")
+                , throwable -> Log.e("HomeTAG", "insertAllToFavorite: "+throwable.getMessage())
+        );
         compositeDisposable.add(disposable);
     }
 

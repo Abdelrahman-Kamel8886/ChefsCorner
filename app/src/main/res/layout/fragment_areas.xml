@@ -47,6 +47,7 @@
             android:queryBackground="@color/white"
             android:baselineAligned="false"
             android:textSize="14sp"
+            android:queryHint="@string/search_with_area_name"
             />
     </com.google.android.material.card.MaterialCardView>
 

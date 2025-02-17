@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/regiesterFragment"
-        android:name="com.abdok.chefscorner.Ui.Auth.SignUp.RegiesterFragment"
+        android:name="com.abdok.chefscorner.Ui.Auth.SignUp.View.RegiesterFragment"
         android:label="fragment_regiester"
         tools:layout="@layout/fragment_regiester" >
         <action

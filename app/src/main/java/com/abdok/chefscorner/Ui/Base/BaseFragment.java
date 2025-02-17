@@ -1,16 +1,27 @@
 package com.abdok.chefscorner.Ui.Base;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +36,17 @@ import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentBaseBinding;
 import com.bumptech.glide.Glide;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem;
 
 
 public class BaseFragment extends Fragment implements IBaseView {
 
     FragmentBaseBinding binding;
+
+    private ActivityResultLauncher<String> requestPermissionLauncher;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,14 +69,32 @@ public class BaseFragment extends Fragment implements IBaseView {
         NavController navController = navHostFragment.getNavController();
         binding.nav.setupWithNavController(navController);
 
-
-
-
-
-
         SharedModel.setUser(SharedPreferenceDataSource.getInstance().getUser());
         showUserData(SharedModel.getUser());
 
+        initializeLaunchers();
+        grantPermission();
+
+    }
+
+    private void initializeLaunchers(){
+        requestPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isGranted -> {
+                    if (isGranted) {
+                    }
+                }
+        );
+    }
+
+    private void grantPermission() {
+        if (ContextCompat.checkSelfPermission(requireActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Uri uri = Uri.parse(SharedModel.getUser().getPhotoUrl());
+            binding.avatarImg.setImageURI(uri);
+
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
     }
 
     @Override
@@ -75,6 +109,11 @@ public class BaseFragment extends Fragment implements IBaseView {
     public void hideBottomNav() {
         binding.nav.setVisibility(View.GONE);
         binding.header.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void updateProfile() {
+        showUserData(SharedModel.getUser());
     }
 
     public void changeStatusBarColor(int colorResId) {
@@ -94,7 +133,9 @@ public class BaseFragment extends Fragment implements IBaseView {
         String username = user!=null ?user.getName() : getString(R.string.guest);
         binding.userName.setText("Hi, " + username);
         if (user!=null && user.getPhotoUrl() != null) {
-            Glide.with(requireContext()).load(user.getPhotoUrl()).into(binding.avatarImg);
+            Glide.with(requireContext()).load(user.getPhotoUrl())
+                    .placeholder(R.drawable.user_avatar)
+                    .into(binding.avatarImg);
         }
     }
 

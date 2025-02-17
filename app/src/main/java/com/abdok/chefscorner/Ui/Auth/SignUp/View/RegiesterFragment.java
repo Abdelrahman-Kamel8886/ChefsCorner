@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Auth.SignUp;
+package com.abdok.chefscorner.Ui.Auth.SignUp.View;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,9 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Ui.Auth.SignUp.Presenter.ISignUpPresenter;
+import com.abdok.chefscorner.Ui.Auth.SignUp.Presenter.SignUpPresenter;
 import com.abdok.chefscorner.databinding.FragmentRegiesterBinding;
 import com.google.android.material.snackbar.Snackbar;
 

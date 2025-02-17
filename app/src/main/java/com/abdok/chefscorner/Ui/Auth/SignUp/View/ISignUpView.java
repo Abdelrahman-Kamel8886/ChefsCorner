@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Auth.SignUp;
+package com.abdok.chefscorner.Ui.Auth.SignUp.View;
 
 public interface ISignUpView {
 

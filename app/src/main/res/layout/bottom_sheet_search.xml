@@ -46,6 +46,7 @@
             android:background="@color/white"
             android:queryBackground="@color/white"
             android:baselineAligned="false"
+            android:queryHint="@string/search_by_category_area_or_ingredient"
             />
     </com.google.android.material.card.MaterialCardView>
 

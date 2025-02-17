@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Auth.SignUp;
+package com.abdok.chefscorner.Ui.Auth.SignUp.Presenter;
 
 import android.net.Uri;
 
@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Data.Models.UserDTO;
+import com.abdok.chefscorner.Ui.Auth.SignUp.View.ISignUpView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -13,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class SignUpPresenter implements ISignUpPresenter{
+public class SignUpPresenter implements ISignUpPresenter {
 
     private FirebaseAuth mAuth;
     private ISignUpView view;

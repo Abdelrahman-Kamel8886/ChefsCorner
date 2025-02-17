@@ -50,4 +50,11 @@
     <string name="you_cannot_remove_meal_from_plan_without_internet_connection">You Cannot Remove Meal From Plan Without Internet Connection</string>
     <string name="you_cannot_remove_meal_from_favourites_without_internet_connection">You cannot remove meal from favourites without internet connection</string>
     <string name="an_error_occurred_check_your_internet_connection">An error occurred check your connection</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save">Save</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="search_with_area_name">Search by area</string>
+    <string name="search_with_meal_name">Search by meal</string>
+    <string name="search_with_ingredient_name">Search by ingredient</string>
+    <string name="search_by_category_area_or_ingredient">Search by category, area or ingredient</string>
 </resources>

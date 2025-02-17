@@ -212,7 +212,6 @@ public class HomeFragment extends Fragment implements IHomeView {
                     }
                 });
             }
-
             @Override
             public void onLost(@NonNull Network network) {
                 Log.e("HomeTAG", "onLost: "+internetConnectionLost);
@@ -222,7 +221,6 @@ public class HomeFragment extends Fragment implements IHomeView {
                     showError();
                 });
             }
-
         };
 
         NetworkRequest networkRequest = new NetworkRequest.Builder()

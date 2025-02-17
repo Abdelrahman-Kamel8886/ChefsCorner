@@ -13,6 +13,7 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class ProfileFragment extends Fragment implements IProfileView {
         binding.backBtn.setOnClickListener(v -> Navigation.findNavController(requireView()).navigateUp());
         binding.logoutBtn.setOnClickListener(v -> presenter.logout());
         binding.shareBtn.setOnClickListener(v -> shareApp() );
+        binding.accountSettingsBtn.setOnClickListener(v -> navigateToEditProfile());
         binding.facebookBtn.setOnClickListener(v -> openFacebookApp());
         binding.linkedinBtn.setOnClickListener(v -> openLinkedInProfile());
         binding.githubBtn.setOnClickListener(v -> openGitHubProfile());
@@ -72,7 +74,8 @@ public class ProfileFragment extends Fragment implements IProfileView {
     public void showUserData(UserDTO user) {
         binding.userName.setText(user.getName());
         if (user.getPhotoUrl()!=null){
-            Glide.with(requireContext()).load(user.getPhotoUrl()).into(binding.avatarImg);
+            Glide.with(requireContext()).load(user.getPhotoUrl()).placeholder(R.drawable.user_avatar).into(binding.avatarImg);
+            Log.d("TAGURI", "ProfileFragment : "+user.getPhotoUrl());
         }
     }
 
@@ -154,6 +157,10 @@ public class ProfileFragment extends Fragment implements IProfileView {
         } catch (Exception e) {
             Toast.makeText(requireContext(), "No email app found", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void navigateToEditProfile() {
+       Navigation.findNavController(requireView()).navigate(R.id.action_profileFragment_to_editProfileFragment);
     }
 
 

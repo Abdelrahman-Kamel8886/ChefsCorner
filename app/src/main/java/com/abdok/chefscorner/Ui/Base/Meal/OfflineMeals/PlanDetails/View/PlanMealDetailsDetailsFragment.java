@@ -94,7 +94,9 @@ public class PlanMealDetailsDetailsFragment extends Fragment implements IPlanMDV
         binding.mealTitle.setText(meal.getStrMeal());
         binding.mealCategory.setText(meal.getStrArea()+" "+ meal.getStrCategory()+" "+ CountryFlagMapper.getFlagEmoji(meal.getStrArea()));
         binding.mealInstructions.setText(meal.getStrInstructions());
-        loadYouTubeVideo(meal.getStrYoutube());
+        if (isInternetAvailable()){
+            loadYouTubeVideo(meal.getStrYoutube());
+        }
         showIngredients(meal.getIngredients());
         if (meal.getStrTags()!=null && !meal.getStrTags().isEmpty()){
             showTags(meal.getStrTags());

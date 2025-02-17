@@ -20,6 +20,11 @@
         <item name="android:inputType">text</item>
     </style>
 
+    <style name="CustomSearchViewHint" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">10sp</item> <!-- Adjust the size here -->
+        <item name="android:textColorHint">@color/orange</item> <!-- Optional: change hint color -->
+    </style>
+
 
 
     <style name="CardViewShadowTheme" parent="Theme.MaterialComponents.Light">

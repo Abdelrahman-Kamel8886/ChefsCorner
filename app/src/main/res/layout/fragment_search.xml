@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/round_search_24"
-                    android:text="Search by category, area or ingredient"
+                    android:text="@string/search_by_category_area_or_ingredient"
                     android:textSize="10sp"
                     android:maxLines="1"
                     android:gravity="center"
