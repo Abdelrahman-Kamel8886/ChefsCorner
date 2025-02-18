@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".Ui.Base.Meal.MealDetails.View.MealDetailsFragment"
+    tools:context=".Ui.Base.MealDetails.View.MealDetailsFragment"
     >
 
     <androidx.constraintlayout.widget.Group

@@ -7,9 +7,9 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.abdok.chefscorner.Data.Models.DateDTO;
-import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
+import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.PlanMealDto;
 
 import java.util.List;
 

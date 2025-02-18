@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Favorites.View;
 
-import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.FavouriteMealDto;
 
 import java.util.List;
 

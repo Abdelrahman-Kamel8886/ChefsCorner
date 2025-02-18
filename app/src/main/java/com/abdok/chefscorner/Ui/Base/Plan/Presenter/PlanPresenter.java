@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Plan.Presenter;
 
-import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Models.DateDTO;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
 import com.abdok.chefscorner.Ui.Base.Plan.View.IPlanView;
 

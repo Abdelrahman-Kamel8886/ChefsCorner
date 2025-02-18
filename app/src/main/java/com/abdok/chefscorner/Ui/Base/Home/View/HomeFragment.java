@@ -1,8 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Home.View;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -23,23 +20,20 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.abdok.chefscorner.Adapters.RecyclerCategoryMealAdapter;
-import com.abdok.chefscorner.Adapters.RecyclerRandomAdapter;
-import com.abdok.chefscorner.CustomViews.DateSheet.DatePickerBottomSheet;
-import com.abdok.chefscorner.CustomViews.GuestDialog.GuestDialog;
-import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerCategoryMealAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerRandomAdapter;
+import com.abdok.chefscorner.Ui.Base.CustomViews.DateSheet.DatePickerBottomSheet;
+import com.abdok.chefscorner.Ui.Base.CustomViews.GuestDialog.GuestDialog;
+import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Ui.Base.Home.Presenter.HomePresenter;
 import com.abdok.chefscorner.Ui.Base.Home.Presenter.IHomePresenter;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
-import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentHomeBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -105,13 +99,13 @@ public class HomeFragment extends Fragment implements IHomeView {
 
     @Override
     public void showMessage(String message) {
-        showCustomSnackBar(message, R.color.charcoal, Gravity.BOTTOM);
+        SnackBarHelper.showCustomSnackBar(requireActivity(),message, R.color.charcoal, Gravity.BOTTOM);
     }
 
     @Override
     public void showError() {
         Log.e("HomeTAG", "showError: "+internetConnectionLost);
-        showCustomSnackBar(getString(R.string.no_internet_connection), R.color.errorRed, Gravity.TOP);
+        SnackBarHelper.showCustomSnackBar(requireActivity(),getString(R.string.no_internet_connection), R.color.errorRed, Gravity.TOP);
         baseView.showMainView();
         binding.mainLayout.setVisibility(View.GONE);
         binding.loadingLayout.setVisibility(View.GONE);
@@ -192,7 +186,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     }
     private void reloadData(){
         Log.e("HomeTAG", "reloadData: "+internetConnectionLost);
-        showCustomSnackBar(getString(R.string.internet_connection_restored), R.color.successGreen, Gravity.BOTTOM);
+        SnackBarHelper.showCustomSnackBar(requireActivity(),getString(R.string.internet_connection_restored), R.color.successGreen, Gravity.BOTTOM);
         binding.noInternetView.setVisibility(View.GONE);
         binding.loadingLayout.setVisibility(View.VISIBLE);
         checkForData();
@@ -228,34 +222,6 @@ public class HomeFragment extends Fragment implements IHomeView {
                 .build();
 
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
-    }
-
-    private void showCustomSnackBar(String message , int colorResId , int gravity){
-        try {
-            View view = requireActivity().findViewById(android.R.id.content);
-
-            if (view != null){
-                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
-
-                View snackbarView = snackbar.getView();
-                int color = ContextCompat.getColor(requireContext(), colorResId);
-                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
-
-                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-                params.gravity = gravity;
-                snackbarView.setLayoutParams(params);
-
-                snackbar.show();
-            }
-            else{
-                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     private boolean isInternetAvailable() {

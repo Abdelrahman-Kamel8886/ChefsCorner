@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Meal.MealDetails.View.MealDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.MealDetails.View.MealDetailsFragment"
         android:label="fragment_meal_details"
         tools:layout="@layout/fragment_meal_details" >
         <argument
@@ -65,7 +65,7 @@
             app:argType="integer" />
         <argument
             android:name="Meal"
-            app:argType="com.abdok.chefscorner.Data.Models.MealDTO"
+            app:argType="com.abdok.chefscorner.Models.MealDTO"
             app:nullable="true" />
         <action
             android:id="@+id/action_mealDetailsFragment_to_allMealsFragment"
@@ -78,7 +78,7 @@
         tools:layout="@layout/fragment_areas" >
         <argument
             android:name="areaDTO"
-            app:argType="com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO" />
+            app:argType="com.abdok.chefscorner.Models.AreasNamesResponseDTO" />
         <action
             android:id="@+id/action_areasFragment_to_allMealsFragment"
             app:destination="@id/allMealsFragment" />
@@ -89,14 +89,14 @@
         android:label="AllIngredientsFragment" >
         <argument
             android:name="IngredientsDTO"
-            app:argType="com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO" />
+            app:argType="com.abdok.chefscorner.Models.IngredientsNamesResponseDTO" />
         <action
             android:id="@+id/action_allIngredientsFragment_to_allMealsFragment"
             app:destination="@id/allMealsFragment" />
     </fragment>
     <fragment
         android:id="@+id/allMealsFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Meal.AllMeals.View.AllMealsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.AllMeals.View.AllMealsFragment"
         android:label="AllMealsFragment" >
         <argument
             android:name="title"
@@ -111,19 +111,19 @@
     </fragment>
     <fragment
         android:id="@+id/PlanMealDetailsFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.PlanDetails.View.PlanMealDetailsDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.PlanDetails.View.PlanMealDetailsDetailsFragment"
         android:label="PlanMealDetailsFragment">
         <argument
             android:name="PlanMeal"
-            app:argType="com.abdok.chefscorner.Data.Models.PlanMealDto" />
+            app:argType="com.abdok.chefscorner.Models.PlanMealDto" />
     </fragment>
     <fragment
         android:id="@+id/favouriteMealDetailsFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Meal.OfflineMeals.FavouriteDetails.View.FavouriteMealDetailsFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.FavouriteDetails.View.FavouriteMealDetailsFragment"
         android:label="FavouriteMealDetailsFragment" >
         <argument
             android:name="FavouriteMeal"
-            app:argType="com.abdok.chefscorner.Data.Models.FavouriteMealDto" />
+            app:argType="com.abdok.chefscorner.Models.FavouriteMealDto" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"

@@ -16,7 +16,6 @@
         app:cardCornerRadius="12dp"
         app:strokeWidth="0dp"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/soft_green"
         android:id="@+id/imageCard"
         >
 

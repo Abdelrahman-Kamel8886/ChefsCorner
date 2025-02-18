@@ -7,9 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
-import com.abdok.chefscorner.Utils.Converter;
+import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.PlanMealDto;
+import com.abdok.chefscorner.Utils.Helpers.Converter;
 
 
 @Database(entities = {PlanMealDto.class , FavouriteMealDto.class}, version = 1)

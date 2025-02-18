@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerAreaNamesAdapter;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.Areas.Presenter.AreaPresenter;
 import com.abdok.chefscorner.Ui.Base.Areas.Presenter.IAreaPresenter;
@@ -85,7 +85,6 @@ public class AreasFragment extends Fragment implements IAreaView {
     }
     private void navigateToDetails(String name){
         Navigation
-                .findNavController(requireView()).navigate(AreasFragmentDirections
-                        .actionAreasFragmentToAllMealsFragment(name, SearchTypeEnum.AREA));
+                .findNavController(requireView()).navigate(AreasFragmentDirections.actionAreasFragmentToAllMealsFragment(name, SearchTypeEnum.AREA));
     }
 }

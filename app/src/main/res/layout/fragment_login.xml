@@ -9,7 +9,6 @@
     >
 
 
-
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -323,17 +322,20 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:indicatorColor="@color/mainColor"
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/load2"
+        android:scaleType="fitXY"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:indeterminate="true"
-        android:visibility="gone"
-        android:id="@+id/progress_bar"
         />
 
 

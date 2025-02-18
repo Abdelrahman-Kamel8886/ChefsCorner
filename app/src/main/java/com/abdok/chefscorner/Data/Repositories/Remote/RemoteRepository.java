@@ -2,11 +2,11 @@ package com.abdok.chefscorner.Data.Repositories.Remote;
 
 import com.abdok.chefscorner.Data.DataSources.Remote.Retrofit.RetroConnection;
 import com.abdok.chefscorner.Data.DataSources.Remote.Retrofit.RetroServices;
-import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Models.MealDTO;
 
 import java.util.List;
 

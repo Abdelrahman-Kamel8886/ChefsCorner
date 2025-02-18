@@ -2,42 +2,33 @@ package com.abdok.chefscorner.Ui.Base;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.abdok.chefscorner.CustomViews.GuestDialog.GuestDialog;
+import com.abdok.chefscorner.Ui.Base.CustomViews.GuestDialog.GuestDialog;
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
-import com.abdok.chefscorner.Data.Models.UserDTO;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentBaseBinding;
 import com.bumptech.glide.Glide;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem;
 

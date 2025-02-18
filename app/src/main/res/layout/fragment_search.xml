@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent">
 
 

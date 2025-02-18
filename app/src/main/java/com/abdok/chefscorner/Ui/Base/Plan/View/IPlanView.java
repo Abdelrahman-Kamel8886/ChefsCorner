@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Plan.View;
 
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
+import com.abdok.chefscorner.Models.PlanMealDto;
 
 import java.util.List;
 

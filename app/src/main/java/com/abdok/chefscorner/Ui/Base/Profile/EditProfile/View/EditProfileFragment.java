@@ -2,8 +2,6 @@ package com.abdok.chefscorner.Ui.Base.Profile.EditProfile.View;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,21 +21,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.abdok.chefscorner.Data.Models.UserDTO;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Profile.EditProfile.Presenter.EditProfilePresenter;
 import com.abdok.chefscorner.Ui.Base.Profile.EditProfile.Presenter.IEditProfilePresenter;
+import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentEditProfileBinding;
 import com.bumptech.glide.Glide;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.io.InputStream;
 
 public class EditProfileFragment extends Fragment implements IEditProfileView {
 
@@ -92,7 +85,7 @@ public class EditProfileFragment extends Fragment implements IEditProfileView {
                     if (isGranted) {
                         openGallery();
                     } else {
-                        showCustomSnackBar(getString(R.string.permission_denied), R.color.errorRed, Gravity.BOTTOM);
+                        SnackBarHelper.showCustomSnackBar(requireActivity(),getString(R.string.permission_denied), R.color.errorRed, Gravity.BOTTOM);
                     }
                 }
         );
@@ -110,35 +103,6 @@ public class EditProfileFragment extends Fragment implements IEditProfileView {
         getContentLauncher.launch("image/*");
     }
 
-    private void showCustomSnackBar(String message , int colorResId , int gravity){
-        try {
-            View view = requireActivity().findViewById(android.R.id.content);
-
-            if (view != null){
-                Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
-
-                View snackbarView = snackbar.getView();
-                int color = ContextCompat.getColor(requireContext(), colorResId);
-                snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
-
-                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-                params.gravity = gravity;
-                snackbarView.setLayoutParams(params);
-
-                snackbar.show();
-            }
-            else{
-                Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
 
     private void showUserData(UserDTO user) {
         binding.editName.setText(user.getName());
@@ -203,12 +167,13 @@ public class EditProfileFragment extends Fragment implements IEditProfileView {
 
     @Override
     public void onError(String msg) {
-        showCustomSnackBar(msg , R.color.errorRed , Gravity.TOP);
+
+        SnackBarHelper.showCustomSnackBar(requireActivity() ,msg , R.color.errorRed , Gravity.TOP);
     }
 
     @Override
     public void onSuccess(String msg) {
-        showCustomSnackBar(msg , R.color.successGreen , Gravity.TOP);
+        SnackBarHelper.showCustomSnackBar(requireActivity() ,msg , R.color.successGreen , Gravity.TOP);
         showUserData(SharedModel.getUser());
         baseView.updateProfile();
     }

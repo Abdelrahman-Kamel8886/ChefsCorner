@@ -1,9 +1,9 @@
 package com.abdok.chefscorner.Ui.Base.Search.SearchSheet.Presenter;
 
 import com.abdok.chefscorner.Ui.Base.Search.SearchSheet.View.ISearchBSView;
-import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
+import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.Utils.SharedModel;
 
 import java.util.ArrayList;

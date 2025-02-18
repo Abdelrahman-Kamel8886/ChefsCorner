@@ -4,10 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.abdok.chefscorner.Data.Models.DateDTO;
-import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
-import com.abdok.chefscorner.Data.Models.MealDTO;
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
+import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.MealDTO;
+import com.abdok.chefscorner.Models.PlanMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
 import com.abdok.chefscorner.Data.Repositories.Remote.RemoteRepository;
 import com.abdok.chefscorner.Ui.Base.Home.View.IHomeView;

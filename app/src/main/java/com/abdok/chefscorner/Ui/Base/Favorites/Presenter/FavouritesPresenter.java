@@ -2,7 +2,7 @@ package com.abdok.chefscorner.Ui.Base.Favorites.Presenter;
 
 import androidx.annotation.NonNull;
 
-import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
 import com.abdok.chefscorner.Ui.Base.Favorites.View.IFavView;
 import com.google.android.gms.tasks.OnFailureListener;

@@ -1,7 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Profile.View;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,22 +13,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abdok.chefscorner.Data.Models.UserDTO;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Profile.Presenter.IProfilePresenter;
 import com.abdok.chefscorner.Ui.Base.Profile.Presenter.ProfilePresenter;
 import com.abdok.chefscorner.Utils.Consts;
+import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentProfileBinding;
 import com.bumptech.glide.Glide;
-import com.google.android.material.snackbar.Snackbar;
 
 
 public class ProfileFragment extends Fragment implements IProfileView {
@@ -88,13 +87,7 @@ public class ProfileFragment extends Fragment implements IProfileView {
     }
     @Override
     public void showInformation(String msg){
-        Snackbar snackbar = Snackbar.make(requireView(), msg, Snackbar.LENGTH_LONG);
-        View snackbarView = snackbar.getView();
-        snackbarView.setBackgroundColor(Color.BLACK);
-        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-        textView.setTextColor(Color.WHITE);
-        textView.setTextSize(16);
-        snackbar.show();
+        SnackBarHelper.showCustomSnackBar(requireActivity(),msg, R.color.successGreen, Gravity.BOTTOM);
     }
 
     private void shareApp() {

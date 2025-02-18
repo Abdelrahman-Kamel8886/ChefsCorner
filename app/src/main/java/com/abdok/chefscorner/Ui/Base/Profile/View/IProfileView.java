@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Profile.View;
 
-import com.abdok.chefscorner.Data.Models.UserDTO;
+import com.abdok.chefscorner.Models.UserDTO;
 
 public interface IProfileView{
 

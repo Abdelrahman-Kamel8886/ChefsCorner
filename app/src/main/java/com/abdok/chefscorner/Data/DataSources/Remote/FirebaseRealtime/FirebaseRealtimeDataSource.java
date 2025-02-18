@@ -1,7 +1,7 @@
 package com.abdok.chefscorner.Data.DataSources.Remote.FirebaseRealtime;
 
-import com.abdok.chefscorner.Data.Models.FavouriteMealDto;
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
+import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.PlanMealDto;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -1,7 +1,7 @@
 package com.abdok.chefscorner.Ui.Base.Home.View;
 
-import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Models.MealDTO;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Utils.Helpers;
 
-import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Models.DateDTO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

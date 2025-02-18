@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Ingredients.Presenter;
 
-import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.Ui.Base.Ingredients.Veiw.IAllIngredientsView;
 
 import java.util.List;

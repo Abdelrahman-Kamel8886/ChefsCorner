@@ -14,11 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.abdok.chefscorner.Adapters.RecyclerDatesAdapter;
-import com.abdok.chefscorner.Adapters.RecyclerPlanMealAdapter;
-import com.abdok.chefscorner.Data.Models.CategoryMealsResponseDTO;
-import com.abdok.chefscorner.Data.Models.DateDTO;
-import com.abdok.chefscorner.Data.Models.PlanMealDto;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerDatesAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerPlanMealAdapter;
+import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Models.PlanMealDto;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Plan.Presenter.IPlanPresenter;

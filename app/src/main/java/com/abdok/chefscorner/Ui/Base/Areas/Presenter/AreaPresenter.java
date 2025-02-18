@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Areas.Presenter;
 
-import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.Ui.Base.Areas.View.IAreaView;
 
 import java.util.List;

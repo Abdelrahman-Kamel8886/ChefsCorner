@@ -1,8 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Search.View;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,24 +17,22 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.abdok.chefscorner.Adapters.RecyclerAreaNamesAdapter;
-import com.abdok.chefscorner.Adapters.RecyclerCategoriesNamesAdapter;
-import com.abdok.chefscorner.Adapters.RecyclerIngredientsNamesAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerAreaNamesAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerCategoriesNamesAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerIngredientsNamesAdapter;
 import com.abdok.chefscorner.Ui.Base.Search.SearchSheet.View.SearchBottomSheetFragment;
 import com.abdok.chefscorner.Enums.SearchTypeEnum;
-import com.abdok.chefscorner.Data.Models.AreasNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.CategoriesNamesResponseDTO;
-import com.abdok.chefscorner.Data.Models.IngredientsNamesResponseDTO;
+import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
+import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
+import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.R;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
 import com.abdok.chefscorner.Ui.Base.Search.Presenter.ISearchPresenter;
 import com.abdok.chefscorner.Ui.Base.Search.Presenter.SearchPresenter;
+import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentSearchBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 
 public class SearchFragment extends Fragment implements ISearchView {
@@ -145,7 +140,7 @@ public class SearchFragment extends Fragment implements ISearchView {
 
     @Override
     public void showError() {
-        showCustomSnackBar(getString(R.string.no_internet_connection), R.color.errorRed, Gravity.TOP);
+        SnackBarHelper.showCustomSnackBar(requireActivity(),getString(R.string.no_internet_connection), R.color.errorRed, Gravity.TOP);
         baseView.showMainView();
         binding.mainView.setVisibility(View.GONE);
         binding.loadingLayout.setVisibility(View.GONE);
@@ -159,7 +154,7 @@ public class SearchFragment extends Fragment implements ISearchView {
     }
 
     private void reloadData() {
-        showCustomSnackBar(getString(R.string.internet_connection_restored), R.color.successGreen, Gravity.BOTTOM);
+        SnackBarHelper.showCustomSnackBar(requireActivity(),getString(R.string.internet_connection_restored), R.color.successGreen, Gravity.BOTTOM);
         binding.noInternetView.setVisibility(View.GONE);
         binding.loadingLayout.setVisibility(View.VISIBLE);
         checkForData();
@@ -197,24 +192,6 @@ public class SearchFragment extends Fragment implements ISearchView {
 
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
-
-    private void showCustomSnackBar(String message, int colorResId, int gravity) {
-        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
-
-        View snackbarView = snackbar.getView();
-        int color = ContextCompat.getColor(requireContext(), colorResId);
-        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
-
-        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-        textView.setTextColor(Color.WHITE);
-
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-        params.gravity = gravity;
-        snackbarView.setLayoutParams(params);
-
-        snackbar.show();
-    }
-
 
     private void navigateToAreaMeals(String areaName) {
         Navigation

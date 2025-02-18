@@ -5,10 +5,9 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
-import com.abdok.chefscorner.Data.Models.UserDTO;
+import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.Data.Repositories.Authentication.AuthRepository;
 import com.abdok.chefscorner.Data.Repositories.Authentication.IAuthRepo;
-import com.abdok.chefscorner.Ui.Auth.Google.GooglePresenter;
 import com.abdok.chefscorner.Ui.Auth.Login.View.ILoginView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

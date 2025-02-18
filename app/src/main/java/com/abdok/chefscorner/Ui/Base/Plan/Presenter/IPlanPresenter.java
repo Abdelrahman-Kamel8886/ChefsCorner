@@ -1,6 +1,6 @@
 package com.abdok.chefscorner.Ui.Base.Plan.Presenter;
 
-import com.abdok.chefscorner.Data.Models.DateDTO;
+import com.abdok.chefscorner.Models.DateDTO;
 
 public interface IPlanPresenter {
 

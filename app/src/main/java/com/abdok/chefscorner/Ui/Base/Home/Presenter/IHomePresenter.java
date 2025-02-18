@@ -1,7 +1,7 @@
 package com.abdok.chefscorner.Ui.Base.Home.Presenter;
 
-import com.abdok.chefscorner.Data.Models.DateDTO;
-import com.abdok.chefscorner.Data.Models.MealDTO;
+import com.abdok.chefscorner.Models.DateDTO;
+import com.abdok.chefscorner.Models.MealDTO;
 
 public interface IHomePresenter {
     void start();

@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/user_avatar"
             android:id="@+id/avatarImg"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             />
     </com.google.android.material.card.MaterialCardView>
 

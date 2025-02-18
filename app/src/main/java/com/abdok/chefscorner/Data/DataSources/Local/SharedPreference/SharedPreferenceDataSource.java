@@ -3,8 +3,8 @@ package com.abdok.chefscorner.Data.DataSources.Local.SharedPreference;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.abdok.chefscorner.Data.Models.UserDTO;
-import com.abdok.chefscorner.Utils.Converter;
+import com.abdok.chefscorner.Models.UserDTO;
+import com.abdok.chefscorner.Utils.Helpers.Converter;
 
 public class SharedPreferenceDataSource {
 
