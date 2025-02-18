@@ -6,6 +6,7 @@ import com.abdok.chefscorner.Data.DataSources.Remote.FirebaseRealtime.FirebaseRe
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Models.DateDTO;
 import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.HistoryDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Models.PlanMealDto;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +32,10 @@ public class BackupRepository implements IBackupRepo {
         this.firebaseRealtimeDataSource = FirebaseRealtimeDataSource.getInstance();
         this.sharedPreferenceDataSource = SharedPreferenceDataSource.getInstance();
         this.mealDao = LocalDataBase.getDao();
-        id = sharedPreferenceDataSource.getUser().getId();
+        if (sharedPreferenceDataSource.getUser()!=null && sharedPreferenceDataSource.getUser().getId()!=null && !sharedPreferenceDataSource.getUser().getId().isEmpty()){
+            id = sharedPreferenceDataSource.getUser().getId();
+        }
+
     }
 
     public static synchronized BackupRepository getInstance() {
@@ -156,6 +160,18 @@ public class BackupRepository implements IBackupRepo {
     @Override
     public Completable insertAllToFavorite(List<FavouriteMealDto> favoriteMeals) {
         return mealDao.insertAllToFavourite(favoriteMeals).subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Single<List<HistoryDTO>> getHistoryMeals() {
+        return mealDao.getAllHistoryMeals().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Completable saveHistoryMeal(HistoryDTO historyDTO) {
+        return mealDao.insertToHistory(historyDTO).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 

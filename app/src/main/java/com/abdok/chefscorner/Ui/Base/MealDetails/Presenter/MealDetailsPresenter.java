@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.abdok.chefscorner.Models.DateDTO;
 import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.HistoryDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Models.PlanMealDto;
 import com.abdok.chefscorner.Data.Repositories.Backup.BackupRepository;
@@ -116,6 +117,16 @@ public class MealDetailsPresenter implements IMealDetailsPresenter {
             }
         });
     }
+
+    @Override
+    public void addMealToHistory(MealDTO mealDTO) {
+        backupRepository.saveHistoryMeal(new HistoryDTO(mealDTO))
+                .subscribe(
+                        () -> {},
+                        throwable -> {}
+                );
+    }
+
     private void savePlanToLocal(PlanMealDto meal){
         Disposable disposable = backupRepository.savePlanMealToLocal(meal)
                 .subscribe(

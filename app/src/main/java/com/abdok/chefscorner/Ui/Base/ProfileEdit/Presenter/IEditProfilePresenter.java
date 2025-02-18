@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Profile.EditProfile.Presenter;
+package com.abdok.chefscorner.Ui.Base.ProfileEdit.Presenter;
 
 import android.net.Uri;
 

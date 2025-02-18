@@ -188,6 +188,38 @@
                 app:layout_constraintTop_toBottomOf="@id/desert_title"
                 tools:listitem="@layout/item_category_meal" />
 
+            <TextView
+                android:id="@+id/history_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/recently_viewed"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@id/daily_meal_title"
+                app:layout_constraintTop_toBottomOf="@id/desertsRecycler" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/historyRecycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                app:layout_constraintTop_toBottomOf="@id/history_title"
+                tools:listitem="@layout/item_history" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/historyGroup"
+                android:visibility="gone"
+                app:constraint_referenced_ids="history_title,historyRecycler"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

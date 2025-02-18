@@ -8,4 +8,6 @@ public interface IProfileView{
     void navigateToLogin();
     void showInformation(String msg);
 
+    void toggleHistoryBtn(boolean isHistory);
+
 }

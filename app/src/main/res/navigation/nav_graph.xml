@@ -19,6 +19,9 @@
             app:destination="@id/baseFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -51,4 +54,15 @@
         android:name="com.abdok.chefscorner.Ui.Base.BaseFragment"
         android:label="fragment_base"
         tools:layout="@layout/fragment_base" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.abdok.chefscorner.Ui.Onboarding.OnboardingFragment"
+        android:label="OnboardingFragment" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_baseFragment"
+            app:destination="@id/baseFragment" />
+    </fragment>
 </navigation>

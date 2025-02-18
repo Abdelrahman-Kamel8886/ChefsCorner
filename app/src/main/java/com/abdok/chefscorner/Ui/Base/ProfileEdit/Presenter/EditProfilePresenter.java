@@ -1,10 +1,10 @@
-package com.abdok.chefscorner.Ui.Base.Profile.EditProfile.Presenter;
+package com.abdok.chefscorner.Ui.Base.ProfileEdit.Presenter;
 
 import android.net.Uri;
 
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Models.UserDTO;
-import com.abdok.chefscorner.Ui.Base.Profile.EditProfile.View.IEditProfileView;
+import com.abdok.chefscorner.Ui.Base.ProfileEdit.View.IEditProfileView;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -84,6 +84,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetailsView {
     public void InitData(MealDTO mealDTO) {
         if (SharedModel.getUser()!=null){
             presenter.checkIfMealIsFav(mealDTO);
+            presenter.addMealToHistory(mealDTO);
         }
         showMainView();
         Glide.with(requireContext()).load(mealDTO.getStrMealThumb()).placeholder(R.drawable.load).into(binding.image);

@@ -1,9 +1,11 @@
 package com.abdok.chefscorner.Ui.Base.Home.Presenter;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Models.DateDTO;
 import com.abdok.chefscorner.Models.FavouriteMealDto;
 import com.abdok.chefscorner.Models.MealDTO;
@@ -148,6 +150,21 @@ public class HomePresenter implements IHomePresenter  {
 
                     }
                 });
+    }
+
+    @Override
+    public void getHistoryMeals() {
+        if(SharedPreferenceDataSource.getInstance().isHistoryEnabled()){
+            backupRepository.getHistoryMeals().subscribe(
+                    meals -> view.showHistoryMeals(meals),
+                    throwable -> {}
+            );
+        }
+        else{
+            view.showHistoryMeals(null);
+        }
+
+
     }
 
     private void syncPlanMealsToLocal(List<PlanMealDto> planMealDtos){

@@ -39,4 +39,14 @@ public class ProfilePresenter implements IProfilePresenter{
         view.showInformation("Logged out successfully");
         view.navigateToLogin();
     }
+
+    @Override
+    public void isHistoryToggle() {
+        view.toggleHistoryBtn(SharedPreferenceDataSource.getInstance().isHistoryEnabled());
+    }
+
+    @Override
+    public void changeToggleHistory() {
+        SharedPreferenceDataSource.getInstance().changeHistoryStatus();
+    }
 }

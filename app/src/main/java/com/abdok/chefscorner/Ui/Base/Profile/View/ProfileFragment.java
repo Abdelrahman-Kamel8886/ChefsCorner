@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.abdok.chefscorner.Models.UserDTO;
@@ -51,6 +52,7 @@ public class ProfileFragment extends Fragment implements IProfileView {
         baseView = (IBaseView) getParentFragment().getParentFragment();
         baseView.hideBottomNav();
         presenter = new ProfilePresenter(this, getString(R.string.default_web_client_id));
+        presenter.isHistoryToggle();
         showUserData(SharedModel.getUser());
         onClicks();
     }
@@ -66,6 +68,12 @@ public class ProfileFragment extends Fragment implements IProfileView {
         binding.linkedinBtn.setOnClickListener(v -> openLinkedInProfile());
         binding.githubBtn.setOnClickListener(v -> openGitHubProfile());
         binding.gmailBtn.setOnClickListener(v -> openGmail());
+        binding.toggleHistoryBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.changeToggleHistory();
+            }
+        });
     }
 
 
@@ -88,6 +96,11 @@ public class ProfileFragment extends Fragment implements IProfileView {
     @Override
     public void showInformation(String msg){
         SnackBarHelper.showCustomSnackBar(requireActivity(),msg, R.color.successGreen, Gravity.BOTTOM);
+    }
+
+    @Override
+    public void toggleHistoryBtn(boolean isHistory) {
+        binding.toggleHistoryBtn.setChecked(isHistory);
     }
 
     private void shareApp() {

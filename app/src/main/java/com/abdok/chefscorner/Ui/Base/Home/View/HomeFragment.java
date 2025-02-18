@@ -21,7 +21,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abdok.chefscorner.Models.HistoryDTO;
 import com.abdok.chefscorner.Ui.Adapters.RecyclerCategoryMealAdapter;
+import com.abdok.chefscorner.Ui.Adapters.RecyclerHistoryMealAdapter;
 import com.abdok.chefscorner.Ui.Adapters.RecyclerRandomAdapter;
 import com.abdok.chefscorner.Ui.Base.CustomViews.DateSheet.DatePickerBottomSheet;
 import com.abdok.chefscorner.Ui.Base.CustomViews.GuestDialog.GuestDialog;
@@ -77,6 +79,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     }
 
     private void checkForData(){
+        presenter.getHistoryMeals();
         if (SharedModel.getRandomMeals()==null||SharedModel.getBreakfastMeals()==null||SharedModel.getDesertMeals()==null){
             presenter.start();
             if (SharedModel.getUser()!=null){
@@ -138,6 +141,22 @@ public class HomeFragment extends Fragment implements IHomeView {
         if (baseView!=null){
             baseView.showMainView();
             onClicks();
+        }
+    }
+
+    @Override
+    public void showHistoryMeals(List<HistoryDTO> meals) {
+        if (meals!=null && meals.size()!=0){
+            binding.historyGroup.setVisibility(View.VISIBLE);
+            RecyclerHistoryMealAdapter hadapter = new RecyclerHistoryMealAdapter();
+            binding.historyRecycler.setAdapter(hadapter);
+            hadapter.setMeals(meals);
+            hadapter.setOnItemClickListener(meal -> {
+                navigateToDetails(Integer.parseInt(meal.getMeal().getIdMeal()),meal.getMeal());
+            });
+        }
+        else{
+            binding.historyGroup.setVisibility(View.GONE);
         }
     }
 

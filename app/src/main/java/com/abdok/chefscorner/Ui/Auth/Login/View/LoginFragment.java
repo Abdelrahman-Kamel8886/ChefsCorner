@@ -34,6 +34,7 @@ import com.abdok.chefscorner.Ui.Auth.Login.Presenter.ILoginPresenter;
 import com.abdok.chefscorner.Ui.Auth.Login.Presenter.LoginPresenter;
 import com.abdok.chefscorner.Ui.Auth.SignUp.View.RegiesterFragment;
 import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentLoginBinding;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -74,6 +75,7 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        clearCache();
         callbackManager = CallbackManager.Factory.create();
 
         binding = FragmentLoginBinding.bind(view);
@@ -88,6 +90,8 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
         onClicks();
 
     }
+
+
 
     private void initializeFacebook() {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -221,5 +225,10 @@ public class LoginFragment extends Fragment implements ILoginView , IGoogleView 
         super.onDestroyView();
         binding = null;
         loginPresenter = null;
+    }
+    private void clearCache(){
+        SharedModel.setRandomMeals(null);
+        SharedModel.setBreakfastMeals(null);
+        SharedModel.setDesertMeals(null);
     }
 }

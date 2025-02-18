@@ -9,6 +9,7 @@ import androidx.room.Query;
 
 import com.abdok.chefscorner.Models.DateDTO;
 import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.HistoryDTO;
 import com.abdok.chefscorner.Models.PlanMealDto;
 
 import java.util.List;
@@ -59,5 +60,14 @@ public interface MealsDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertAllToFavourite(List<FavouriteMealDto> favouriteMeals);
+
+
+    //History Meals
+
+    @Query("SELECT * FROM history_meal_table")
+    Single<List<HistoryDTO>> getAllHistoryMeals();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertToHistory(HistoryDTO historyDTO);
 
 }

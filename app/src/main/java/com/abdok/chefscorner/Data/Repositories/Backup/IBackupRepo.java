@@ -2,6 +2,7 @@ package com.abdok.chefscorner.Data.Repositories.Backup;
 
 import com.abdok.chefscorner.Models.DateDTO;
 import com.abdok.chefscorner.Models.FavouriteMealDto;
+import com.abdok.chefscorner.Models.HistoryDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Models.PlanMealDto;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,10 @@ public interface IBackupRepo {
     Single<Boolean> isExistInFavorite(String id , String mealId);
     Completable clearFavoriteMealTable();
     Completable insertAllToFavorite(List<FavouriteMealDto> favoriteMeals);
+
+    //History Meals
+    Single<List<HistoryDTO>> getHistoryMeals();
+    Completable saveHistoryMeal(HistoryDTO historyDTO);
 
 
 }

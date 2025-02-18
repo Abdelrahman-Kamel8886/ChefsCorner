@@ -14,5 +14,7 @@ public interface IHomePresenter {
 
     void syncFavouriteMeals(String id);
 
+    void getHistoryMeals();
+
     void clearDisposable();
 }

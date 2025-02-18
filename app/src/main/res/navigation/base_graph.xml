@@ -127,7 +127,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.abdok.chefscorner.Ui.Base.Profile.EditProfile.View.EditProfileFragment"
+        android:name="com.abdok.chefscorner.Ui.Base.ProfileEdit.View.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
 </navigation>

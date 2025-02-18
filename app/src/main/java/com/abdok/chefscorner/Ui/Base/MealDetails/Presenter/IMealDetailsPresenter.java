@@ -11,5 +11,6 @@ public interface IMealDetailsPresenter {
     void removeFromFav(MealDTO mealDTO);
     void checkIfMealIsFav(MealDTO mealDTO);
     void addMealToPlan(MealDTO mealDTO , DateDTO date);
+    void addMealToHistory(MealDTO mealDTO);
 
 }

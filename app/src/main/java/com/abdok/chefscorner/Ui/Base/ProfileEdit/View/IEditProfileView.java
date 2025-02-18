@@ -1,6 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Profile.EditProfile.View;
-
-import android.net.Uri;
+package com.abdok.chefscorner.Ui.Base.ProfileEdit.View;
 
 public interface IEditProfileView {
     void onError(String msg);

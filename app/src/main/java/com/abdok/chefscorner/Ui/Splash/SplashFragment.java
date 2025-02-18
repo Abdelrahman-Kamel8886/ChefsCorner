@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.abdok.chefscorner.Data.DataSources.Local.SharedPreference.SharedPreferenceDataSource;
 import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentSplashBinding;
 
 public class SplashFragment extends Fragment {
@@ -35,17 +36,29 @@ public class SplashFragment extends Fragment {
     }
 
     private void delay() {
-        new Handler().postDelayed(() -> {checkUser();},SPLASH_TIME_OUT);
+        new Handler().postDelayed(() -> {
+            checkUser();
+            },SPLASH_TIME_OUT);
     }
 
     private void checkUser() {
         UserDTO user = SharedPreferenceDataSource.getInstance().getUser();
-        if (user!=null){
-            NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_baseFragment);
+        boolean isFirstLaunch = SharedPreferenceDataSource.getInstance().isFirstTimeLaunch();
+
+        if (isFirstLaunch){
+            SharedPreferenceDataSource.getInstance().setFirstTimeLaunch();
+            NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_onboardingFragment);
         }
-        else {
-            NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_loginFragment);
+        else{
+            if (user!=null){
+                SharedModel.setUser(user);
+                NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_baseFragment);
+            }
+            else {
+                NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_loginFragment);
+            }
         }
+
     }
 
     @Override

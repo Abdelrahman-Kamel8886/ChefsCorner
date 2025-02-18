@@ -10,6 +10,8 @@ public class SharedPreferenceDataSource {
 
     private static final String PREF_NAME = "ChefCornerPrefs";
     private static final String KEY_USER = "user";
+    private static final String KEY_HISTORY = "history";
+    private static final String FIRST_TIME_LAUNCH = "FirstTimeLaunch";
 
     private static SharedPreferenceDataSource instance;
     private final SharedPreferences sharedPreferences;
@@ -42,6 +44,28 @@ public class SharedPreferenceDataSource {
 
     public void clearUser() {
         sharedPreferences.edit().remove(KEY_USER).apply();
+        sharedPreferences.edit().putBoolean(KEY_HISTORY, true).apply();
     }
+
+    public void changeHistoryStatus() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_HISTORY, !sharedPreferences.getBoolean(KEY_HISTORY, true));
+        editor.apply();
+    }
+
+    public boolean isHistoryEnabled() {
+        return sharedPreferences.getBoolean(KEY_HISTORY, true);
+    }
+
+    public void setFirstTimeLaunch() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(FIRST_TIME_LAUNCH, false);
+        editor.apply();
+    }
+
+    public boolean isFirstTimeLaunch() {
+        return sharedPreferences.getBoolean(FIRST_TIME_LAUNCH, true);
+    }
+
 
 }

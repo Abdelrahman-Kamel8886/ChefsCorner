@@ -1,4 +1,4 @@
-package com.abdok.chefscorner.Ui.Base.Profile.EditProfile.View;
+package com.abdok.chefscorner.Ui.Base.ProfileEdit.View;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -24,9 +24,9 @@ import android.view.ViewGroup;
 
 import com.abdok.chefscorner.Models.UserDTO;
 import com.abdok.chefscorner.R;
+import com.abdok.chefscorner.Ui.Base.ProfileEdit.Presenter.EditProfilePresenter;
 import com.abdok.chefscorner.Ui.Base.IBaseView;
-import com.abdok.chefscorner.Ui.Base.Profile.EditProfile.Presenter.EditProfilePresenter;
-import com.abdok.chefscorner.Ui.Base.Profile.EditProfile.Presenter.IEditProfilePresenter;
+import com.abdok.chefscorner.Ui.Base.ProfileEdit.Presenter.IEditProfilePresenter;
 import com.abdok.chefscorner.Utils.Helpers.SnackBarHelper;
 import com.abdok.chefscorner.Utils.SharedModel;
 import com.abdok.chefscorner.databinding.FragmentEditProfileBinding;

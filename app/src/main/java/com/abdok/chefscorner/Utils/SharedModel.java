@@ -3,6 +3,7 @@ package com.abdok.chefscorner.Utils;
 import com.abdok.chefscorner.Models.AreasNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoriesNamesResponseDTO;
 import com.abdok.chefscorner.Models.CategoryMealsResponseDTO;
+import com.abdok.chefscorner.Models.HistoryDTO;
 import com.abdok.chefscorner.Models.IngredientsNamesResponseDTO;
 import com.abdok.chefscorner.Models.MealDTO;
 import com.abdok.chefscorner.Models.UserDTO;
@@ -17,6 +18,7 @@ public class SharedModel {
     private static ArrayList<MealDTO> randomMeals;
     private static List<CategoryMealsResponseDTO.CategoryMealDTO> BreakfastMeals;
     private static List<CategoryMealsResponseDTO.CategoryMealDTO> DesertMeals;
+    private static List<HistoryDTO> historyMeals;
 
     //search
     private static IngredientsNamesResponseDTO ingredientsNamesResponse;
@@ -78,5 +80,13 @@ public class SharedModel {
 
     public static void setUser(UserDTO user) {
         SharedModel.user = user;
+    }
+
+    public static List<HistoryDTO> getHistoryMeals() {
+        return historyMeals;
+    }
+
+    public static void setHistoryMeals(List<HistoryDTO> historyMeals) {
+        SharedModel.historyMeals = historyMeals;
     }
 }
