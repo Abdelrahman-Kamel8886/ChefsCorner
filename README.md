@@ -16,7 +16,7 @@ Chef's Corner is a powerful and user-friendly food planner application that help
 - **Recently Viewed Meals**: Users can revisit their recently accessed meals.
 - **Advanced Search**: Search by category, area, ingredient, or any keyword.
 - **Detailed Meal View**:
-  - Displays meal image, ingredients, category, and area.
+  - Displays meal image, steps, ingredients, category, and area.
   - Shows a YouTube tutorial video.
 
 ### Meal Planning & Favorites
